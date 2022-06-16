@@ -1,6 +1,8 @@
+import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/screens/registration_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,6 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
+
+    ///Use this provider instance to access business logic and maintain state
+    AuthBloc lb = Provider.of<AuthBloc>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
