@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
     queryData = MediaQuery.of(context);
 
     ///Use this provider instance to access business logic and maintain state
-    AuthBloc lb = Provider.of<AuthBloc>(context);
+    AuthBloc ab = Provider.of<AuthBloc>(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -72,6 +72,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       decoration: const InputDecoration()
                           .copyWith(labelText: "Password"),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      ab.loginWithGitHub(context);
+                    },
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      elevation: 1.0,
+                      minimumSize: Size(queryData.size.width * 0.6,
+                          queryData.size.height * 0.06),
+                    ),
+                    child: const Text(
+                      'Github Login',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                   const SizedBox(
