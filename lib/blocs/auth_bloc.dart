@@ -31,10 +31,6 @@ class AuthBloc extends ChangeNotifier{
     ///TODO implementation
   }
 
-  loginWithGithub(){
-    ///TODO implementation
-  }
-
   loginWithEmailPassword(){
     ///TODO implementation
   }
