@@ -40,7 +40,17 @@ class AuthBloc extends ChangeNotifier {
         email: email,
         password: password,
       );
-      _errorMessage = '';
+      if (cred.user != null) {
+        _errorMessage = '';
+        _isLoggedIn = true;
+        _name = cred.user?.displayName ?? "";
+        _email = cred.user?.email ?? "";
+        _uid = cred.user?.uid ?? "";
+        if (!(await checkIfUserExists(cred.user?.uid ?? ""))) {
+          await saveDataToFirestore();
+        }
+        saveUserDataToSp();
+      }
     } on FirebaseAuthException catch (e) {
       _errorMessage = e.code;
     } catch (e) {
@@ -56,6 +66,10 @@ class AuthBloc extends ChangeNotifier {
         email: email,
         password: password,
       );
+      if (cred.user != null) {
+        _errorMessage = '';
+        _isLoggedIn = true;
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         _errorMessage = 'The password is too weak.';
