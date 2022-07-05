@@ -63,12 +63,10 @@ class AuthBloc extends ChangeNotifier {
         _uid = cred.user?.uid ?? "";
         _isLoggedIn = true;
 
-        if (await checkIfUserExists(cred.user?.uid ?? "")) {
-          saveUserDataToSp();
-        } else {
-          await saveDataToFirestore();
-          saveUserDataToSp();
+        if (!(await checkIfUserExists(cred.user?.uid ?? ""))) {
+          await saveDataToFirestore(loginProvider: "Github");
         }
+        saveUserDataToSp();
       }
     }
   }
