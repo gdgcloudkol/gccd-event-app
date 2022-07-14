@@ -6,8 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthBloc extends ChangeNotifier{
-
+class AuthBloc extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   SharedPreferences? sp;
 
@@ -27,16 +26,61 @@ class AuthBloc extends ChangeNotifier{
 
   String get uid => _uid;
 
-  loginWithGoogle(){
+  String _errorMessage = "";
+
+  String get errorMessage => _errorMessage;
+
+  loginWithGoogle() {
     ///TODO implementation
   }
 
-  loginWithEmailPassword(){
-    ///TODO implementation
+  loginWithEmailPassword(String email, String password) async {
+    try {
+      UserCredential cred = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (cred.user != null) {
+        _errorMessage = '';
+        _isLoggedIn = true;
+        _name = cred.user?.displayName ?? "";
+        _email = cred.user?.email ?? "";
+        _uid = cred.user?.uid ?? "";
+        if (!(await checkIfUserExists(cred.user?.uid ?? ""))) {
+          await saveDataToFirestore();
+        }
+        saveUserDataToSp();
+      }
+    } on FirebaseAuthException catch (e) {
+      _errorMessage = e.code;
+    } catch (e) {
+      _errorMessage = e.toString();
+    }
   }
 
-  signUpWithEmailPassword(){
-    ///TODO implementation
+  signUpWithEmailPassword(String email, String password) async {
+    try {
+      UserCredential cred = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (cred.user != null) {
+        _errorMessage = '';
+        _isLoggedIn = true;
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        _errorMessage = 'The password is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        _errorMessage = 'The email address is already in use.';
+      } else if (e.code == 'invalid-email') {
+        _errorMessage = 'The email address is invalid.';
+      } else {
+        _errorMessage = e.code;
+      }
+    } catch (e) {
+      _errorMessage = e.toString();
+    }
   }
 
   void loginWithGitHub(BuildContext context) async {
@@ -52,7 +96,7 @@ class AuthBloc extends ChangeNotifier{
     if (result.token != null) {
       /// Create a credential from the access token
       final githubAuthCredential =
-      GithubAuthProvider.credential(result.token ?? "");
+          GithubAuthProvider.credential(result.token ?? "");
 
       /// Once signed in, capture the UserCredential
       UserCredential cred = await FirebaseAuth.instance
@@ -88,7 +132,7 @@ class AuthBloc extends ChangeNotifier{
         .limit(1)
         .get()
         .then(
-          (value) {
+      (value) {
         if (value.docs.isEmpty) {
           userExists = false;
         } else if (!value.docs[0].exists) {
@@ -105,8 +149,7 @@ class AuthBloc extends ChangeNotifier{
     _firebaseAuth.signOut();
   }
 
-  Future saveDataToFirestore(
-      {String loginProvider = "Email"}) async {
+  Future saveDataToFirestore({String loginProvider = "Email"}) async {
     await FirebaseFirestore.instance.collection(Config.fscUsers).doc(uid).set({
       Config.fsfUid: uid,
       Config.fsfName: name,
@@ -114,5 +157,4 @@ class AuthBloc extends ChangeNotifier{
       Config.fsfLoginProvider: loginProvider,
     });
   }
-
 }

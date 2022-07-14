@@ -1,5 +1,6 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/screens/registration_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,6 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       onChanged: (value) {
                         setState(() {
                           email = value;
+                          if (kDebugMode) {
+                            print(email);
+                          }
                         });
                       },
                     ),
@@ -68,6 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       onChanged: (value) {
                         setState(() {
                           password = value;
+                          if (kDebugMode) {
+                            print(password);
+                          }
                         });
                       },
                       decoration: const InputDecoration()
@@ -78,7 +85,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 15.0,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      try {
+                        lb.loginWithEmailPassword(
+                            email.toString().trim(), password);
+                      } catch (e) {
+                        if (kDebugMode) {
+                          print(lb.errorMessage);
+                        }
+                      }
+                    },
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0),
