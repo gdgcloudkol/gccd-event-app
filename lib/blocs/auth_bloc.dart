@@ -55,8 +55,6 @@ class AuthBloc extends ChangeNotifier {
       _errorMessage = e.code;
     } catch (e) {
       _errorMessage = e.toString();
-    } finally {
-      notifyListeners();
     }
   }
 
@@ -82,8 +80,6 @@ class AuthBloc extends ChangeNotifier {
       }
     } catch (e) {
       _errorMessage = e.toString();
-    } finally {
-      notifyListeners();
     }
   }
 

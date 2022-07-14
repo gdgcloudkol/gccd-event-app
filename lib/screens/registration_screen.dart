@@ -1,5 +1,8 @@
+import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -13,8 +16,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String email = "";
   String password = "";
 
+  ///Use this provider instance to access business logic and maintain state
+
   @override
   Widget build(BuildContext context) {
+    AuthBloc lb = Provider.of<AuthBloc>(context);
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
     return Scaffold(
@@ -46,6 +52,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       onChanged: (value) {
                         setState(() {
                           email = value;
+                          if (kDebugMode) {
+                            print(email);
+                          }
                         });
                       },
                     ),
@@ -60,6 +69,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       onChanged: (value) {
                         setState(() {
                           password = value;
+                          if (kDebugMode) {
+                            print(password);
+                          }
                         });
                       },
                       decoration: const InputDecoration()
@@ -70,7 +82,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 15.0,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      try {
+                        lb.signUpWithEmailPassword(
+                            email.toString().trim(), password);
+                      } catch (e) {
+                        if (kDebugMode) {
+                          print(lb.errorMessage);
+                        }
+                      }
+                    },
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0),
