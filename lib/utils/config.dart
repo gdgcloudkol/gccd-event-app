@@ -17,5 +17,4 @@ class Config{
   static String prefLoggedIn = "loggedIn";
   static String prefName = "name";
   static String prefUID = "uid";
-
 }
