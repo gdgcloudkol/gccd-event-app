@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ccd2022app/screens/login_screen.dart';
-import 'package:ccd2022app/utils/constants.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -22,21 +20,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             const Text(
               'Welcome to CCD 2022',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 28, fontFamily: 'Poppins'),
+              style: TextStyle(
+                  fontSize: 28,
+                  fontFamily: 'GoogleSans',
+                  fontWeight: FontWeight.w700),
             ),
-            const Hero(
-              tag: "logo",
-              child: Image(
-                image: AssetImage('assets/images/Logo.png'),
-              ),
+            const Image(
+              image: AssetImage('assets/images/Logo.png'),
             ),
             SizedBox(
               width: 10,
               child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, LoginScreen.id);
-                },
-                backgroundColor: kScaffoldLightBg,
+                onPressed: () {},
+                backgroundColor: Colors.blue,
                 elevation: 0,
                 child: const Icon(Icons.arrow_forward),
               ),

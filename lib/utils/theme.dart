@@ -20,9 +20,9 @@ final ThemeData darkTheme = ThemeData.dark().copyWith(
 final ThemeData lightTheme = ThemeData.light().copyWith(
   scaffoldBackgroundColor: kScaffoldLightBg,
   textTheme: const TextTheme(
-    bodyText1: TextStyle(color: Color(0xFFF9F9F9)),
+    bodyText1: TextStyle(color: Colors.black),
     bodyText2: TextStyle(
-      color: Color(0xFFF9F9F9),
+      color: Colors.black87,
       // color: Colors.black87,
     ),
   ),
