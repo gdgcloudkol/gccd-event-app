@@ -163,13 +163,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "10.1.0"
-  http:
+  gif:
     dependency: "direct main"
     description:
-      name: http
+      name: gif
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.4"
+    version: "2.1.1"
   http_parser:
     dependency: transitive
     description:
