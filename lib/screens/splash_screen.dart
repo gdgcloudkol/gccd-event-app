@@ -1,3 +1,4 @@
+import 'package:ccd2022app/entrypoint/navigation_screen.dart';
 import 'package:ccd2022app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
@@ -41,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) {
-                      return const HomeScreen();
+                      return const NavigationScreen();
                     },
                   ),
                 );

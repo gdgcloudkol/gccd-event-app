@@ -1,9 +1,12 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/blocs/ticket_form_bloc.dart';
+import 'package:ccd2022app/entrypoint/navigation_screen.dart';
 import 'package:ccd2022app/screens/splash_screen.dart';
-import 'package:ccd2022app/screens/welcome_screen.dart';
 import 'package:ccd2022app/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -16,9 +19,19 @@ void main() async {
   ///so that all firebase services can be used
   if (Firebase.apps.isEmpty) await Firebase.initializeApp();
 
+  enableEdgeToEdge();
+
   runApp(
     const CCDApp(),
   );
+}
+
+void enableEdgeToEdge({bool enable = true}) {
+  ///Necessary for edge to edge
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(systemNavigationBarColor: Colors.white),
+  );
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 }
 
 class CCDApp extends StatelessWidget {
@@ -32,15 +45,18 @@ class CCDApp extends StatelessWidget {
         ChangeNotifierProvider<AuthBloc>(
           create: (context) => AuthBloc(),
         ),
+        ChangeNotifierProvider<TicketFormBloc>(
+          create: (context) => TicketFormBloc(),
+        ),
+        ChangeNotifierProvider<NavigationBloc>(
+          create: (context) => NavigationBloc(),
+        ),
       ],
       child: MaterialApp(
         title: 'CCD 2022',
         debugShowCheckedModeBanner: false,
-        initialRoute: WelcomeScreen.id,
         theme: lightTheme,
-        routes: {
-          WelcomeScreen.id: (context) => const SplashScreen(),
-        },
+        home: const SplashScreen(),
       ),
     );
   }
