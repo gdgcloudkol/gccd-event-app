@@ -24,9 +24,24 @@ class AuthBloc extends ChangeNotifier {
 
   String get uid => _uid;
 
-
   loginWithGoogle() {
-    ///TODO implementation
+    _firebaseAuth
+        .signInWithPopup(
+      GoogleAuthProvider(),
+    )
+        .then((authResult) {
+      _isLoggedIn = true;
+      _email = authResult.user!.email.toString();
+      _name = authResult.user!.displayName.toString();
+      _uid = authResult.user!.uid.toString();
+      checkIfUserExists(_uid).then((value) {
+        if (!value) {
+          saveDataToFirestore(loginProvider: "google");
+        }
+      });
+      saveUserDataToSp();
+      notifyListeners();
+    });
   }
 
   Future saveUserDataToSp() async {
