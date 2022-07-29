@@ -4,7 +4,8 @@ class Config {
   ///Firestore collection names
   ///Var naming convention use guide : Start with fsc
   static String fscUsers = "users";
-  static String fscTicketFormRegistrations = "registerTest";
+  static String fscTicketFormRegistrations = "register";
+  static String fscTickets = "tickets";
 
   ///Firestore field names
   ///Var naming convention use guide : Start with fsf
@@ -29,6 +30,8 @@ class Config {
   static String fsfUnderstand = "understand";
   static String fsfWorkshop = "workshop";     ///End of fields for user ticket application form
 
+  // static String fsfWorkshop = "workshop";     ///Start of fields for user tickets
+
 
   ///Shared Preference Keys
   ///Var naming convention use guide : Start with pref
@@ -36,4 +39,6 @@ class Config {
   static String prefLoggedIn = "loggedIn";
   static String prefName = "name";
   static String prefUID = "uid";
+  static String prefProfilePicUrl = "profilePicUrl";
+  static String prefHasTicket = "hasTicket";
 }

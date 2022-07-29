@@ -15,6 +15,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
+    // AuthBloc ab = Provider.of<AuthBloc>(context);
 
     return Scaffold(
       body: getBody(nb.navIndex),
@@ -25,13 +26,26 @@ class _NavigationScreenState extends State<NavigationScreen> {
           color: Colors.black,
         ),
         title: Text(
-          nb.screenNames[nb.navIndex],
+          nb.screenNames[nb.navIndex] ?? "",
           style: const TextStyle(
             fontFamily: "GoogleSans",
             color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
         ),
+        actions: const [
+          // if (ab.isLoggedIn && !(ab.profilePicUrl == ""))
+          //   CircleAvatar(
+          //     foregroundImage: NetworkImage(
+          //       ab.profilePicUrl,
+          //     ),
+          //     radius: 25,
+          //     backgroundColor: Colors.white,
+          //   ),
+          // const SizedBox(
+          //   width: 20,
+          // ),
+        ],
       ),
     );
   }

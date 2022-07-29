@@ -1,5 +1,9 @@
+import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
+import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,6 +17,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    AuthBloc ab = Provider.of<AuthBloc>(context);
+    TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
+
     return SizedBox(
       height: size.height,
       child: SingleChildScrollView(
@@ -107,29 +114,55 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xff3b82f6),
+                  backgroundColor: getTicketApplyButtonColor(ab, tsb),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const FormScreen();
-                      },
-                    ),
-                  );
+                  if (ab.loginInProgress || tsb.loading) {
+                    return;
+                  } else if (ab.isLoggedIn) {
+                    if (tsb.ticketGranted) {
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) {
+                      //       return const TicketScreen();
+                      //     },
+                      //   ),
+                      // );
+                    } else if (tsb.hasApplied) {
+                      showSnackBar(context,
+                          "You have applied for a ticket. Our team will get back to you soon");
+                    } else {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const FormScreen();
+                          },
+                        ),
+                      );
+                    }
+                  } else {
+                    ab.loginWithGoogle(context,tsb);
+                  }
                 },
-                child: const SizedBox(
+                child: SizedBox(
                   height: 60,
                   child: Center(
-                    child: Text(
-                      "Reserve your seat",
-                      style: TextStyle(
-                        fontFamily: "GoogleSans",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: ab.loginInProgress || tsb.loading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.transparent,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text(
+                            getTicketApplyButtonText(ab, tsb).toUpperCase(),
+                            style: const TextStyle(
+                              fontFamily: "GoogleSans",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                 ),
               ),
@@ -149,12 +182,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     mode: LaunchMode.externalApplication,
                   );
                 },
-                child: const SizedBox(
+                child: SizedBox(
                   height: 60,
                   child: Center(
                     child: Text(
-                      "Become a Speaker",
-                      style: TextStyle(
+                      "Become a Speaker".toUpperCase(),
+                      style: const TextStyle(
                           fontFamily: "GoogleSans",
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -171,5 +204,35 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  String getTicketApplyButtonText(AuthBloc ab, TicketStatusBloc tsb) {
+    if (ab.isLoggedIn) {
+      if (tsb.hasApplied) {
+        if (tsb.ticketGranted) {
+          return "View Ticket";
+        } else {
+          return "Under Review";
+        }
+      }
+      return "Apply For Ticket";
+    } else {
+      return "Reserve your seat";
+    }
+  }
+
+  Color getTicketApplyButtonColor(AuthBloc ab, TicketStatusBloc tsb) {
+    if (ab.isLoggedIn) {
+      if (tsb.hasApplied) {
+        if (tsb.ticketGranted) {
+          return const Color(0xffEF4444);
+        } else {
+          return const Color(0xffeab308);
+        }
+      }
+      return const Color(0xffeab308);
+    } else {
+      return const Color(0xff3b82f6);
+    }
   }
 }

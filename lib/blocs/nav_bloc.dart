@@ -5,11 +5,17 @@ class NavigationBloc extends ChangeNotifier {
 
   int get navIndex => _navIndex;
 
-  List<String> _screenNames = [
-    "Home",
-  ];
+  final Map<int,String> _screenNames = {
+    0 : "Home",
+    1 : "Profile",
+    3 : "Sponsors",
+    4 : "About Us",
+    6: "Tell a Friend",
+    7: "Terms & Conditions",
+    8: "Privacy Policy",
+  };
 
-  List<String> get screenNames => _screenNames;
+  Map<int,String> get screenNames => _screenNames;
 
   void changeNavIndex(int index) {
     _navIndex = index;

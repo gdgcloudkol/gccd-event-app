@@ -1,5 +1,7 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
+import 'package:ccd2022app/screens/license_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +13,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
     AuthBloc ab = Provider.of<AuthBloc>(context);
+    TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
     Size size = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -80,13 +83,13 @@ class AppDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
-                    "Welcome, ${ab.isLoggedIn ? ab.name : "Guest"}",
+                    "Welcome, ${ab.isLoggedIn ? ab.name.split(" ")[0] : "Guest"}",
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                       color: Colors.black87,
                       fontFamily: "GoogleSans",
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                 ),
@@ -104,6 +107,7 @@ class AppDrawer extends StatelessWidget {
                   context,
                   nb,
                   ab,
+                  tsb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -115,6 +119,7 @@ class AppDrawer extends StatelessWidget {
                   context,
                   nb,
                   ab,
+                  tsb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -123,10 +128,11 @@ class AppDrawer extends StatelessWidget {
                   singleDrawerOption(
                     "Login",
                     FontAwesomeIcons.arrowRightToBracket,
-                    1,
+                    2,
                     context,
                     nb,
                     ab,
+                    tsb,
                   ),
                   const SizedBox(
                     height: 10,
@@ -139,6 +145,7 @@ class AppDrawer extends StatelessWidget {
                   context,
                   nb,
                   ab,
+                  tsb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -150,6 +157,7 @@ class AppDrawer extends StatelessWidget {
                   context,
                   nb,
                   ab,
+                  tsb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -158,10 +166,11 @@ class AppDrawer extends StatelessWidget {
                   singleDrawerOption(
                     "Sign Out",
                     FontAwesomeIcons.arrowRightFromBracket,
-                    3,
+                    5,
                     context,
                     nb,
                     ab,
+                    tsb,
                   ),
                   const SizedBox(
                     height: 10,
@@ -175,10 +184,11 @@ class AppDrawer extends StatelessWidget {
                 singleDrawerOption(
                   "Tell a Friend",
                   FontAwesomeIcons.shareNodes,
-                  5,
+                  6,
                   context,
                   nb,
                   ab,
+                  tsb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -186,10 +196,11 @@ class AppDrawer extends StatelessWidget {
                 singleDrawerOption(
                   "Terms & Conditions",
                   FontAwesomeIcons.gavel,
-                  4,
+                  7,
                   context,
                   nb,
                   ab,
+                  tsb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -197,10 +208,23 @@ class AppDrawer extends StatelessWidget {
                 singleDrawerOption(
                   "Privacy Policy",
                   Icons.privacy_tip_outlined,
-                  5,
+                  8,
                   context,
                   nb,
                   ab,
+                  tsb,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                singleDrawerOption(
+                  "Licenses",
+                  FontAwesomeIcons.fileCode,
+                  9,
+                  context,
+                  nb,
+                  ab,
+                  tsb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -220,6 +244,7 @@ class AppDrawer extends StatelessWidget {
     BuildContext context,
     NavigationBloc nb,
     AuthBloc ab,
+    TicketStatusBloc tsb,
   ) {
     return ListTile(
       title: Text(
@@ -243,19 +268,34 @@ class AppDrawer extends StatelessWidget {
           context,
           nb,
           ab,
+          tsb,
         );
       },
     );
   }
 
   handleDrawerItemTap(
-      int index, BuildContext context, NavigationBloc nb, AuthBloc ab) {
+    int index,
+    BuildContext context,
+    NavigationBloc nb,
+    AuthBloc ab,
+    TicketStatusBloc tsb,
+  ) {
     Navigator.pop(context);
 
-    if (index != 3) {
-      nb.changeNavIndex(index);
+    if (index == 2) {
+      ab.loginWithGoogle(context, tsb);
+    } else if (index == 5) {
+      ab.signOut(context, tsb);
+    } else if (index == 9) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AppLicense(),
+        ),
+      );
     } else {
-      ab.signOut();
+      nb.changeNavIndex(index);
     }
   }
 }
