@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/license_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -247,7 +252,7 @@ class AppDrawer extends StatelessWidget {
     TicketStatusBloc tsb,
   ) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         color:
             nb.navIndex == index ? Colors.green.withOpacity(0.2) : Colors.white,
@@ -290,13 +295,30 @@ class AppDrawer extends StatelessWidget {
     NavigationBloc nb,
     AuthBloc ab,
     TicketStatusBloc tsb,
-  ) {
+  ) async {
     Navigator.pop(context);
 
     if (index == 2) {
       ab.loginWithGoogle(context, tsb);
     } else if (index == 5) {
       ab.signOut(context, tsb);
+    } else if (index == 6) {
+      final bytes = await rootBundle.load('assets/images/Logo.png');
+      final list = bytes.buffer.asUint8List();
+
+      final tempDir = await getTemporaryDirectory();
+      final file = await File('${tempDir.path}/image.jpg').create();
+      file.writeAsBytesSync(list);
+      Share.shareFiles(
+        [file.path],
+        subject: "Cloud Community Days Kolkata 2022",
+        text: "Hey! Let's join together for the largest developer conclave "
+            "in eastern India - Cloud Community Days Kolkata to"
+            " join hundreds of developers and engage with industry experts presenting on cutting edge technology."
+            'Hurry, get your pass!\n'
+            '\nWebsite: https://gdgcloud.kolkata.dev/ccd2022/\n\n'
+            'App: https://play.google.com/store/apps/details?id=com.gdgck.ccd2022',
+      );
     } else if (index == 9) {
       Navigator.push(
         context,

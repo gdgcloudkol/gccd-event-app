@@ -1,6 +1,7 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
+import 'package:ccd2022app/screens/view_ticket_screen.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -121,13 +122,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     return;
                   } else if (ab.isLoggedIn) {
                     if (tsb.ticketGranted) {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) {
-                      //       return const TicketScreen();
-                      //     },
-                      //   ),
-                      // );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const TicketsScreen();
+                          },
+                        ),
+                      );
                     } else if (tsb.hasApplied) {
                       showSnackBar(context,
                           "You have applied for a ticket. Our team will get back to you soon");
@@ -141,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   } else {
-                    ab.loginWithGoogle(context,tsb);
+                    ab.loginWithGoogle(context, tsb);
                   }
                 },
                 child: SizedBox(
@@ -154,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         )
                       : Center(
-                        child: Text(
+                          child: Text(
                             getTicketApplyButtonText(ab, tsb).toUpperCase(),
                             style: const TextStyle(
                               fontFamily: "GoogleSans",
@@ -163,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.white,
                             ),
                           ),
-                      ),
+                        ),
                 ),
               ),
             ),
