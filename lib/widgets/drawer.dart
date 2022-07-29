@@ -246,31 +246,41 @@ class AppDrawer extends StatelessWidget {
     AuthBloc ab,
     TicketStatusBloc tsb,
   ) {
-    return ListTile(
-      title: Text(
-        text,
-        style: const TextStyle(
-          fontFamily: "GoogleSans",
-          fontSize: 18,
-        ),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5),
+      decoration: BoxDecoration(
+        color:
+            nb.navIndex == index ? Colors.green.withOpacity(0.2) : Colors.white,
+        borderRadius: BorderRadius.circular(15),
       ),
-      leading: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Icon(
-          icon,
-          color: Colors.black,
-          size: 25,
+      child: ListTile(
+        title: Text(
+          text,
+          style: TextStyle(
+            fontFamily: "GoogleSans",
+            fontWeight:
+                nb.navIndex == index ? FontWeight.w700 : FontWeight.normal,
+            fontSize: 18,
+          ),
         ),
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Icon(
+            icon,
+            color: Colors.black,
+            size: 25,
+          ),
+        ),
+        onTap: () {
+          handleDrawerItemTap(
+            index,
+            context,
+            nb,
+            ab,
+            tsb,
+          );
+        },
       ),
-      onTap: () {
-        handleDrawerItemTap(
-          index,
-          context,
-          nb,
-          ab,
-          tsb,
-        );
-      },
     );
   }
 

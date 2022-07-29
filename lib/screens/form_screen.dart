@@ -1,5 +1,11 @@
+import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/ticket_form_bloc.dart';
+import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
+import 'package:ccd2022app/models/TicketFormModel.dart';
+import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:ccd2022app/widgets/custom_inputfields.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({Key? key}) : super(key: key);
@@ -85,6 +91,10 @@ class _FormScreenState extends State<FormScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    AuthBloc ab = Provider.of<AuthBloc>(context);
+    TicketFormBloc tfb = Provider.of<TicketFormBloc>(context);
+    TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -347,6 +357,102 @@ class _FormScreenState extends State<FormScreen> {
                     " On availability of seats I shall be sent a Ticket Claim email which I must claim within 72 hours from "
                     "receiving the email, failing which my ticket will be transferred to those on the waitlist and"
                     " I can no longer make any claim on it nor will show up to the event without a confirmation ticket.",
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      if (tfb.entryCreationInProgress) {
+                        showSnackBar(context, "Please wait, saving your responses");
+                        return;
+                      }
+
+                      if (_nameController.text.isEmpty) {
+                        showSnackBar(context, "Name cannot be empty");
+                        return;
+                      } else if (_currentRole == null) {
+                        showSnackBar(context, "Please select a Role");
+                        return;
+                      } else if ((_day1 ?? false) == false &&
+                          (_day2 ?? false) == false) {
+                        showSnackBar(context,
+                            "Please select the event(s) you are interested in");
+                        return;
+                      } else if (_currentTSize == null) {
+                        showSnackBar(context, "Please select a T-Shirt Size");
+                        return;
+                      } else if (_currentDiet == null) {
+                        showSnackBar(
+                            context, "Please select dietary preference");
+                        return;
+                      } else if (!(_agreeTicket ?? false) ||
+                          !(_agree ?? false)) {
+                        showSnackBar(
+                          context,
+                          "Please confirm that you agree to all terms",
+                        );
+                        return;
+                      }
+
+                      TicketFormModel model = TicketFormModel(
+                        _blogController.text,
+                        _githubController.text,
+                        _linkedinController.text,
+                        _aboutController.text,
+                        _day2 == true ? "Yes" : "No",
+                        _agree == true ? "Yes" : "No",
+                        _phoneController.text,
+                        _currentDiet ?? "None",
+                        ab.email,
+                        _enrolledUG == true ? "Yes" : "No",
+                        _nameController.text,
+                        _organizationController.text,
+                        _currentPreferredPronoun ?? "he/him",
+                        _currentRole ?? "Architect",
+                        _currentTSize ?? "L",
+                        _agreeTicket == true ? "Yes" : "No",
+                        _day1 == true ? "Yes" : "No",
+                      );
+
+                      tfb.createNewRegistration(
+                        ab.uid,
+                        model,
+                        tsb,
+                        context,
+                      );
+                    },
+                    child: Container(
+                      width: size.width - 72,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: const Color(0xff2563eb),
+                      ),
+                      child: tfb.entryCreationInProgress
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                backgroundColor: Colors.transparent,
+                                color: Colors.white,
+                              ),
+                            )
+                          : const Center(
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                  fontFamily: "GoogleSans",
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 80,

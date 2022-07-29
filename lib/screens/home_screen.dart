@@ -146,15 +146,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: SizedBox(
                   height: 60,
-                  child: Center(
-                    child: ab.loginInProgress || tsb.loading
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: Colors.transparent,
-                              color: Colors.white,
-                            ),
-                          )
-                        : Text(
+                  child: ab.loginInProgress || tsb.loading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.transparent,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Center(
+                        child: Text(
                             getTicketApplyButtonText(ab, tsb).toUpperCase(),
                             style: const TextStyle(
                               fontFamily: "GoogleSans",
@@ -163,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.white,
                             ),
                           ),
-                  ),
+                      ),
                 ),
               ),
             ),
