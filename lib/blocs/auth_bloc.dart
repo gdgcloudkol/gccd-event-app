@@ -39,6 +39,7 @@ class AuthBloc extends ChangeNotifier {
 
   String get profilePicUrl => _profilePicUrl;
 
+  ///Fetches session data when app opens
   AuthBloc() {
     loadUserDataFromSp();
   }
@@ -84,7 +85,7 @@ class AuthBloc extends ChangeNotifier {
         _profilePicUrl = user.photoURL ?? "";
         bool userExists = await checkIfUserExists(_uid);
         if (!userExists) {
-          await saveDataToFirestore(loginProvider: "google");
+          await saveDataToFirestore();
         }
         showSnackBar(context, "Logged In Successfully");
         await saveUserDataToSp();
@@ -100,11 +101,13 @@ class AuthBloc extends ChangeNotifier {
     }
   }
 
+  ///Update _loginInProgress state variable
   void setLoginProgress(bool value) {
     _loginInProgress = value;
     notifyListeners();
   }
 
+  ///Saves user data to session
   Future saveUserDataToSp() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString(Config.prefEmail, email);
@@ -114,6 +117,7 @@ class AuthBloc extends ChangeNotifier {
     sp.setBool(Config.prefLoggedIn, isLoggedIn);
   }
 
+  ///Loads user data from Session
   Future loadUserDataFromSp() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     _isLoggedIn = sp.getBool(Config.prefLoggedIn) ?? false;
@@ -126,7 +130,8 @@ class AuthBloc extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future checkIfUserExists(String uid) async {
+  ///Checks if user exists and returns boolean status accordingly
+  Future<bool> checkIfUserExists(String uid) async {
     bool userExists = true;
     await FirebaseFirestore.instance
         .collection(Config.fscUsers)
@@ -149,26 +154,34 @@ class AuthBloc extends ChangeNotifier {
     BuildContext context,
     TicketStatusBloc tsb,
   ) async {
+    ///Step 0 : Clear Session
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.clear();
+
+    ///Step 2 : Clear variables used in UI
     _isLoggedIn = false;
     _name = "";
     _profilePicUrl = "";
     _uid = "";
     _email = "";
+    tsb.clearFields();
+
+    ///Step 3 : Logout from auth providers
     await _googleSignIn.signOut();
     _firebaseAuth.signOut();
-    tsb.clearFields();
+
+    ///Step 4 : Notify user
     showSnackBar(context, "Signed Out successfully");
     notifyListeners();
   }
 
-  Future saveDataToFirestore({String loginProvider = "Email"}) async {
+  ///To be called if user doesn't exist in firestore
+  Future saveDataToFirestore() async {
     await FirebaseFirestore.instance.collection(Config.fscUsers).doc(uid).set({
       Config.fsfUid: uid,
       Config.fsfName: name,
       Config.fsfEmail: email,
-      Config.fsfLoginProvider: loginProvider,
+      Config.fsfLoginProvider: "Google",
     });
   }
 }
