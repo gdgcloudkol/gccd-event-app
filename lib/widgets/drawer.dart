@@ -208,6 +208,18 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                singleDrawerOption(
+                  "Speakers",
+                  FontAwesomeIcons.bullhorn,
+                  10,
+                  context,
+                  nb,
+                  ab,
+                  tsb,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),
@@ -270,7 +282,7 @@ class AppDrawer extends StatelessWidget {
     AuthBloc ab,
     TicketStatusBloc tsb,
   ) async {
-    if(index != 2) {
+    if (index != 2) {
       Navigator.pop(context);
     }
 
@@ -294,7 +306,7 @@ class AppDrawer extends StatelessWidget {
             " join hundreds of developers and engage with industry experts presenting on cutting edge technology."
             'Hurry, get your pass!\n'
             '\nWebsite: https://gdgcloud.kolkata.dev/ccd2022/\n\n'
-            'App: https://play.google.com/store/apps/details?id=com.gdgck.ccd2022',
+            'App: https://play.google.com/store/apps/details?id=com.example.ccd2022app',
       );
     } else if (index == 9) {
       Navigator.push(

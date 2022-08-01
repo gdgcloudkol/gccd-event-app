@@ -15,6 +15,7 @@ class NavigationBloc extends ChangeNotifier {
     6: "Tell a Friend",
     7: "Terms & Conditions",
     8: "Privacy Policy",
+    10: "Speakers",
   };
 
   final List<int> _navStack = [0];
