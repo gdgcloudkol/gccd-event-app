@@ -1,7 +1,7 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_form_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
-import 'package:ccd2022app/models/TicketFormModel.dart';
+import 'package:ccd2022app/models/ticket_form_model.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:ccd2022app/widgets/custom_inputfields.dart';
 import 'package:flutter/material.dart';

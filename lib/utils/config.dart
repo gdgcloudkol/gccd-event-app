@@ -1,3 +1,5 @@
+import 'package:ccd2022app/models/community_partners_model.dart';
+
 ///Root Class that stores Configs used throughout the app
 class Config {
   ///Firestore collection names
@@ -48,4 +50,61 @@ class Config {
   static String prefProfilePicUrl = "profilePicUrl";
   static String prefHasTicket = "hasTicket";
   static String prefConferenceTicketImageUrl = "conferenceTicketImageUrl";
+
+  static List<CommunityPartnersModel> communityPartners = [
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://dscnsec.com/",
+      "NSEC",
+      "assets/images/Logo.png",
+    ),
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://dscciem.github.io/",
+      "CIEM",
+      "assets/images/Logo.png",
+    ),
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://gdscsit2021.github.io/",
+      "SIT",
+      "assets/images/Logo.png",
+    ),
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://twitter.com/DSC_GCE",
+      "GCE",
+      "assets/images/Logo.png",
+    ),
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://gdsc.community.dev/government-engineering-college-bilaspur/",
+      "GECBSP",
+      "assets/images/Logo.png",
+    ),
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://dschit.com/",
+      "HIT",
+      "assets/images/Logo.png",
+    ),
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://www.linkedin.com/in/gdsc-jisce/?trk=public_profile_browsemap&originalSubdomain=in",
+      "JISCE",
+      "assets/images/Logo.png",
+    ),
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://gdsc.community.dev/dr-sudhir-chandra-sur-institute-of-technology-sports-complex-kolkata/",
+      "DSCSIT",
+      "assets/images/Logo.png",
+    ),
+    CommunityPartnersModel(
+      "Google Developer Student Clubs",
+      "https://dscmsit.github.io/",
+      "MSIT",
+      "assets/images/Logo.png",
+    ),
+  ];
 }

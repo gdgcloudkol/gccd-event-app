@@ -34,8 +34,8 @@ class AppDrawer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 10.0, horizontal: 20),
                   child: Row(
-                    children: [
-                      const CircleAvatar(
+                    children: const [
+                      CircleAvatar(
                         radius: 35,
                         backgroundColor: Colors.white,
                         backgroundImage: AssetImage(
@@ -43,42 +43,16 @@ class AppDrawer extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 20.0,
                         ),
-                        child: RichText(
-                          text: const TextSpan(
-                            text: 'CCD ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "GoogleSans",
-                              color: Colors.black,
-                              fontSize: 30,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: '2',
-                                style: TextStyle(
-                                  color: Color(0xffea4335),
-                                ),
-                              ),
-                              TextSpan(
-                                text: '0',
-                                style: TextStyle(
-                                  color: Color(0xfffbbc04),
-                                ),
-                              ),
-                              TextSpan(
-                                text: '2',
-                                style: TextStyle(
-                                  color: Color(0xff0f9d58),
-                                ),
-                              ),
-                              TextSpan(
-                                text: '2',
-                                style: TextStyle(color: Color(0xff4285f4)),
-                              ),
-                            ],
+                        child: Text(
+                          'CCD 2022',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "GoogleSans",
+                            fontSize: 24,
+                            letterSpacing: 1.2,
                           ),
                         ),
                       ),
@@ -117,18 +91,18 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                singleDrawerOption(
-                  "Profile",
-                  FontAwesomeIcons.solidUser,
-                  1,
-                  context,
-                  nb,
-                  ab,
-                  tsb,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                // singleDrawerOption(
+                //   "Profile",
+                //   FontAwesomeIcons.solidUser,
+                //   1,
+                //   context,
+                //   nb,
+                //   ab,
+                //   tsb,
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 if (!ab.isLoggedIn) ...[
                   singleDrawerOption(
                     "Login",
@@ -144,7 +118,7 @@ class AppDrawer extends StatelessWidget {
                   ),
                 ],
                 singleDrawerOption(
-                  "Sponsors",
+                  "Partners",
                   FontAwesomeIcons.solidHandshake,
                   3,
                   context,
@@ -296,10 +270,13 @@ class AppDrawer extends StatelessWidget {
     AuthBloc ab,
     TicketStatusBloc tsb,
   ) async {
-    Navigator.pop(context);
+    if(index != 2) {
+      Navigator.pop(context);
+    }
 
     if (index == 2) {
-      ab.loginWithGoogle(context, tsb);
+      await ab.loginWithGoogle(context, tsb);
+      Navigator.pop(context);
     } else if (index == 5) {
       ab.signOut(context, tsb);
     } else if (index == 6) {
