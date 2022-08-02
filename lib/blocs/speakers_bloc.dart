@@ -17,7 +17,11 @@ class SpeakersBloc extends ChangeNotifier {
   String _errorMessage = "";
   String get errorMessage => _errorMessage;
 
-  Future<List<Speaker>> getSpeakers() async {
+  SpeakersBloc() {
+    _fetchSpeakers();
+  }
+
+  void _fetchSpeakers() async {
     _isLoading = true;
     notifyListeners();
     try {
@@ -29,18 +33,15 @@ class SpeakersBloc extends ChangeNotifier {
             .toList();
         _isLoading = false;
         notifyListeners();
-        return _speakers;
       } else {
         _isError = true;
         _errorMessage = "Something went wrong";
         notifyListeners();
-        return [];
       }
     } catch (e) {
       _isError = true;
       _errorMessage = "Something went wrong";
       notifyListeners();
-      return [];
     }
   }
 }

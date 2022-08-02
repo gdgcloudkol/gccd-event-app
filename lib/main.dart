@@ -1,5 +1,6 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_form_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/entrypoint/navigation_screen.dart';
@@ -55,6 +56,9 @@ class CCDApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<TicketStatusBloc>(
           create: (context) => TicketStatusBloc(),
+        ),
+        ChangeNotifierProvider<SpeakersBloc>(
+          create: (context) => SpeakersBloc(),
         ),
       ],
       child: MaterialApp(
