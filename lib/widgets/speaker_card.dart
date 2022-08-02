@@ -24,21 +24,50 @@ class SpeakerCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     switch (link.title) {
       case "Twitter":
-        return const Icon(FontAwesomeIcons.twitter);
+        return const Icon(
+          FontAwesomeIcons.twitter,
+          color: Color(
+            0xFF1DA1F2,
+          ),
+        );
+
       case "Facebook":
-        return const Icon(FontAwesomeIcons.facebook);
+        return const Icon(
+          FontAwesomeIcons.facebook,
+          color: Color(
+            0xFF3B5998,
+          ),
+        );
       case "Github":
-        return const Icon(FontAwesomeIcons.github);
+        return const Icon(
+          FontAwesomeIcons.github,
+          color: Color(0xFF333F4D),
+        );
       case "LinkedIn":
-        return const Icon(FontAwesomeIcons.linkedin);
+        return const Icon(
+          FontAwesomeIcons.linkedin,
+          color: Color(0xFF0077B5),
+        );
       case "Company Website":
-        return const Icon(FontAwesomeIcons.globe);
+        return const Icon(
+          FontAwesomeIcons.globe,
+          color: Color(0xFF0077B5),
+        );
       case "Instagram":
-        return const Icon(FontAwesomeIcons.instagram);
+        return const Icon(
+          FontAwesomeIcons.instagram,
+          color: Color(0xFFE4405F),
+        );
       case "Sessionize":
-        return const Icon(FontAwesomeIcons.calendar);
+        return const Icon(
+          FontAwesomeIcons.calendar,
+          color: Color(0xFF1AB394),
+        );
       case "Blog":
-        return const Icon(FontAwesomeIcons.blog);
+        return const Icon(
+          FontAwesomeIcons.blogger,
+          color: Color(0xFFF57C00),
+        );
       default:
         return const Icon(Icons.link);
     }
