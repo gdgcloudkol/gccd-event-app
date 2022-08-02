@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class SlidingCard extends StatelessWidget {
-  final String name; //<-- title of the event
-  final String sub; //<-- date of the event
+  final String name;
+  final String sub;
   final String logo;
   final String url;
 
@@ -148,7 +148,7 @@ class CardContent extends StatelessWidget {
             height: 30,
           ),
           Transform.translate(
-            offset: Offset(15 * offset, 0), //<-- translate the button
+            offset: Offset(15 * offset, 0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: const Color(0xff55acee),

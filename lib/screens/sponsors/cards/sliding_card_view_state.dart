@@ -21,7 +21,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
     pageController = PageController(viewportFraction: 0.8);
     pageController?.addListener(() {
       setState(() => pageOffset =
-          (pageController?.page ?? 0)); //<-- add listener and set state
+          (pageController?.page ?? 0)); ///<-- add listener and set state
     });
   }
 

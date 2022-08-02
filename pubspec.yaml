@@ -35,7 +35,6 @@ dependencies:
   firebase_auth: ^3.6.1
   share_plus: ^4.0.10
   path_provider: ^2.0.11
-  circle_list: ^1.0.5
   cloud_firestore: ^3.4.2
   intl: ^0.17.0
   shared_preferences: ^2.0.15
