@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 class SpeakersBloc extends ChangeNotifier {
   // create a api call to get the speakers list
@@ -28,6 +27,7 @@ class SpeakersBloc extends ChangeNotifier {
       final response = await get(speakersUrl);
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+
         _speakers = data["data"]
             .map<Speaker>((json) => Speaker.fromJson(json))
             .toList();
@@ -40,6 +40,7 @@ class SpeakersBloc extends ChangeNotifier {
       }
     } catch (e) {
       _isError = true;
+      print(e.toString());
       _errorMessage = "Something went wrong";
       notifyListeners();
     }
@@ -57,13 +58,13 @@ class Speaker {
 
   // from json
   Speaker({
-    required this.id,
-    required this.fullName,
-    required this.bio,
-    required this.tagLine,
-    required this.profilePicture,
-    required this.links,
-    required this.sessions,
+    this.id = "",
+    this.fullName = "",
+    this.bio = "",
+    this.tagLine = "",
+    this.profilePicture = "",
+    this.links = const [],
+    this.sessions = const [],
   });
 
   static fromJson(json) {
@@ -73,9 +74,15 @@ class Speaker {
       bio: json["bio"],
       tagLine: json["tagLine"],
       profilePicture: json["profilePicture"],
-      links: json["links"].map<Link>((json) => Link.fromJson(json)).toList(),
+      links: json["links"]
+          .map<Link>(
+            (json) => Link.fromJson(json),
+          )
+          .toList(),
       sessions: json["sessions"]
-          .map<Session>((json) => Session.fromJson(json))
+          .map<Session>(
+            (json) => Session.fromJson(json),
+          )
           .toList(),
     );
   }
@@ -86,8 +93,8 @@ class Session {
   String name;
 
   Session({
-    required this.id,
-    required this.name,
+    this.id = "",
+    this.name = "",
   });
 
   static fromJson(json) {
@@ -104,9 +111,9 @@ class Link {
   String linkType;
 
   Link({
-    required this.title,
-    required this.url,
-    required this.linkType,
+    this.title = "",
+    this.url = "",
+    this.linkType = "",
   });
 
   static fromJson(json) {
