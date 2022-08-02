@@ -69,7 +69,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         return const HomeScreen();
       case 3:
         return const PartnersScreen();
-      case 10:
+      case 4:
         return const SpeakersScreen();
       default:
         return const HomeScreen();

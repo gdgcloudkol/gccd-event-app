@@ -26,7 +26,7 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
           name: sb.speakers[index].fullName,
           profilePicture: sb.speakers[index].profilePicture,
           tagLine: sb.speakers[index].tagLine,
-          bio: sb.speakers[index].bio,
+          socialLinks: sb.speakers[index].links,
         );
       },
     );

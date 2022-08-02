@@ -130,16 +130,13 @@ class AppDrawer extends StatelessWidget {
                   height: 10,
                 ),
                 singleDrawerOption(
-                  "About Us",
-                  FontAwesomeIcons.circleInfo,
+                  "Speakers",
+                  FontAwesomeIcons.bullhorn,
                   4,
                   context,
                   nb,
                   ab,
                   tsb,
-                ),
-                const SizedBox(
-                  height: 10,
                 ),
                 if (ab.isLoggedIn) ...[
                   singleDrawerOption(
@@ -208,9 +205,12 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 singleDrawerOption(
-                  "Speakers",
-                  FontAwesomeIcons.bullhorn,
+                  "About Us",
+                  FontAwesomeIcons.circleInfo,
                   10,
                   context,
                   nb,

@@ -1,20 +1,72 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import '../models/speaker_model.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SpeakerCard extends StatelessWidget {
   const SpeakerCard({
     this.name = "",
     this.profilePicture = "",
     this.tagLine = "",
-    this.bio = "",
+    this.socialLinks = const [],
     Key? key,
   }) : super(key: key);
 
   final String name;
   final String profilePicture;
   final String tagLine;
-  final String bio;
+  final List<Link> socialLinks;
+
+  Icon getSocialLink(Link link, BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    switch (link.title) {
+      case "Twitter":
+        return const Icon(FontAwesomeIcons.twitter);
+      case "Facebook":
+        return const Icon(FontAwesomeIcons.facebook);
+      case "Github":
+        return const Icon(FontAwesomeIcons.github);
+      case "LinkedIn":
+        return const Icon(FontAwesomeIcons.linkedin);
+      case "Company Website":
+        return const Icon(FontAwesomeIcons.globe);
+      case "Instagram":
+        return const Icon(FontAwesomeIcons.instagram);
+      case "Sessionize":
+        return const Icon(FontAwesomeIcons.calendar);
+      case "Blog":
+        return const Icon(FontAwesomeIcons.blog);
+      default:
+        return const Icon(Icons.link);
+    }
+  }
+
+  Widget getSocialLinks(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    if (socialLinks.isEmpty) {
+      return Container();
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: socialLinks.map((link) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+          child: InkWell(
+            onTap: () {
+              launchUrlString(
+                link.url,
+                mode: LaunchMode.inAppWebView,
+              );
+            },
+            child: getSocialLink(link, context),
+          ),
+        );
+      }).toList(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,14 +146,8 @@ class SpeakerCard extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    bio,
-                    style: const TextStyle(
-                      fontFamily: "GoogleSans",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+
+                  getSocialLinks(context),
                   // socialActions(context, ),
                 ],
               ),

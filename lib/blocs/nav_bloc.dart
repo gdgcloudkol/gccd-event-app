@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class NavigationBloc extends ChangeNotifier {
@@ -11,11 +12,11 @@ class NavigationBloc extends ChangeNotifier {
     0: "Home",
     1: "Profile",
     3: "Partners",
-    4: "About Us",
+    4: "Speakers",
     6: "Tell a Friend",
     7: "Terms & Conditions",
     8: "Privacy Policy",
-    10: "Speakers",
+    10: "About Us",
   };
 
   final List<int> _navStack = [0];
@@ -38,7 +39,9 @@ class NavigationBloc extends ChangeNotifier {
 
   void removeTopIndexFromNavStack() {
     _navStack.remove(_navStack[0]);
-    print(navStack);
+    if (kDebugMode) {
+      print(navStack);
+    }
     _navIndex = _navStack[0];
     notifyListeners();
   }

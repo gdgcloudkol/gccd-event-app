@@ -1,6 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
-import 'package:flutter/material.dart';
+import '../models/speaker_model.dart';
 
 class SpeakersBloc extends ChangeNotifier {
   // create a api call to get the speakers list
@@ -28,9 +29,8 @@ class SpeakersBloc extends ChangeNotifier {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
-        _speakers = data["data"]
-            .map<Speaker>((json) => Speaker.fromJson(json))
-            .toList();
+        _speakers = List<Speaker>.from(
+            data.map((json) => Speaker.fromJson(json)).toList());
         _isLoading = false;
         notifyListeners();
       } else {
@@ -40,87 +40,11 @@ class SpeakersBloc extends ChangeNotifier {
       }
     } catch (e) {
       _isError = true;
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       _errorMessage = "Something went wrong";
       notifyListeners();
     }
-  }
-}
-
-class Speaker {
-  String id = "";
-  String fullName = "";
-  String bio = "";
-  String tagLine = "";
-  String profilePicture = "";
-  List<Link> links = [];
-  List<Session> sessions = [];
-
-  // from json
-  Speaker({
-    this.id = "",
-    this.fullName = "",
-    this.bio = "",
-    this.tagLine = "",
-    this.profilePicture = "",
-    this.links = const [],
-    this.sessions = const [],
-  });
-
-  static fromJson(json) {
-    return Speaker(
-      id: json["id"],
-      fullName: json["fullName"],
-      bio: json["bio"],
-      tagLine: json["tagLine"],
-      profilePicture: json["profilePicture"],
-      links: json["links"]
-          .map<Link>(
-            (json) => Link.fromJson(json),
-          )
-          .toList(),
-      sessions: json["sessions"]
-          .map<Session>(
-            (json) => Session.fromJson(json),
-          )
-          .toList(),
-    );
-  }
-}
-
-class Session {
-  String id;
-  String name;
-
-  Session({
-    this.id = "",
-    this.name = "",
-  });
-
-  static fromJson(json) {
-    return Session(
-      id: json["id"],
-      name: json["name"],
-    );
-  }
-}
-
-class Link {
-  String title;
-  String url;
-  String linkType;
-
-  Link({
-    this.title = "",
-    this.url = "",
-    this.linkType = "",
-  });
-
-  static fromJson(json) {
-    return Link(
-      title: json["title"],
-      url: json["url"],
-      linkType: json["linkType"],
-    );
   }
 }
