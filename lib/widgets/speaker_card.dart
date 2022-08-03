@@ -1,10 +1,11 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import '../models/speaker_model.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../models/speaker_model.dart';
 
 class SpeakerCard extends StatelessWidget {
   const SpeakerCard({
@@ -21,7 +22,6 @@ class SpeakerCard extends StatelessWidget {
   final List<Link> socialLinks;
 
   Icon getSocialLink(Link link, BuildContext context) {
-    final size = MediaQuery.of(context).size;
     switch (link.title) {
       case "Twitter":
         return const Icon(
@@ -74,26 +74,28 @@ class SpeakerCard extends StatelessWidget {
   }
 
   Widget getSocialLinks(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     if (socialLinks.isEmpty) {
       return Container();
     }
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: socialLinks.map((link) {
-        return Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child: InkWell(
-            onTap: () {
-              launchUrlString(
-                link.url,
-                mode: LaunchMode.inAppWebView,
-              );
-            },
-            child: getSocialLink(link, context),
-          ),
-        );
-      }).toList(),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: socialLinks.map((link) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            child: InkWell(
+              onTap: () {
+                launchUrlString(
+                  link.url,
+                  mode: LaunchMode.inAppWebView,
+                );
+              },
+              child: getSocialLink(link, context),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 
@@ -113,9 +115,11 @@ class SpeakerCard extends StatelessWidget {
               ),
               child: CachedNetworkImage(
                 imageUrl: profilePicture,
-                placeholder: (context, url) => const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.red,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Colors.red,
+                    ),
                   ),
                 ),
                 imageBuilder: (context, imageProvider) => Container(
@@ -175,7 +179,6 @@ class SpeakerCard extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-
                   getSocialLinks(context),
                   // socialActions(context, ),
                 ],
