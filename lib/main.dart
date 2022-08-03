@@ -25,7 +25,7 @@ void main() async {
   enableEdgeToEdge();
 
   runApp(
-    const CCDApp(),
+    CCDApp(),
   );
 }
 
@@ -38,7 +38,9 @@ void enableEdgeToEdge({bool enable = true}) {
 }
 
 class CCDApp extends StatelessWidget {
-  const CCDApp({Key? key}) : super(key: key);
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  CCDApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class CCDApp extends StatelessWidget {
           create: (context) => TicketFormBloc(),
         ),
         ChangeNotifierProvider<NavigationBloc>(
-          create: (context) => NavigationBloc(),
+          create: (context) => NavigationBloc(navigatorKey),
         ),
         ChangeNotifierProvider<TicketStatusBloc>(
           create: (context) => TicketStatusBloc(),
@@ -65,6 +67,7 @@ class CCDApp extends StatelessWidget {
         title: 'CCD 2022',
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
+        navigatorKey: navigatorKey,
         home: kDebugMode ? const NavigationScreen() : const SplashScreen(),
       ),
     );

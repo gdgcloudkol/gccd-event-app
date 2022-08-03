@@ -1,3 +1,4 @@
+import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
@@ -44,7 +45,8 @@ class AuthBloc extends ChangeNotifier {
     loadUserDataFromSp();
   }
 
-  loginWithGoogle(BuildContext context, TicketStatusBloc tsb) async {
+  loginWithGoogle(
+      BuildContext context, TicketStatusBloc tsb, NavigationBloc nb) async {
     setLoginProgress(true);
 
     User? user;
@@ -68,12 +70,17 @@ class AuthBloc extends ChangeNotifier {
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'invalid-credential') {
-          showSnackBar(context, "Invalid Credential");
+          if (nb.navigatorKey.currentState != null) {
+            showSnackBar(
+                nb.navigatorKey.currentState!.context, "Invalid Credential");
+          }
         }
 
         setLoginProgress(false);
       } catch (e) {
-        showSnackBar(context, e.toString());
+        if (nb.navigatorKey.currentState != null) {
+          showSnackBar(nb.navigatorKey.currentState!.context, e.toString());
+        }
         setLoginProgress(false);
       }
 
@@ -87,16 +94,25 @@ class AuthBloc extends ChangeNotifier {
         if (!userExists) {
           await saveDataToFirestore();
         }
-        showSnackBar(context, "Logged In Successfully");
+        if (nb.navigatorKey.currentState != null) {
+          showSnackBar(
+              nb.navigatorKey.currentState!.context, "Logged In Successfully");
+        }
         await saveUserDataToSp();
         tsb.checkTicketStatus();
       } else {
-        showSnackBar(context, "Error logging you in. Try Again");
+        if (nb.navigatorKey.currentState != null) {
+          showSnackBar(nb.navigatorKey.currentState!.context,
+              "Error logging you in. Try Again");
+        }
       }
 
       setLoginProgress(false);
     } else {
-      showSnackBar(context, "Login cancelled by user");
+      if (nb.navigatorKey.currentState != null) {
+        showSnackBar(
+            nb.navigatorKey.currentState!.context, "Login cancelled by user");
+      }
       setLoginProgress(false);
     }
   }
@@ -153,6 +169,7 @@ class AuthBloc extends ChangeNotifier {
   void signOut(
     BuildContext context,
     TicketStatusBloc tsb,
+    NavigationBloc nb,
   ) async {
     ///Step 0 : Clear Session
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -171,7 +188,11 @@ class AuthBloc extends ChangeNotifier {
     _firebaseAuth.signOut();
 
     ///Step 4 : Notify user
-    showSnackBar(context, "Signed Out successfully");
+
+    if (nb.navigatorKey.currentState != null) {
+      showSnackBar(
+          nb.navigatorKey.currentState!.context, "Signed Out successfully");
+    }
     notifyListeners();
   }
 

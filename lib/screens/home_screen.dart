@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     AuthBloc ab = Provider.of<AuthBloc>(context);
+    NavigationBloc nb = Provider.of<NavigationBloc>(context);
     TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
 
     ///Preloading speakers
@@ -146,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   } else {
-                    ab.loginWithGoogle(context, tsb);
+                    ab.loginWithGoogle(context, tsb, nb);
                   }
                 },
                 child: SizedBox(

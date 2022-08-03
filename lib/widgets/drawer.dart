@@ -290,10 +290,10 @@ class AppDrawer extends StatelessWidget {
     }
 
     if (index == 2) {
-      await ab.loginWithGoogle(context, tsb);
+      ab.loginWithGoogle(context, tsb, nb);
       Navigator.pop(context);
     } else if (index == 5) {
-      ab.signOut(context, tsb);
+      ab.signOut(context, tsb, nb);
     } else if (index == 6) {
       final bytes = await rootBundle.load('assets/images/Logo.png');
       final list = bytes.buffer.asUint8List();

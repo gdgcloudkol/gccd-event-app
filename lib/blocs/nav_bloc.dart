@@ -19,6 +19,14 @@ class NavigationBloc extends ChangeNotifier {
     10: "About Us",
   };
 
+  late GlobalKey<NavigatorState> _navigatorKey;
+
+  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
+
+  NavigationBloc(GlobalKey<NavigatorState> navigatorKey) {
+    _navigatorKey = navigatorKey;
+  }
+
   final List<int> _navStack = [0];
 
   List<int> get navStack => _navStack;
