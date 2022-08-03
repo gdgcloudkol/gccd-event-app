@@ -1,9 +1,6 @@
-import 'package:ccd2022app/blocs/auth_bloc.dart';
-import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/models/community_partners_model.dart';
 import 'package:ccd2022app/screens/sponsors/cards/sliding_card_view_state.dart';
 import 'package:ccd2022app/utils/config.dart';
-import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 
 class PartnersScreen extends StatefulWidget {
@@ -23,7 +20,6 @@ class _PartnersScreenState extends State<PartnersScreen> {
     return SizedBox(
       height: size.height,
       width: size.width,
-
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,5 +49,4 @@ class _PartnersScreenState extends State<PartnersScreen> {
       ),
     );
   }
-
 }

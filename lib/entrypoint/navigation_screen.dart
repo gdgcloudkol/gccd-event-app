@@ -1,5 +1,6 @@
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/screens/home_screen.dart';
+import 'package:ccd2022app/screens/speakers_screen.dart';
 import 'package:ccd2022app/screens/sponsors/partners_screen.dart';
 import 'package:ccd2022app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
         return const HomeScreen();
       case 3:
         return const PartnersScreen();
+      case 4:
+        return const SpeakersScreen();
       default:
         return const HomeScreen();
     }
