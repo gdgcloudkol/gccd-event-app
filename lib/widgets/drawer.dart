@@ -138,6 +138,9 @@ class AppDrawer extends StatelessWidget {
                   ab,
                   tsb,
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 if (ab.isLoggedIn) ...[
                   singleDrawerOption(
                     "Sign Out",
