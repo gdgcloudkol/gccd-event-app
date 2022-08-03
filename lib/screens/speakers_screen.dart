@@ -12,23 +12,33 @@ class SpeakersScreen extends StatefulWidget {
 }
 
 class _SpeakersScreenState extends State<SpeakersScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     SpeakersBloc sb = Provider.of<SpeakersBloc>(context);
 
-    return ListView.builder(
-      itemCount: sb.speakers.length,
-      itemBuilder: (
-        context,
-        int index,
-      ) {
-        return SpeakerCard(
-          name: sb.speakers[index].fullName,
-          profilePicture: sb.speakers[index].profilePicture,
-          tagLine: sb.speakers[index].tagLine,
-          socialLinks: sb.speakers[index].links,
-        );
-      },
-    );
+    return sb.isLoading
+        ? const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Colors.red,
+              ),
+            ),
+          )
+        : ListView.builder(
+            itemCount: sb.speakers.length,
+            itemBuilder: (
+              context,
+              int index,
+            ) {
+              return SpeakerCard(
+                name: sb.speakers[index].fullName,
+                profilePicture: sb.speakers[index].profilePicture,
+                tagLine: sb.speakers[index].tagLine,
+                socialLinks: sb.speakers[index].links,
+              );
+            },
+          );
   }
 }

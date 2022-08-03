@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+
 import '../models/speaker_model.dart';
 
 class SpeakersBloc extends ChangeNotifier {
@@ -8,13 +10,21 @@ class SpeakersBloc extends ChangeNotifier {
   // http call to get the speakers list
   final Uri speakersUrl =
       Uri.parse("https://sessionize.com/api/v2/kirmfltc/view/Speakers");
+
   List<Speaker> _speakers = [];
+
   List<Speaker> get speakers => _speakers;
+
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
+
   bool _isError = false;
+
   bool get isError => _isError;
+
   String _errorMessage = "";
+
   String get errorMessage => _errorMessage;
 
   SpeakersBloc() {

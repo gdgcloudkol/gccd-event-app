@@ -7,13 +7,13 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../models/speaker_model.dart';
 
-class SpeakerCard extends StatelessWidget {
+class SpeakerCard extends StatefulWidget {
   const SpeakerCard({
-    this.name = "",
-    this.profilePicture = "",
-    this.tagLine = "",
-    this.socialLinks = const [],
     Key? key,
+    required this.name,
+    required this.profilePicture,
+    required this.tagLine,
+    required this.socialLinks,
   }) : super(key: key);
 
   final String name;
@@ -21,6 +21,11 @@ class SpeakerCard extends StatelessWidget {
   final String tagLine;
   final List<Link> socialLinks;
 
+  @override
+  State<SpeakerCard> createState() => _SpeakerCardState();
+}
+
+class _SpeakerCardState extends State<SpeakerCard> {
   Icon getSocialLink(Link link, BuildContext context) {
     switch (link.title) {
       case "Twitter":
@@ -74,21 +79,21 @@ class SpeakerCard extends StatelessWidget {
   }
 
   Widget getSocialLinks(BuildContext context) {
-    if (socialLinks.isEmpty) {
+    if (widget.socialLinks.isEmpty) {
       return Container();
     }
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: socialLinks.map((link) {
+        children: widget.socialLinks.map((link) {
           return Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: InkWell(
               onTap: () {
                 launchUrlString(
                   link.url,
-                  mode: LaunchMode.inAppWebView,
+                  mode: LaunchMode.externalApplication,
                 );
               },
               child: getSocialLink(link, context),
@@ -97,6 +102,16 @@ class SpeakerCard extends StatelessWidget {
         }).toList(),
       ),
     );
+  }
+
+  bool isAnimationCompleted = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() => isAnimationCompleted = true);
+    });
+    super.initState();
   }
 
   @override
@@ -108,30 +123,73 @@ class SpeakerCard extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            ConstrainedBox(
-              constraints: BoxConstraints.expand(
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.width * 0.3,
-              ),
-              child: CachedNetworkImage(
-                imageUrl: profilePicture,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Colors.red,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints.expand(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.12,
+                  width: MediaQuery.of(context).size.height * 0.12,
+                  child: const CircularProgressIndicator(
+                    value: 1,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xff3d82f8)),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.12,
+                  width: MediaQuery.of(context).size.height * 0.12,
+                  child: const CircularProgressIndicator(
+                    value: 0.75,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xff2ea94f)),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.12,
+                  width: MediaQuery.of(context).size.height * 0.12,
+                  child: const CircularProgressIndicator(
+                    value: 0.5,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xfff9b923)),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.12,
+                  width: MediaQuery.of(context).size.height * 0.12,
+                  child: const CircularProgressIndicator(
+                    value: 0.25,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xffe54540)),
+                  ),
+                ),
+                CachedNetworkImage(
+                  imageUrl: widget.profilePicture,
+                  height: MediaQuery.of(context).size.height * 0.12 - 4,
+                  width: MediaQuery.of(context).size.height * 0.12 - 5,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.red,
+                      ),
+                    ),
+                  ),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                      shape: BoxShape.circle,
                     ),
                   ),
                 ),
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
+              ],
             ),
             const SizedBox(
               width: 20,
@@ -147,7 +205,7 @@ class SpeakerCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
-                        name,
+                        widget.name,
                         style: const TextStyle(
                           fontFamily: "GoogleSans",
                           fontSize: 20,
@@ -158,10 +216,17 @@ class SpeakerCard extends StatelessWidget {
                         height: 5,
                       ),
                       AnimatedContainer(
-                        duration: const Duration(seconds: 1),
-                        width: MediaQuery.of(context).size.width * 0.2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Tools.multiColors[Random().nextInt(4)],
+                        ),
+                        duration: const Duration(
+                          milliseconds: 700,
+                        ),
+                        width: !isAnimationCompleted
+                            ? 0
+                            : MediaQuery.of(context).size.width * 0.2,
                         height: 5,
-                        color: Tools.multiColors[Random().nextInt(4)],
                       ),
                     ],
                   ),
@@ -169,7 +234,7 @@ class SpeakerCard extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    tagLine,
+                    widget.tagLine,
                     style: const TextStyle(
                       fontFamily: "GoogleSans",
                       fontSize: 15,
@@ -188,6 +253,16 @@ class SpeakerCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color calculateBackgroundColor({required double value}) {
+    if (value > 0.60) {
+      return Colors.red;
+    } else if (value > 0.30) {
+      return Colors.orange;
+    } else {
+      return Colors.green;
+    }
   }
 }
 

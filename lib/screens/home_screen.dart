@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
 import 'package:ccd2022app/screens/view_ticket_screen.dart';
@@ -20,6 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
     AuthBloc ab = Provider.of<AuthBloc>(context);
     TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
+
+    ///Preloading speakers
+    Provider.of<SpeakersBloc>(context);
 
     return SizedBox(
       height: size.height,
