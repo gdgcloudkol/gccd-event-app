@@ -14,12 +14,14 @@ class SpeakerCard extends StatefulWidget {
     required this.profilePicture,
     required this.tagLine,
     required this.socialLinks,
+    required this.id,
   }) : super(key: key);
 
   final String name;
   final String profilePicture;
   final String tagLine;
   final List<Link> socialLinks;
+  final String id;
 
   @override
   State<SpeakerCard> createState() => _SpeakerCardState();
@@ -123,73 +125,76 @@ class _SpeakerCardState extends State<SpeakerCard> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                ConstrainedBox(
-                  constraints: BoxConstraints.expand(
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    width: MediaQuery.of(context).size.width * 0.3,
+            Hero(
+              tag: widget.id,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ConstrainedBox(
+                    constraints: BoxConstraints.expand(
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.12,
-                  width: MediaQuery.of(context).size.height * 0.12,
-                  child: const CircularProgressIndicator(
-                    value: 1,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xff3d82f8)),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    width: MediaQuery.of(context).size.height * 0.12,
+                    child: const CircularProgressIndicator(
+                      value: 1,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(0xff3d82f8)),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.12,
-                  width: MediaQuery.of(context).size.height * 0.12,
-                  child: const CircularProgressIndicator(
-                    value: 0.75,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xff2ea94f)),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    width: MediaQuery.of(context).size.height * 0.12,
+                    child: const CircularProgressIndicator(
+                      value: 0.75,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(0xff2ea94f)),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.12,
-                  width: MediaQuery.of(context).size.height * 0.12,
-                  child: const CircularProgressIndicator(
-                    value: 0.5,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xfff9b923)),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    width: MediaQuery.of(context).size.height * 0.12,
+                    child: const CircularProgressIndicator(
+                      value: 0.5,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(0xfff9b923)),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.12,
-                  width: MediaQuery.of(context).size.height * 0.12,
-                  child: const CircularProgressIndicator(
-                    value: 0.25,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xffe54540)),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    width: MediaQuery.of(context).size.height * 0.12,
+                    child: const CircularProgressIndicator(
+                      value: 0.25,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(0xffe54540)),
+                    ),
                   ),
-                ),
-                CachedNetworkImage(
-                  imageUrl: widget.profilePicture,
-                  height: MediaQuery.of(context).size.height * 0.12 - 4,
-                  width: MediaQuery.of(context).size.height * 0.12 - 5,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Colors.red,
+                  CachedNetworkImage(
+                    imageUrl: widget.profilePicture,
+                    height: MediaQuery.of(context).size.height * 0.12 - 4,
+                    width: MediaQuery.of(context).size.height * 0.12 - 5,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.red,
+                        ),
+                      ),
+                    ),
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        shape: BoxShape.circle,
                       ),
                     ),
                   ),
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               width: 20,
