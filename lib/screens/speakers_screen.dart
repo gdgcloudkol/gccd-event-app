@@ -2,6 +2,7 @@ import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../widgets/speaker_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -239,15 +240,16 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.025,
                     ),
-                    Text(
+                    ReadMoreText(
                       speaker.bio,
-                      softWrap: true,
+                      trimLines: 10,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: '...read more',
+                      trimExpandedText: 'collapse ',
                       style: const TextStyle(
                         fontSize: 20,
                         fontFamily: 'Overpass',
                       ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 10,
                     ),
                   ],
                 ),
