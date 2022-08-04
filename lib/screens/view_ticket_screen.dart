@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
+import 'package:ccd2022app/widgets/social_media_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -42,11 +43,11 @@ class _TicketsScreenState extends State<TicketsScreen> {
           child: Column(
             children: [
               const Text(
-                "Congratulations on making it through hundreds of applications!"
+                "Congratulations on making it through hundreds of applications! "
                 "We look forward to see you at the Cloud Community Days.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 17,
                   fontFamily: "GoogleSans",
                 ),
               ),
@@ -54,12 +55,12 @@ class _TicketsScreenState extends State<TicketsScreen> {
                 height: 25,
               ),
               const Text(
-                "Workshop passes will start rolling out from 5 August."
+                "Workshop passes will start rolling out from 5 August. "
                 "Check here after 5 August for your Workshop pass.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.redAccent,
-                  fontSize: 18,
+                  fontSize: 17,
                   fontFamily: "GoogleSans",
                 ),
               ),
@@ -192,23 +193,6 @@ class _TicketsScreenState extends State<TicketsScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget buildSocialMediaIconButton(
-      String launchUrl, Color color, IconData icon) {
-    return IconButton(
-      onPressed: () {
-        launchUrlString(
-          launchUrl,
-          mode: LaunchMode.externalApplication,
-        );
-      },
-      icon: Icon(
-        icon,
-        color: color,
-        size: 30,
       ),
     );
   }

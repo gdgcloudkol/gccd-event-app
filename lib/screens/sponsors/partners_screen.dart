@@ -36,8 +36,9 @@ class _PartnersScreenState extends State<PartnersScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ...getHeading(Colors.blue, "Community Partners"),
-            const SlidingCardsView(),
+            const SizedBox(
+              height: 20,
+            ),
             ...getHeading(Colors.green, "Sponsors"),
             const Padding(
               padding: EdgeInsets.all(20.0),
@@ -85,16 +86,18 @@ class _PartnersScreenState extends State<PartnersScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: 30,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 50.0,
+              ),
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: const Color(0xff3274ee),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                 ),
                 onPressed: () {
@@ -107,10 +110,10 @@ class _PartnersScreenState extends State<PartnersScreen> {
                   height: 50,
                   child: Center(
                     child: Text(
-                      "Become a Partner".toUpperCase(),
+                      "Become a Sponsor".toUpperCase(),
                       style: const TextStyle(
                           fontFamily: "GoogleSans",
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: Colors.white),
                     ),
@@ -118,6 +121,8 @@ class _PartnersScreenState extends State<PartnersScreen> {
                 ),
               ),
             ),
+            ...getHeading(Colors.blue, "Community Partners"),
+            const SlidingCardsView(),
             const SizedBox(
               height: 80,
             ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppLicense extends StatelessWidget {
-  const AppLicense({Key? key}) : super(key: key);
+  final String versionName;
+  const AppLicense({Key? key, required this.versionName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class AppLicense extends StatelessWidget {
           height: 100,
         ),
         applicationName: "CCD 2022",
-        applicationVersion: "v0.0.1",
+        applicationVersion: versionName,
         applicationLegalese: "© GDG Cloud Kolkata",
       ),
     );

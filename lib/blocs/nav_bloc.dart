@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class NavigationBloc extends ChangeNotifier {
   ///Nav index variable to control the app navigation
@@ -11,8 +12,8 @@ class NavigationBloc extends ChangeNotifier {
   final Map<int, String> _screenNames = {
     0: "Home",
     1: "Profile",
-    3: "Partners",
-    4: "Speakers",
+    3: "Speakers",
+    4: "Partners",
     6: "Tell a Friend",
     7: "Terms & Conditions",
     8: "Privacy Policy",
@@ -23,8 +24,17 @@ class NavigationBloc extends ChangeNotifier {
 
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
+  PackageInfo? _packageInfo;
+
+  PackageInfo? get packageInfo => _packageInfo;
+
   NavigationBloc(GlobalKey<NavigatorState> navigatorKey) {
     _navigatorKey = navigatorKey;
+    initPackageInfo();
+  }
+
+  initPackageInfo() async {
+    _packageInfo = await PackageInfo.fromPlatform();
   }
 
   final List<int> _navStack = [0];

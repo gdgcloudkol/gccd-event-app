@@ -4,6 +4,7 @@ import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/license_screen.dart';
+import 'package:ccd2022app/widgets/social_media_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,9 +25,9 @@ class AppDrawer extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         backgroundColor: Colors.white,
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: size.height - kToolbarHeight - 30,
+        child: SizedBox(
+          height: size.height - kToolbarHeight - 30,
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -118,8 +119,8 @@ class AppDrawer extends StatelessWidget {
                   ),
                 ],
                 singleDrawerOption(
-                  "Partners",
-                  FontAwesomeIcons.solidHandshake,
+                  "Speakers",
+                  FontAwesomeIcons.bullhorn,
                   3,
                   context,
                   nb,
@@ -130,8 +131,8 @@ class AppDrawer extends StatelessWidget {
                   height: 10,
                 ),
                 singleDrawerOption(
-                  "Speakers",
-                  FontAwesomeIcons.bullhorn,
+                  "Partners",
+                  FontAwesomeIcons.solidHandshake,
                   4,
                   context,
                   nb,
@@ -141,6 +142,7 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+
                 if (ab.isLoggedIn) ...[
                   singleDrawerOption(
                     "Sign Out",
@@ -155,7 +157,9 @@ class AppDrawer extends StatelessWidget {
                     height: 10,
                   ),
                 ],
-                const Spacer(),
+                const SizedBox(
+                  height: 50,
+                ),
                 const Divider(color: Colors.black45),
                 const SizedBox(
                   height: 10,
@@ -206,10 +210,7 @@ class AppDrawer extends StatelessWidget {
                   tsb,
                 ),
                 const SizedBox(
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 10,
+                  height: 100,
                 ),
                 // singleDrawerOption(
                 //   "About Us",
@@ -223,6 +224,70 @@ class AppDrawer extends StatelessWidget {
                 // const SizedBox(
                 //   height: 10,
                 // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildSocialMediaIconButton(
+                      "https://twitter.com/gdgcloudkol",
+                      const Color(0xff1DA1F2),
+                      FontAwesomeIcons.twitter,
+                      size: 25,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    buildSocialMediaIconButton(
+                      "https://www.linkedin.com/company/gdgcloudkol/",
+                      const Color(0xff0A66C2),
+                      FontAwesomeIcons.linkedin,
+                      size: 25,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    buildSocialMediaIconButton(
+                      "https://facebook.com/gdgcloudkol",
+                      const Color(0xff4267B2),
+                      FontAwesomeIcons.facebook,
+                      size: 25,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    buildSocialMediaIconButton(
+                      "https://instagram.com/gdgcloudkol",
+                      const Color(0xffC13584),
+                      FontAwesomeIcons.instagram,
+                      size: 25,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    buildSocialMediaIconButton(
+                      "mailto:gdgcloudkol@gmail.com",
+                      Colors.red,
+                      FontAwesomeIcons.solidEnvelope,
+                      size: 25,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                if (nb.packageInfo != null)
+                  Center(
+                    child: Text(
+                      "v${nb.packageInfo?.version}",
+                      style: const TextStyle(
+                        fontFamily: "GoogleSans",
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),
@@ -244,7 +309,7 @@ class AppDrawer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         color:
-            nb.navIndex == index ? Colors.green.withOpacity(0.2) : Colors.white,
+            nb.navIndex == index ? Colors.green.withOpacity(0.3) : Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
       child: ListTile(
@@ -315,7 +380,9 @@ class AppDrawer extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AppLicense(),
+          builder: (context) => AppLicense(
+            versionName: nb.packageInfo?.version ?? "v0.0.1-dev",
+          ),
         ),
       );
     } else {
