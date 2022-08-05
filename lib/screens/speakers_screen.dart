@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/speakers_bloc.dart';
+import 'package:ccd2022app/widgets/multiborder_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,52 +20,32 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
   Icon getSocialLink(Link link, BuildContext context) {
     switch (link.title) {
       case "Twitter":
-        return const Icon(
-          FontAwesomeIcons.twitter,
-          color: Color(
-            0xFF1DA1F2,
-          ),
-        );
+        return const Icon(FontAwesomeIcons.twitter,
+            color: Color(0xFF1DA1F2), size: 30);
 
       case "Facebook":
-        return const Icon(
-          FontAwesomeIcons.facebook,
-          color: Color(
-            0xFF3B5998,
-          ),
-        );
+        return const Icon(FontAwesomeIcons.facebook,
+            color: Color(0xFF3B5998), size: 30);
       case "Github":
-        return const Icon(
-          FontAwesomeIcons.github,
-          color: Color(0xFF333F4D),
-        );
+        return const Icon(FontAwesomeIcons.github,
+            color: Color(0xFF333F4D), size: 30);
       case "LinkedIn":
-        return const Icon(
-          FontAwesomeIcons.linkedin,
-          color: Color(0xFF0077B5),
-        );
+        return const Icon(FontAwesomeIcons.linkedin,
+            color: Color(0xFF0077B5), size: 30);
       case "Company Website":
-        return const Icon(
-          FontAwesomeIcons.globe,
-          color: Color(0xFF0077B5),
-        );
+        return const Icon(FontAwesomeIcons.globe,
+            color: Color(0xFF0077B5), size: 30);
       case "Instagram":
-        return const Icon(
-          FontAwesomeIcons.instagram,
-          color: Color(0xFFE4405F),
-        );
+        return const Icon(FontAwesomeIcons.instagram,
+            color: Color(0xFFE4405F), size: 30);
       case "Sessionize":
-        return const Icon(
-          FontAwesomeIcons.calendar,
-          color: Color(0xFF1AB394),
-        );
+        return const Icon(FontAwesomeIcons.calendar,
+            color: Color(0xFF1AB394), size: 30);
       case "Blog":
-        return const Icon(
-          FontAwesomeIcons.blogger,
-          color: Color(0xFFF57C00),
-        );
+        return const Icon(FontAwesomeIcons.blogger,
+            color: Color(0xFFF57C00), size: 30);
       default:
-        return const Icon(Icons.link);
+        return const Icon(Icons.link, size: 30);
     }
   }
 
@@ -97,8 +78,7 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
   _showFullModal(context, speaker) {
     showGeneralDialog(
       context: context,
-      barrierDismissible:
-          false, // should dialog be dismissed when tapped outside
+      barrierDismissible: false,
       barrierLabel: "About",
       transitionDuration: const Duration(milliseconds: 500),
       pageBuilder: (_, __, ___) {
@@ -127,73 +107,8 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
             children: [
               Hero(
                 tag: speaker.id,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    ConstrainedBox(
-                      constraints: BoxConstraints.expand(
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        width: MediaQuery.of(context).size.width * 0.3,
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.12,
-                      width: MediaQuery.of(context).size.height * 0.12,
-                      child: const CircularProgressIndicator(
-                        value: 1,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Color(0xff3d82f8)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.12,
-                      width: MediaQuery.of(context).size.height * 0.12,
-                      child: const CircularProgressIndicator(
-                        value: 0.75,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Color(0xff2ea94f)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.12,
-                      width: MediaQuery.of(context).size.height * 0.12,
-                      child: const CircularProgressIndicator(
-                        value: 0.5,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Color(0xfff9b923)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.12,
-                      width: MediaQuery.of(context).size.height * 0.12,
-                      child: const CircularProgressIndicator(
-                        value: 0.25,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Color(0xffe54540)),
-                      ),
-                    ),
-                    CachedNetworkImage(
-                      imageUrl: speaker.profilePicture,
-                      height: MediaQuery.of(context).size.height * 0.12 - 4,
-                      width: MediaQuery.of(context).size.height * 0.12 - 5,
-                      placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.red,
-                          ),
-                        ),
-                      ),
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                  ],
+                child: MultiBorderImage(
+                  imageUrl: speaker.profilePicture,
                 ),
               ),
               Padding(
@@ -223,35 +138,93 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
               Center(
                 child: getSocialLinks(context, speaker),
               ),
+              const SizedBox(
+                height: 20,
+              ),
               Padding(
-                padding: const EdgeInsets.all(35.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Bio",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Overpass',
-                        fontWeight: FontWeight.bold,
-                      ),
+                padding: const EdgeInsets.all(10.0),
+                child: Material(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Bio",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'Overpass',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
+                            ),
+                            ReadMoreText(
+                              speaker.bio,
+                              trimLines: 10,
+                              trimMode: TrimMode.Line,
+                              trimCollapsedText: '...read more',
+                              trimExpandedText: 'collapse ',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'Overpass',
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: const Divider(
+                            color: Colors.black12,
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Sessions",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'Overpass',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
+                            ),
+                            ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: speaker.sessions.length,
+                              itemBuilder: (context, index) {
+                                // print(speaker.sessions[index].name);
+                                return ListTile(
+                                  title: Text(
+                                    speaker.sessions[index].name,
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'Overpass',
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.025,
-                    ),
-                    ReadMoreText(
-                      speaker.bio,
-                      trimLines: 10,
-                      trimMode: TrimMode.Line,
-                      trimCollapsedText: '...read more',
-                      trimExpandedText: 'collapse ',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Overpass',
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
