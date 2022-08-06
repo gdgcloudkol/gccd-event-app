@@ -101,132 +101,147 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
                     fontSize: 20),
               ),
               elevation: 0.0),
-          body: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              Hero(
-                tag: speaker.id,
-                child: MultiBorderImage(
-                  imageUrl: speaker.profilePicture,
-                ),
+          body: Container(
+            constraints: const BoxConstraints.expand(),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/ccd_background.png'),
+                fit: BoxFit.cover,
+                opacity: 0.3,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  speaker.fullName,
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontFamily: 'Overpass',
-                    fontWeight: FontWeight.bold,
+            ),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                Hero(
+                  tag: speaker.id,
+                  child: MultiBorderImage(
+                    imageUrl: speaker.profilePicture,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  speaker.tagLine,
-                  softWrap: true,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontFamily: 'Overpass',
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    speaker.fullName,
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontFamily: 'Overpass',
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-              Center(
-                child: getSocialLinks(context, speaker),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Material(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    speaker.tagLine,
+                    softWrap: true,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'Overpass',
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Bio",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'Overpass',
-                                fontWeight: FontWeight.bold,
+                ),
+                Center(
+                  child: getSocialLinks(context, speaker),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Material(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                    ),
+                    color: Colors.transparent,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Bio",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Overpass',
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.025,
-                            ),
-                            ReadMoreText(
-                              speaker.bio,
-                              trimLines: 10,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: '...read more',
-                              trimExpandedText: 'collapse ',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'Overpass',
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.025,
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          child: const Divider(
-                            color: Colors.black12,
+                              ReadMoreText(
+                                speaker.bio,
+                                trimLines: 10,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: '...read more',
+                                trimExpandedText: 'collapse ',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Overpass',
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Sessions",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'Overpass',
-                                fontWeight: FontWeight.bold,
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            child: const Divider(
+                              color: Colors.black12,
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Sessions",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Overpass',
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.025,
-                            ),
-                            ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: speaker.sessions.length,
-                              itemBuilder: (context, index) {
-                                // print(speaker.sessions[index].name);
-                                return ListTile(
-                                  title: Text(
-                                    speaker.sessions[index].name,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Overpass',
-                                      color: Colors.black,
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.025,
+                              ),
+                              ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: speaker.sessions.length,
+                                itemBuilder: (context, index) {
+                                  // print(speaker.sessions[index].name);
+                                  return ListTile(
+                                    title: Text(
+                                      speaker.sessions[index].name,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Overpass',
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
