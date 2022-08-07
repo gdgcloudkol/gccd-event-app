@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/speakers_bloc.dart';
+import 'package:ccd2022app/screens/speaker_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +13,6 @@ class SpeakersScreen extends StatefulWidget {
 }
 
 class _SpeakersScreenState extends State<SpeakersScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     SpeakersBloc sb = Provider.of<SpeakersBloc>(context);
@@ -32,11 +31,24 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
               context,
               int index,
             ) {
-              return SpeakerCard(
-                name: sb.speakers[index].fullName,
-                profilePicture: sb.speakers[index].profilePicture,
-                tagLine: sb.speakers[index].tagLine,
-                socialLinks: sb.speakers[index].links,
+              return GestureDetector(
+                onTap: () => {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SpeakerProfileScreen(
+                            speaker: sb.speakers[index]);
+                      },
+                    ),
+                  )
+                },
+                child: SpeakerCard(
+                  id: sb.speakers[index].id,
+                  name: sb.speakers[index].fullName,
+                  profilePicture: sb.speakers[index].profilePicture,
+                  tagLine: sb.speakers[index].tagLine,
+                  socialLinks: sb.speakers[index].links,
+                ),
               );
             },
           );

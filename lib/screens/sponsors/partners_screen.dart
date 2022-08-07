@@ -86,7 +86,7 @@ class _PartnersScreenState extends State<PartnersScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Padding(
