@@ -2,6 +2,7 @@ import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/screens/home_screen.dart';
 import 'package:ccd2022app/screens/speakers_screen.dart';
 import 'package:ccd2022app/screens/sponsors/partners_screen.dart';
+import 'package:ccd2022app/utils/fcm.dart';
 import 'package:ccd2022app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,9 +16,17 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      NavigationBloc nb = Provider.of<NavigationBloc>(context, listen: false);
+      setupInteractedMessage(nb);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
-    // AuthBloc ab = Provider.of<AuthBloc>(context);
 
     return WillPopScope(
       ///Custom navigation to transform single page behaviour into multi page stacked nav
