@@ -23,6 +23,10 @@ class TicketStatusBloc extends ChangeNotifier {
 
   bool get loading => _loading;
 
+  bool _rejected = false;
+
+  bool get rejected => _rejected;
+
   ///Call to checkTicketStatus() from constructor to fetch data on first app load
   TicketStatusBloc() {
     checkTicketStatus();
@@ -55,7 +59,15 @@ class TicketStatusBloc extends ChangeNotifier {
         _loading = false;
         notifyListeners();
         return;
+      } else if (sp.getBool(Config.prefTicketRejected) ?? false) {
+        _hasApplied = true;
+        _ticketGranted = false;
+        _rejected = true;
+        _loading = false;
+        notifyListeners();
+        return;
       }
+
       ///End of Step 0///
 
       _loading = true;
@@ -64,7 +76,8 @@ class TicketStatusBloc extends ChangeNotifier {
       ///Step 1///
       ///Checking if application exists
       ///If yes, go to Step 2
-      DocumentSnapshot snap = await FirebaseFirestore.instance
+      DocumentSnapshot<Map<String, dynamic>> snap = await FirebaseFirestore
+          .instance
           .collection(Config.fscTicketFormRegistrations)
           .doc(sp.getString(Config.prefUID))
           .get();
@@ -74,6 +87,7 @@ class TicketStatusBloc extends ChangeNotifier {
       } else {
         _hasApplied = false;
       }
+
       ///End of Step 1///
 
       ///Step 2///
@@ -82,23 +96,36 @@ class TicketStatusBloc extends ChangeNotifier {
       ///cache in shared preferences so that
       ///we don't make redundant api calls from next time
       if (_hasApplied) {
-        String uid = sp.getString(Config.prefUID) ?? "";
-        DocumentSnapshot snapTicket = await FirebaseFirestore.instance
-            .collection(Config.fscTickets)
-            .doc(uid)
-            .get();
-        if (snapTicket.exists) {
-          _ticketGranted = true;
-          ListResult result = await _storage.ref("$uid/").listAll();
-
-          _confTicketImageUrl = await result.items[0].getDownloadURL();
-
-          sp.setBool(Config.prefHasTicket, true);
-          sp.setString(Config.prefConferenceTicketImageUrl, confTicketImageUrl);
-        } else {
+        ///Checking if ticket was rejected
+        if (snap.data() != null &&
+            (snap.data() ?? {}).containsKey(Config.fsfRejected)) {
           _ticketGranted = false;
+          _rejected = true;
+          sp.setBool(Config.prefTicketRejected, true);
+        }
+
+        ///Checking if ticket was granted
+        else {
+          String uid = sp.getString(Config.prefUID) ?? "";
+          DocumentSnapshot snapTicket = await FirebaseFirestore.instance
+              .collection(Config.fscTickets)
+              .doc(uid)
+              .get();
+          if (snapTicket.exists) {
+            _ticketGranted = true;
+            ListResult result = await _storage.ref("$uid/").listAll();
+
+            _confTicketImageUrl = await result.items[0].getDownloadURL();
+
+            sp.setBool(Config.prefHasTicket, true);
+            sp.setString(
+                Config.prefConferenceTicketImageUrl, confTicketImageUrl);
+          } else {
+            _ticketGranted = false;
+          }
         }
       }
+
       ///End of Step 2///
     }
 

@@ -221,8 +221,10 @@ class _HomeScreenState extends State<HomeScreen> {
   String getTicketApplyButtonText(AuthBloc ab, TicketStatusBloc tsb) {
     if (ab.isLoggedIn) {
       if (tsb.hasApplied) {
-        if (tsb.ticketGranted) {
-          return "View Ticket";
+        if (tsb.rejected) {
+          return "Rejected";
+        } else if (tsb.ticketGranted) {
+          return "View Tickets";
         } else {
           return "Under Review";
         }
@@ -236,7 +238,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Color getTicketApplyButtonColor(AuthBloc ab, TicketStatusBloc tsb) {
     if (ab.isLoggedIn) {
       if (tsb.hasApplied) {
-        if (tsb.ticketGranted) {
+        if (tsb.rejected) {
+          return const Color(0xff6b7280);
+        } else if (tsb.ticketGranted) {
           return const Color(0xffEF4444);
         } else {
           return const Color(0xffeab308);

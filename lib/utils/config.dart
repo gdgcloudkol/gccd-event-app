@@ -36,6 +36,7 @@ class Config {
   static String fsfTSize = "tsize";
   static String fsfUnderstand = "understand";
   static String fsfWorkshop = "workshop";
+  static String fsfRejected = "rejected";
 
   ///End of fields for user ticket application form
 
@@ -49,6 +50,7 @@ class Config {
   static String prefUID = "uid";
   static String prefProfilePicUrl = "profilePicUrl";
   static String prefHasTicket = "hasTicket";
+  static String prefTicketRejected = "ticketRejected";
   static String prefConferenceTicketImageUrl = "conferenceTicketImageUrl";
 
   static List<CommunityPartnersModel> communityPartners = [
