@@ -1,6 +1,7 @@
 import 'package:ccd2022app/models/community_partners_model.dart';
 import 'package:ccd2022app/screens/sponsors/cards/sliding_card_view_state.dart';
 import 'package:ccd2022app/utils/config.dart';
+import 'package:ccd2022app/widgets/sponsor_card.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -14,16 +15,6 @@ class PartnersScreen extends StatefulWidget {
 class _PartnersScreenState extends State<PartnersScreen> {
   CommunityPartnersModel currentModel = Config.communityPartners[0];
 
-  List<String> sponsorsImages = [
-    "assets/images/sponsors/gdg.png",
-    "assets/images/sponsors/sessionize.png",
-  ];
-
-  List<String> sponsorsLinks = [
-    "https://developers.google.com/",
-    "https://sessionize.com/",
-  ];
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -36,9 +27,6 @@ class _PartnersScreenState extends State<PartnersScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 20,
-            ),
             ...getHeading(Colors.green, "Sponsors"),
             const Padding(
               padding: EdgeInsets.all(20.0),
@@ -53,36 +41,18 @@ class _PartnersScreenState extends State<PartnersScreen> {
               ),
             ),
             ...List<Widget>.generate(
-              2,
+              Config.sponsorsLinks.length,
               (index) => GestureDetector(
                 onTap: () {
                   launchUrlString(
-                    sponsorsLinks[index],
+                    Config.sponsorsLinks[index],
                     mode: LaunchMode.externalApplication,
                   );
                 },
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  elevation: 5,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: Container(
-                    height: 80,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            sponsorsImages[index],
-                            height: 50,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                child: SponsorsCard(
+                  imageUrl: Config.sponsorsImages[index],
+                  description: Config.sponsorsDescription[index],
+                  descriptionColor: Config.sponsorsColors[index],
                 ),
               ),
             ),
