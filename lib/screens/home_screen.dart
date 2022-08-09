@@ -5,9 +5,9 @@ import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
 import 'package:ccd2022app/screens/view_ticket_screen.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
-import 'package:ccd2022app/widgets/foreground_notification_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -184,20 +184,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: const Color(0xff16a34a),
                 ),
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return ForegroundNotificationDialog(
-                          title: "New speaker added",
-                          body: "Welcoming Avinash Ranjan as a new CCD Speaker",
-                          nb: nb,
-                        );
-                      });
-                  //TODO
-                  // launchUrlString(
-                  //   "https://sessionize.com/cloud-community-days",
-                  //   mode: LaunchMode.externalApplication,
-                  // );
+                  launchUrlString(
+                    "https://sessionize.com/cloud-community-days",
+                    mode: LaunchMode.externalApplication,
+                  );
                 },
                 child: SizedBox(
                   height: 60,

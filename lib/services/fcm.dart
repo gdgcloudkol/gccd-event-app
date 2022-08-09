@@ -30,8 +30,13 @@ class Fcm {
         mode: LaunchMode.externalApplication,
       );
     } else if (message.data.containsKey(Config.fcmArgScreen)) {
-      if (message.data[Config.fcmArgScreen] == 'speakers') {
-        nb.changeNavIndex(3);
+      int navIndex = nb.screenNames.keys.firstWhere(
+        (k) => nb.screenNames[k] == message.data[Config.fcmArgScreen],
+        orElse: () => -1,
+      );
+
+      if (navIndex != -1) {
+        nb.changeNavIndex(navIndex);
       }
     }
   }
