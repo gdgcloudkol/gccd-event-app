@@ -7,20 +7,28 @@ import 'package:ccd2022app/entrypoint/navigation_screen.dart';
 import 'package:ccd2022app/screens/splash_screen.dart';
 import 'package:ccd2022app/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp();
+  }
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ///Loading environment Variables
-  // await dotenv.load(fileName: ".env");
-
   ///Initialising firebase app
   ///so that all firebase services can be used
   if (Firebase.apps.isEmpty) await Firebase.initializeApp();
+
+  ///Setting up fcm listener
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   enableEdgeToEdge();
 

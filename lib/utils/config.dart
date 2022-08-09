@@ -53,6 +53,9 @@ class Config {
   static String prefTicketRejected = "ticketRejected";
   static String prefConferenceTicketImageUrl = "conferenceTicketImageUrl";
 
+  static String fcmArgRedirect = "redirect";
+  static String fcmArgScreen = "appScreen";
+
   static List<CommunityPartnersModel> communityPartners = [
     CommunityPartnersModel(
       "Google Developer Student Clubs",
