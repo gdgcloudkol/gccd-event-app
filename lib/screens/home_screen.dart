@@ -4,6 +4,7 @@ import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
 import 'package:ccd2022app/screens/view_ticket_screen.dart';
+import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -162,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       : Center(
                           child: Text(
-                            getTicketApplyButtonText(ab, tsb).toUpperCase(),
+                            getTicketApplyButtonText(ab, tsb),
                             style: const TextStyle(
                               fontFamily: "GoogleSans",
                               fontSize: 20,
@@ -181,7 +182,9 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xff16a34a),
+                  backgroundColor: DateTime.now().isAfter(Config.cfsLastDate)
+                      ? const Color(0xff6b7280)
+                      : const Color(0xff16a34a),
                 ),
                 onPressed: () {
                   launchUrlString(
@@ -193,7 +196,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 60,
                   child: Center(
                     child: Text(
-                      "Become a Speaker".toUpperCase(),
+                      DateTime.now().isAfter(Config.cfsLastDate)
+                          ? "CFS Closed"
+                          : "Become a Speaker".toUpperCase(),
                       style: const TextStyle(
                           fontFamily: "GoogleSans",
                           fontSize: 20,

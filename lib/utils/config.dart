@@ -107,4 +107,7 @@ class Config {
       "assets/images/Logo.png",
     ),
   ];
+
+  ///Last date for call for speakers
+  static DateTime cfsLastDate = DateTime(2022, 8, 4);
 }
