@@ -160,17 +160,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 );
               });
         }
-        // flutterLocalNotificationsPlugin.show(
-        //     notification.hashCode,
-        //     notification.title,
-        //     notification.body,
-        //     NotificationDetails(
-        //       android: AndroidNotificationDetails(
-        //         channel.id,
-        //         channel.name,
-        //         channelDescription: channel.description,
-        //       ),
-        //     ));
       }
     });
   }

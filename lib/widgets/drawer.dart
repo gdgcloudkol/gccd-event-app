@@ -376,11 +376,11 @@ class AppDrawer extends StatelessWidget {
     } else if (index == 5) {
       ab.signOut(context, tsb, nb);
     } else if (index == 6) {
-      final bytes = await rootBundle.load('assets/images/Logo.png');
+      final bytes = await rootBundle.load('assets/images/share.png');
       final list = bytes.buffer.asUint8List();
 
       final tempDir = await getTemporaryDirectory();
-      final file = await File('${tempDir.path}/image.jpg').create();
+      final file = await File('${tempDir.path}/Cloud Community Days 2022.jpg').create();
       file.writeAsBytesSync(list);
       Share.shareFiles(
         [file.path],
@@ -390,7 +390,7 @@ class AppDrawer extends StatelessWidget {
             " join hundreds of developers and engage with industry experts presenting on cutting edge technology."
             'Hurry, get your pass!\n'
             '\nWebsite: https://gdgcloud.kolkata.dev/ccd2022/\n\n'
-            'App: https://play.google.com/store/apps/details?id=com.example.ccd2022app',
+            'App: https://play.google.com/store/apps/details?id=com.gdgck.ccd2022',
       );
     } else if (index == 9) {
       Navigator.push(
