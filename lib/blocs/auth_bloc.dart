@@ -192,6 +192,9 @@ class AuthBloc extends ChangeNotifier {
     if (nb.navigatorKey.currentState != null) {
       showSnackBar(
           nb.navigatorKey.currentState!.context, "Signed Out successfully");
+      if(nb.navIndex == 7){
+        nb.changeNavIndex(0);
+      }
     }
     notifyListeners();
   }

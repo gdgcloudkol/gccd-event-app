@@ -15,8 +15,7 @@ class NavigationBloc extends ChangeNotifier {
     3: "Speakers",
     4: "Partners",
     6: "Tell a Friend",
-    7: "Terms & Conditions",
-    8: "Privacy Policy",
+    7: "Dashboard",
     10: "About Us",
   };
 

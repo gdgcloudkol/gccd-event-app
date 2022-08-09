@@ -142,6 +142,21 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                if (ab.isLoggedIn) ...[
+                  singleDrawerOption(
+                    "Dashboard",
+                    Icons.dashboard_rounded,
+                    7,
+                    context,
+                    nb,
+                    ab,
+                    tsb,
+                    iconSize: 26,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
 
                 if (ab.isLoggedIn) ...[
                   singleDrawerOption(
@@ -210,7 +225,7 @@ class AppDrawer extends StatelessWidget {
                   tsb,
                 ),
                 const SizedBox(
-                  height: 100,
+                  height: 50,
                 ),
                 // singleDrawerOption(
                 //   "About Us",
@@ -303,8 +318,9 @@ class AppDrawer extends StatelessWidget {
     BuildContext context,
     NavigationBloc nb,
     AuthBloc ab,
-    TicketStatusBloc tsb,
-  ) {
+    TicketStatusBloc tsb, {
+    double iconSize = 24,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
@@ -327,7 +343,7 @@ class AppDrawer extends StatelessWidget {
           child: Icon(
             icon,
             color: Colors.black,
-            size: 25,
+            size: iconSize,
           ),
         ),
         onTap: () {

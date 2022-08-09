@@ -1,4 +1,6 @@
+import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/screens/dashboard_screen.dart';
 import 'package:ccd2022app/screens/home_screen.dart';
 import 'package:ccd2022app/screens/speakers_screen.dart';
 import 'package:ccd2022app/screens/sponsors/partners_screen.dart';
@@ -71,6 +73,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
+    AuthBloc ab = Provider.of<AuthBloc>(context);
 
     return WillPopScope(
       ///Custom navigation to transform single page behaviour into multi page stacked nav
@@ -86,6 +89,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
         body: getBody(nb.navIndex),
         drawer: const AppDrawer(),
         appBar: AppBar(
+          elevation: 5,
+          centerTitle: ab.isLoggedIn && !(ab.profilePicUrl == ""),
           backgroundColor: Colors.white,
           iconTheme: const IconThemeData(
             color: Colors.black,
@@ -98,18 +103,18 @@ class _NavigationScreenState extends State<NavigationScreen> {
               fontWeight: FontWeight.w700,
             ),
           ),
-          actions: const [
-            // if (ab.isLoggedIn && !(ab.profilePicUrl == ""))
-            //   CircleAvatar(
-            //     foregroundImage: NetworkImage(
-            //       ab.profilePicUrl,
-            //     ),
-            //     radius: 25,
-            //     backgroundColor: Colors.white,
-            //   ),
-            // const SizedBox(
-            //   width: 20,
-            // ),
+          actions: [
+            if (ab.isLoggedIn && !(ab.profilePicUrl == ""))
+              CircleAvatar(
+                foregroundImage: NetworkImage(
+                  ab.profilePicUrl,
+                ),
+                radius: 20,
+                backgroundColor: Colors.white,
+              ),
+            const SizedBox(
+              width: 20,
+            ),
           ],
         ),
       ),
@@ -124,6 +129,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
         return const SpeakersScreen();
       case 4:
         return const PartnersScreen();
+      case 7 :
+        return const DashboardScreen();
       default:
         return const HomeScreen();
     }
