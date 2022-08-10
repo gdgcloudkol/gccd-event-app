@@ -71,7 +71,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
         const Padding(
           padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
           child: Text(
-            "Invite 10 friends to get an exclusive mystery box.\n\nYour referral code is:",
+            "Invite 25 friends to get an exclusive mystery box.\n\nYour referral code is:",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "GoogleSans",

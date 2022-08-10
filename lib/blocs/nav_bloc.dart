@@ -17,6 +17,7 @@ class NavigationBloc extends ChangeNotifier {
     6: "Tell a Friend",
     7: "Dashboard",
     10: "About Us",
+    11: "Refer and Earn",
   };
 
   late GlobalKey<NavigatorState> _navigatorKey;

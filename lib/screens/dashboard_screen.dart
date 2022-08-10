@@ -255,7 +255,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: 'for inviting 10 friends.',
+                                          text: 'for inviting 25 friends.',
                                         )
                                       ]),
                                 ),
