@@ -37,6 +37,8 @@ class Config {
   static String fsfTSize = "tsize";
   static String fsfUnderstand = "understand";
   static String fsfWorkshop = "workshop";
+  static String fsfCity = "city";
+  static String fsfAppRegistration = "app_registration";
   static String fsfRejected = "rejected";
 
   ///End of fields for user ticket application form

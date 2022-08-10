@@ -27,6 +27,10 @@ class TicketStatusBloc extends ChangeNotifier {
 
   bool get rejected => _rejected;
 
+  DocumentSnapshot<Map<String, dynamic>>? _applicantData;
+
+  DocumentSnapshot<Map<String, dynamic>>? get applicantData => _applicantData;
+
   ///Call to checkTicketStatus() from constructor to fetch data on first app load
   TicketStatusBloc() {
     checkTicketStatus();
@@ -83,6 +87,7 @@ class TicketStatusBloc extends ChangeNotifier {
           .get();
 
       if (snap.exists) {
+        _applicantData = snap;
         _hasApplied = true;
       } else {
         _hasApplied = false;

@@ -18,6 +18,8 @@ class TicketFormModel {
   String tSize;
   String understand;
   String workshop;
+  String city;
+  String appRegistration;
 
   TicketFormModel(
     this.blog,
@@ -37,7 +39,9 @@ class TicketFormModel {
     this.tSize,
     this.understand,
     this.workshop,
-  );
+    this.city, {
+    this.appRegistration = "Yes",
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -59,6 +63,8 @@ class TicketFormModel {
       Config.fsfTSize: tSize,
       Config.fsfUnderstand: understand,
       Config.fsfWorkshop: workshop,
+      Config.fsfAppRegistration : appRegistration,
+      Config.fsfCity : city,
     };
   }
 }

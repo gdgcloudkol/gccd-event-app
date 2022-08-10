@@ -1,7 +1,9 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
+import 'package:ccd2022app/screens/form_preview_screen.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
 import 'package:ccd2022app/screens/view_ticket_screen.dart';
+import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -253,7 +255,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: 'for inviting 10 friends.',
+                                          text: 'for inviting 25 friends.',
                                         )
                                       ]),
                                 ),
@@ -277,7 +279,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                       primary: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showSnackBar(context,
+                          "Coming Soon. Stay tuned for the next update.");
+                    },
                     icon: const Icon(
                       FontAwesomeIcons.boxOpen,
                       color: Colors.black,
@@ -344,6 +349,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
           },
         ),
       );
+    } else if (tsb.hasApplied) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return const FormPreviewScreen();
+          },
+        ),
+      );
     } else {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -357,10 +370,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   bool shouldShowViewButton(AuthBloc ab, TicketStatusBloc tsb) {
     if (ab.isLoggedIn) {
-      if (tsb.rejected) {
-        return false;
-      } else {
-        return true;
+      if (tsb.hasApplied) {
+        if (tsb.rejected) {
+          return false;
+        } else if (tsb.ticketGranted) {
+          return true;
+        } else {
+          //TODO change this to != null once Application Details form has been completed
+          return tsb.applicantData == null;
+        }
       }
     }
     return false;
