@@ -33,7 +33,7 @@ class AppLicense extends StatelessWidget {
       ),
       child: LicensePage(
         applicationIcon: Image.asset(
-          "assets/images/Logo.png",
+          "assets/images/gdg_logo.png",
           width: 100,
           height: 100,
         ),

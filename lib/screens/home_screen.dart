@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   Image.asset(
-                    "assets/images/Logo.png",
+                    "assets/images/gdg_logo.png",
                     width: 50,
                     height: 50,
                   ),

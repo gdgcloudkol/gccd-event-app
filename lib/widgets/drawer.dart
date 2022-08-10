@@ -40,7 +40,7 @@ class AppDrawer extends StatelessWidget {
                         radius: 35,
                         backgroundColor: Colors.white,
                         backgroundImage: AssetImage(
-                          "assets/images/Logo.png",
+                          "assets/images/gdg_logo.png",
                         ),
                       ),
                       Padding(
