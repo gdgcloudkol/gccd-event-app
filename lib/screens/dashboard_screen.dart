@@ -1,7 +1,7 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
-import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
+import 'package:ccd2022app/screens/refer_and_earn_screen.dart';
 import 'package:ccd2022app/screens/view_ticket_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,7 +20,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     Size size = MediaQuery.of(context).size;
     AuthBloc ab = Provider.of<AuthBloc>(context);
     TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
-    NavigationBloc nb = Provider.of<NavigationBloc>(context);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -280,7 +279,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       primary: Colors.white,
                     ),
                     onPressed: () {
-                      nb.changeNavIndex(11);
+                      Navigator.pushNamed(context, ReferAndEarn.routeName);
                     },
                     icon: const Icon(
                       FontAwesomeIcons.boxOpen,

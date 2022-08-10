@@ -4,6 +4,7 @@ import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_form_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/entrypoint/navigation_screen.dart';
+import 'package:ccd2022app/screens/refer_and_earn_screen.dart';
 import 'package:ccd2022app/screens/splash_screen.dart';
 import 'package:ccd2022app/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -81,6 +82,7 @@ class CCDApp extends StatelessWidget {
         routes: {
           NavigationScreen.routeName: (context) => const NavigationScreen(),
           SplashScreen.routeName: (context) => const SplashScreen(),
+          ReferAndEarn.routeName: (context) => const ReferAndEarn(),
         },
       ),
     );
