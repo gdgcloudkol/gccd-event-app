@@ -76,7 +76,12 @@ class CCDApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         navigatorKey: navigatorKey,
-        home: kDebugMode ? const NavigationScreen() : const SplashScreen(),
+        initialRoute:
+            kDebugMode ? NavigationScreen.routeName : SplashScreen.routeName,
+        routes: {
+          NavigationScreen.routeName: (context) => const NavigationScreen(),
+          SplashScreen.routeName: (context) => const SplashScreen(),
+        },
       ),
     );
   }

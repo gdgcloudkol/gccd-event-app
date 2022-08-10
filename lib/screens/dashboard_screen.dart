@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
 import 'package:ccd2022app/screens/view_ticket_screen.dart';
@@ -19,6 +20,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     Size size = MediaQuery.of(context).size;
     AuthBloc ab = Provider.of<AuthBloc>(context);
     TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
+    NavigationBloc nb = Provider.of<NavigationBloc>(context);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -277,7 +279,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                       primary: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      nb.changeNavIndex(11);
+                    },
                     icon: const Icon(
                       FontAwesomeIcons.boxOpen,
                       color: Colors.black,
