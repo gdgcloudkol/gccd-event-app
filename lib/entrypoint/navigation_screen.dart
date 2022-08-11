@@ -1,6 +1,6 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
-import 'package:ccd2022app/screens/dashboard_screen.dart';
+import 'package:ccd2022app/screens/dashboard/dashboard_screen.dart';
 import 'package:ccd2022app/screens/home_screen.dart';
 import 'package:ccd2022app/screens/speakers_screen.dart';
 import 'package:ccd2022app/screens/sponsors/partners_screen.dart';

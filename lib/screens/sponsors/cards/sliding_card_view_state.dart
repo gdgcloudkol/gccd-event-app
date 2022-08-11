@@ -45,11 +45,19 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
         future: cpb.fetchCommunityPartners(http.Client(), context),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(
-                child: Text("Error Fetching Community Partners"));
+            return const SizedBox(
+                height: 100,
+                child: Center(
+                  child: Text("Error Fetching Community Partners"),
+                ));
           } else if (snapshot.hasData) {
             if ((snapshot.data ?? []).isEmpty) {
-              return const Center(child: Text("No Community Partners Found"));
+              return const SizedBox(
+                height: 100,
+                child: Center(
+                  child: Text("No Community Partners Found"),
+                ),
+              );
             } else {
               return snapshot.hasData
                   ? PageView(
@@ -66,10 +74,20 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
                         );
                       }),
                     )
-                  : const Center(child: CircularProgressIndicator());
+                  : const SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
             }
           }
-          return const Center(child: Text("No Community Partners Found"));
+          return const SizedBox(
+            height: 100,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         },
       ),
     );

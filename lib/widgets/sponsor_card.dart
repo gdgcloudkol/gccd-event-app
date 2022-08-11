@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class SponsorsCard extends StatelessWidget {
@@ -32,8 +33,8 @@ class SponsorsCard extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              Image.network(
-                imageUrl,
+              CachedNetworkImage(
+                imageUrl: imageUrl,
                 height: 50,
               ),
               Container(

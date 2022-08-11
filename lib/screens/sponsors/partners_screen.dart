@@ -45,10 +45,20 @@ class _PartnersScreenState extends State<PartnersScreen> {
               future: sb.fetchSponsors(http.Client(), context),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return const Center(child: Text("Error Fetching Data"));
+                  return const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text("Error Fetching Data"),
+                    ),
+                  );
                 } else if (snapshot.hasData) {
                   if ((snapshot.data ?? []).isEmpty) {
-                    return const Center(child: Text("No Sponsors Found"));
+                    return const SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: Text("No Sponsors Found"),
+                      ),
+                    );
                   } else {
                     return snapshot.hasData
                         ? ListView.builder(
@@ -72,10 +82,20 @@ class _PartnersScreenState extends State<PartnersScreen> {
                               );
                             },
                           )
-                        : const Center(child: CircularProgressIndicator());
+                        : const SizedBox(
+                            height: 100,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
                   }
                 }
-                return const Center(child: Text("No Sponsors Found"));
+                return const SizedBox(
+                  height: 100,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
               },
             ),
             const SizedBox(
