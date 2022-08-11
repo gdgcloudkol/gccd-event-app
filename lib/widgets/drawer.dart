@@ -188,30 +188,30 @@ class AppDrawer extends StatelessWidget {
                   ab,
                   tsb,
                 ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // singleDrawerOption(
-                //   "Terms & Conditions",
-                //   FontAwesomeIcons.gavel,
-                //   7,
-                //   context,
-                //   nb,
-                //   ab,
-                //   tsb,
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // singleDrawerOption(
-                //   "Privacy Policy",
-                //   Icons.privacy_tip_outlined,
-                //   8,
-                //   context,
-                //   nb,
-                //   ab,
-                //   tsb,
-                // ),
+                const SizedBox(
+                   height: 10,
+                 ),
+                 singleDrawerOption(
+                   "FAQs",
+                   FontAwesomeIcons.question,
+                   7,
+                   context,
+                   nb,
+                   ab,
+                   tsb,
+                 ),
+                 const SizedBox(
+                   height: 10,
+                 ),
+                 singleDrawerOption(
+                   "Code of Conduct",
+                   Icons.privacy_tip_outlined,
+                   8,
+                   context,
+                   nb,
+                   ab,
+                   tsb,
+                 ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -225,20 +225,20 @@ class AppDrawer extends StatelessWidget {
                   tsb,
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
-                // singleDrawerOption(
-                //   "About Us",
-                //   FontAwesomeIcons.circleInfo,
-                //   10,
-                //   context,
-                //   nb,
-                //   ab,
-                //   tsb,
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
+                 singleDrawerOption(
+                   "About Us",
+                   FontAwesomeIcons.circleInfo,
+                   10,
+                   context,
+                   nb,
+                   ab,
+                   tsb,
+                ),
+                const SizedBox(
+                 height: 10,
+                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
