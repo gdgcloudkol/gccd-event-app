@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SponsorsCard extends StatelessWidget {
   final String imageUrl;
   final String description;
-  final Color descriptionColor;
+  final String descriptionColor;
 
   const SponsorsCard({
     Key? key,
@@ -32,7 +32,7 @@ class SponsorsCard extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              Image.asset(
+              Image.network(
                 imageUrl,
                 height: 50,
               ),
@@ -40,7 +40,7 @@ class SponsorsCard extends StatelessWidget {
                 width: size.width,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: descriptionColor,
+                  color: getColorFromStr(descriptionColor),
                   borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(15),
                     bottomLeft: Radius.circular(15),
@@ -63,5 +63,11 @@ class SponsorsCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color getColorFromStr(String valueString) {
+    int value = int.parse(valueString, radix: 16);
+    Color color = Color(value);
+    return color;
   }
 }

@@ -1,8 +1,12 @@
+import 'package:ccd2022app/blocs/sponsors.bloc.dart';
 import 'package:ccd2022app/models/community_partners_model.dart';
+import 'package:ccd2022app/models/sponsor_model.dart';
 import 'package:ccd2022app/screens/sponsors/cards/sliding_card_view_state.dart';
 import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/widgets/sponsor_card.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class PartnersScreen extends StatefulWidget {
@@ -18,6 +22,7 @@ class _PartnersScreenState extends State<PartnersScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    SponsorsBloc sb = Provider.of<SponsorsBloc>(context);
 
     return SizedBox(
       height: size.height,
@@ -40,22 +45,46 @@ class _PartnersScreenState extends State<PartnersScreen> {
                 ),
               ),
             ),
-            ...List<Widget>.generate(
-              Config.sponsorsLinks.length,
-              (index) => GestureDetector(
-                onTap: () {
-                  launchUrlString(
-                    Config.sponsorsLinks[index],
-                    mode: LaunchMode.externalApplication,
-                  );
-                },
-                child: SponsorsCard(
-                  imageUrl: Config.sponsorsImages[index],
-                  description: Config.sponsorsDescription[index],
-                  descriptionColor: Config.sponsorsColors[index],
-                ),
-              ),
+            FutureBuilder<List<Sponsor>?>(
+              future: sb.fetchSponsors(http.Client(), context),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Center(child: Text("Error Fetching Data"));
+                }
+
+                return snapshot.hasData
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: (snapshot.data ?? []).length,
+                        itemBuilder: (context, index) {
+                          Sponsor sponsor = snapshot.data![index];
+                          return SponsorsCard(
+                            imageUrl: sponsor.logo,
+                            description: sponsor.description,
+                            descriptionColor: sponsor.color,
+                          );
+                        },
+                      )
+                    : const Center(child: CircularProgressIndicator());
+              },
             ),
+            // ...List<Widget>.generate(
+            //   Config.sponsorsLinks.length,
+            //   (index) => GestureDetector(
+            //     onTap: () {
+            //       launchUrlString(
+            //         Config.sponsorsLinks[index],
+            //         mode: LaunchMode.externalApplication,
+            //       );
+            //     },
+            //     child: SponsorsCard(
+            //       imageUrl: Config.sponsorsImages[index],
+            //       description: Config.sponsorsDescription[index],
+            //       descriptionColor: Config.sponsorsColors[index],
+            //     ),
+            //   ),
+            // ),
             const SizedBox(
               height: 30,
             ),

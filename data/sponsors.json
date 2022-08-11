@@ -1,18 +1,18 @@
 [
   {
-    "name": "Google Developers",
+    "color": "FF0000",
     "url": "https://developers.google.com/",
     "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/sponsors/gdg.png",
     "description": "Title Sponsor"
   },
   {
-    "name": "W&B",
+    "color": "FFBF00",
     "url": "https://wandb.ai/",
     "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/sponsors/wb.png",
     "description": "Gold Sponsor"
   },
   {
-    "name": "Sessionize",
+    "color": "1AB394",
     "url": "https://www.sessionize.com",
     "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/sponsors/sessionize.png",
     "description": "CFP Platform Sponsor"
