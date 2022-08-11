@@ -1,0 +1,32 @@
+[
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "NSEC",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://dscnsec.com/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "CIEM",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://dscciem.github.io/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "SIT",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdscsit2021.github.io/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "GCE",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://twitter.com/DSC_GCE"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "GECBSP",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/government-engineering-college-bilaspur/"
+  }
+]
