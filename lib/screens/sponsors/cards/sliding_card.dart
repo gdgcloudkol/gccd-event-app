@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -78,8 +79,8 @@ class SlidingCard extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 40,
-                  child: Image.network(
-                    logo,
+                  child: CachedNetworkImage(
+                    imageUrl: logo,
                     width: 60,
                     height: 60,
                   ),

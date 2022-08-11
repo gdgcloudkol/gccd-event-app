@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/widgets/social_media_icon.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,9 @@ class _TicketsScreenState extends State<TicketsScreen> {
               const SizedBox(
                 height: 15,
               ),
-              Image.network(tsb.confTicketImageUrl),
+              CachedNetworkImage(
+                imageUrl: tsb.confTicketImageUrl,
+              ),
               Container(
                 width: size.width,
                 decoration: BoxDecoration(
