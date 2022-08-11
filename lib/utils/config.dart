@@ -118,28 +118,4 @@ class Config {
 
   ///Last date for call for speakers
   static DateTime cfsLastDate = DateTime(2022, 8, 4);
-
-  static List<String> sponsorsImages = [
-    "assets/images/sponsors/gdg.png",
-    "assets/images/sponsors/wb.png",
-    "assets/images/sponsors/sessionize.png",
-  ];
-
-  static List<String> sponsorsDescription = [
-    "Title Sponsor",
-    "Gold Sponsor",
-    "CFP Platform Sponsor",
-  ];
-
-  static List<Color> sponsorsColors = [
-    Colors.red,
-    Colors.amber,
-    const Color(0xff1ab394),
-  ];
-
-  static List<String> sponsorsLinks = [
-    "https://developers.google.com/",
-    "https://wandb.ai/",
-    "https://sessionize.com/",
-  ];
 }

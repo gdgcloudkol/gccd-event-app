@@ -59,32 +59,24 @@ class _PartnersScreenState extends State<PartnersScreen> {
                         itemCount: (snapshot.data ?? []).length,
                         itemBuilder: (context, index) {
                           Sponsor sponsor = snapshot.data![index];
-                          return SponsorsCard(
-                            imageUrl: sponsor.logo,
-                            description: sponsor.description,
-                            descriptionColor: sponsor.color,
+                          return GestureDetector(
+                            onTap: () {
+                              launchUrlString(
+                                sponsor.url,
+                                mode: LaunchMode.externalApplication,
+                              );
+                            },
+                            child: SponsorsCard(
+                              imageUrl: sponsor.logo,
+                              description: sponsor.description,
+                              descriptionColor: sponsor.color,
+                            ),
                           );
                         },
                       )
                     : const Center(child: CircularProgressIndicator());
               },
             ),
-            // ...List<Widget>.generate(
-            //   Config.sponsorsLinks.length,
-            //   (index) => GestureDetector(
-            //     onTap: () {
-            //       launchUrlString(
-            //         Config.sponsorsLinks[index],
-            //         mode: LaunchMode.externalApplication,
-            //       );
-            //     },
-            //     child: SponsorsCard(
-            //       imageUrl: Config.sponsorsImages[index],
-            //       description: Config.sponsorsDescription[index],
-            //       descriptionColor: Config.sponsorsColors[index],
-            //     ),
-            //   ),
-            // ),
             const SizedBox(
               height: 30,
             ),

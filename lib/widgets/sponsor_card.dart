@@ -66,7 +66,7 @@ class SponsorsCard extends StatelessWidget {
   }
 
   Color getColorFromStr(String valueString) {
-    int value = int.parse(valueString, radix: 16);
+    int value = int.parse("FF$valueString", radix: 16);
     Color color = Color(value);
     return color;
   }
