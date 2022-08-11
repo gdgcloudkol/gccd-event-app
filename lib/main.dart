@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/community_partners_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/blocs/sponsors.bloc.dart';
@@ -72,6 +73,9 @@ class CCDApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<SponsorsBloc>(
           create: (context) => SponsorsBloc(),
+        ),
+        ChangeNotifierProvider<CommunityPartnersBloc>(
+          create: (context) => CommunityPartnersBloc(),
         ),
       ],
       child: MaterialApp(

@@ -1,7 +1,9 @@
+import 'package:ccd2022app/blocs/community_partners_bloc.dart';
 import 'package:ccd2022app/models/community_partners_model.dart';
 import 'package:ccd2022app/screens/sponsors/cards/sliding_card.dart';
-import 'package:ccd2022app/utils/config.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class SlidingCardsView extends StatefulWidget {
   const SlidingCardsView({Key? key}) : super(key: key);
@@ -20,8 +22,9 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
     super.initState();
     pageController = PageController(viewportFraction: 0.8);
     pageController?.addListener(() {
-      setState(() => pageOffset =
-          (pageController?.page ?? 0)); ///<-- add listener and set state
+      setState(() => pageOffset = (pageController?.page ?? 0));
+
+      ///<-- add listener and set state
     });
   }
 
@@ -34,20 +37,40 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
 
   @override
   Widget build(BuildContext context) {
+    CommunityPartnersBloc cpb = Provider.of<CommunityPartnersBloc>(context);
+
     return SizedBox(
       height: 400,
-      child: PageView(
-        controller: pageController,
-        children: List.generate(Config.communityPartners.length, (index) {
-          CommunityPartnersModel model = Config.communityPartners[index];
-          return SlidingCard(
-            name: model.communityName,
-            sub: model.subCommunityName,
-            url: model.url,
-            offset: pageOffset - index,
-            logo: model.imagePath,
-          );
-        }),
+      child: FutureBuilder<List<CommunityPartners>?>(
+        future: cpb.fetchCommunityPartners(http.Client(), context),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+                child: Text("Error Fetching Community Partners"));
+          } else if (snapshot.hasData) {
+            if ((snapshot.data ?? []).isEmpty) {
+              return const Center(child: Text("No Community Partners Found"));
+            } else {
+              return snapshot.hasData
+                  ? PageView(
+                      controller: pageController,
+                      children:
+                          List.generate((snapshot.data ?? []).length, (index) {
+                        CommunityPartners partner = snapshot.data![index];
+                        return SlidingCard(
+                          name: partner.communityName,
+                          chapter: partner.chapter,
+                          url: partner.url,
+                          offset: pageOffset - index,
+                          logo: partner.logo,
+                        );
+                      }),
+                    )
+                  : const Center(child: CircularProgressIndicator());
+            }
+          }
+          return const Center(child: Text("No Community Partners Found"));
+        },
       ),
     );
   }

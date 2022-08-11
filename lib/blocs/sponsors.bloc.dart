@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:ccd2022app/models/sponsor_model.dart';
 import 'package:flutter/foundation.dart';
@@ -9,23 +8,9 @@ import 'package:http/http.dart' as http;
 class SponsorsBloc extends ChangeNotifier {
   Future<List<Sponsor>?> fetchSponsors(
       http.Client client, BuildContext context) async {
-    try {
-      final response = await client.get(Uri.parse(
-          'https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/sponsors.json'));
-        return compute(parseSponsors, response.body);
-    } on SocketException catch (_) {
-      return null;
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => ErrorPage(
-      //       message:
-      //           "Can't reach the servers, \n Please check your internet connection.",
-      //     ),
-      //   ),
-      // );
-
-    }
+    final response = await client.get(Uri.parse(
+        'https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/sponsors.json'));
+    return compute(parseSponsors, response.body);
   }
 }
 

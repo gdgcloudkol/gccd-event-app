@@ -1,8 +1,6 @@
 import 'package:ccd2022app/blocs/sponsors.bloc.dart';
-import 'package:ccd2022app/models/community_partners_model.dart';
 import 'package:ccd2022app/models/sponsor_model.dart';
 import 'package:ccd2022app/screens/sponsors/cards/sliding_card_view_state.dart';
-import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/widgets/sponsor_card.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +15,6 @@ class PartnersScreen extends StatefulWidget {
 }
 
 class _PartnersScreenState extends State<PartnersScreen> {
-  CommunityPartnersModel currentModel = Config.communityPartners[0];
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -50,31 +46,36 @@ class _PartnersScreenState extends State<PartnersScreen> {
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const Center(child: Text("Error Fetching Data"));
-                }
-
-                return snapshot.hasData
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: (snapshot.data ?? []).length,
-                        itemBuilder: (context, index) {
-                          Sponsor sponsor = snapshot.data![index];
-                          return GestureDetector(
-                            onTap: () {
-                              launchUrlString(
-                                sponsor.url,
-                                mode: LaunchMode.externalApplication,
+                } else if (snapshot.hasData) {
+                  if ((snapshot.data ?? []).isEmpty) {
+                    return const Center(child: Text("No Sponsors Found"));
+                  } else {
+                    return snapshot.hasData
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: (snapshot.data ?? []).length,
+                            itemBuilder: (context, index) {
+                              Sponsor sponsor = snapshot.data![index];
+                              return GestureDetector(
+                                onTap: () {
+                                  launchUrlString(
+                                    sponsor.url,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                },
+                                child: SponsorsCard(
+                                  imageUrl: sponsor.logo,
+                                  description: sponsor.description,
+                                  descriptionColor: sponsor.color,
+                                ),
                               );
                             },
-                            child: SponsorsCard(
-                              imageUrl: sponsor.logo,
-                              description: sponsor.description,
-                              descriptionColor: sponsor.color,
-                            ),
-                          );
-                        },
-                      )
-                    : const Center(child: CircularProgressIndicator());
+                          )
+                        : const Center(child: CircularProgressIndicator());
+                  }
+                }
+                return const Center(child: Text("No Sponsors Found"));
               },
             ),
             const SizedBox(

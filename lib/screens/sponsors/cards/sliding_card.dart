@@ -5,14 +5,14 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class SlidingCard extends StatelessWidget {
   final String name;
-  final String sub;
+  final String chapter;
   final String logo;
   final String url;
 
   const SlidingCard({
     Key? key,
     required this.name,
-    required this.sub,
+    required this.chapter,
     required this.offset,
     required this.logo,
     required this.url,
@@ -55,7 +55,7 @@ class SlidingCard extends StatelessWidget {
                     const SizedBox(height: 8),
                     CardContent(
                       name: name,
-                      sub: sub,
+                      chapter: chapter,
                       url: url,
                       offset: gauss,
                     ),
@@ -78,7 +78,7 @@ class SlidingCard extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 40,
-                  child: Image.asset(
+                  child: Image.network(
                     logo,
                     width: 60,
                     height: 60,
@@ -95,14 +95,14 @@ class SlidingCard extends StatelessWidget {
 
 class CardContent extends StatelessWidget {
   final String name;
-  final String sub;
+  final String chapter;
   final String url;
   final double offset;
 
   const CardContent(
       {Key? key,
       required this.name,
-      required this.sub,
+      required this.chapter,
       required this.url,
       required this.offset})
       : super(key: key);
@@ -135,7 +135,7 @@ class CardContent extends StatelessWidget {
           Transform.translate(
             offset: Offset(15 * offset, 0),
             child: Text(
-              sub,
+              chapter,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 20,
