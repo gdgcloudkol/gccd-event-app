@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppLicense extends StatelessWidget {
   final String versionName;
+
   const AppLicense({Key? key, required this.versionName}) : super(key: key);
 
   @override

@@ -1,1 +1,20 @@
-
+[
+  {
+    "name": "Google Developers",
+    "url": "https://developers.google.com/",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/sponsors/gdg.png",
+    "description": "Title Sponsor"
+  },
+  {
+    "name": "W&B",
+    "url": "https://wandb.ai/",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/sponsors/wb.png",
+    "description": "Gold Sponsor"
+  },
+  {
+    "name": "Sessionize",
+    "url": "https://www.sessionize.com",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/sponsors/sessionize.png",
+    "description": "CFP Platform Sponsor"
+  }
+]
