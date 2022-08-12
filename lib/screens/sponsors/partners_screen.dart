@@ -105,9 +105,6 @@ class _PartnersScreenState extends State<PartnersScreen> {
                 );
               },
             ),
-            const SizedBox(
-              height: 30,
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 50.0,
