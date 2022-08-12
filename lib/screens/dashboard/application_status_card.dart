@@ -199,6 +199,8 @@ class ApplicationStatusCard extends StatelessWidget {
           //TODO change this to != null once Application Details form has been completed
           return tsb.applicantData == null;
         }
+      }else{
+        return true;
       }
     }
     return false;

@@ -1,4 +1,4 @@
-import 'package:ccd2022app/utils/snackbar.dart';
+import 'package:ccd2022app/screens/referral/refer_and_earn_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -7,7 +7,6 @@ class ReferEarnCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
 
     return Stack(
@@ -108,8 +107,9 @@ class ReferEarnCard extends StatelessWidget {
               primary: Colors.white,
             ),
             onPressed: () {
-              showSnackBar(context,
-                  "Coming Soon. Stay tuned for the next update.");
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return const ReferAndEarn();
+              }));
             },
             icon: const Icon(
               FontAwesomeIcons.boxOpen,

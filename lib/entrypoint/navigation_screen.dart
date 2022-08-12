@@ -2,6 +2,7 @@ import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/screens/dashboard/dashboard_screen.dart';
 import 'package:ccd2022app/screens/home_screen.dart';
+import 'package:ccd2022app/screens/referral/refer_and_earn_screen.dart';
 import 'package:ccd2022app/screens/speakers_screen.dart';
 import 'package:ccd2022app/screens/sponsors/partners_screen.dart';
 import 'package:ccd2022app/services/fcm.dart';
@@ -15,6 +16,7 @@ import 'package:provider/provider.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
+  static const String routeName = 'navigation_screen';
 
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
@@ -129,8 +131,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
         return const SpeakersScreen();
       case 4:
         return const PartnersScreen();
-      case 7 :
+      case 7:
         return const DashboardScreen();
+      case 11:
+        return const ReferAndEarn();
       default:
         return const HomeScreen();
     }

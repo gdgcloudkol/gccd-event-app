@@ -1,6 +1,7 @@
 import 'package:ccd2022app/blocs/sponsors.bloc.dart';
 import 'package:ccd2022app/models/sponsor_model.dart';
 import 'package:ccd2022app/screens/sponsors/cards/sliding_card_view_state.dart';
+import 'package:ccd2022app/widgets/indicator_heading.dart';
 import 'package:ccd2022app/widgets/sponsor_card.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +29,13 @@ class _PartnersScreenState extends State<PartnersScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ...getHeading(Colors.green, "Sponsors"),
+            const SizedBox(
+              height: 20,
+            ),
+            const IndicatorHeading(
+              title: "Sponsors",
+              indicatorColor: Colors.green,
+            ),
             const Padding(
               padding: EdgeInsets.all(20.0),
               child: Text(
@@ -97,9 +104,6 @@ class _PartnersScreenState extends State<PartnersScreen> {
                   ),
                 );
               },
-            ),
-            const SizedBox(
-              height: 30,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

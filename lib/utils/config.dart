@@ -14,6 +14,7 @@ class Config {
   static String fsfName = "name";
   static String fsfEmail = "email";
   static String fsfLoginProvider = "loginProvider";
+  static String fsfEligibleForReferral = "eligibleForReferral";
 
   ///End of fields for user ticket application form
 
@@ -48,6 +49,7 @@ class Config {
   static String prefLoggedIn = "loggedIn";
   static String prefName = "name";
   static String prefUID = "uid";
+  static String prefEligibleForReferral = "eligibleForReferral";
   static String prefProfilePicUrl = "profilePicUrl";
   static String prefHasTicket = "hasTicket";
   static String prefTicketRejected = "ticketRejected";
