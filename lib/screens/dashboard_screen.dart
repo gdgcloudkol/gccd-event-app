@@ -1,7 +1,7 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
-import 'package:ccd2022app/screens/refer_and_earn_screen.dart';
+import 'package:ccd2022app/screens/referral/refer_and_earn_screen.dart';
 import 'package:ccd2022app/screens/view_ticket_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

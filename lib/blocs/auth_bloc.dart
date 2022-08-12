@@ -40,6 +40,10 @@ class AuthBloc extends ChangeNotifier {
 
   String get profilePicUrl => _profilePicUrl;
 
+  bool _eligibleForReferral = false;
+
+  bool get eligibleForReferral => _eligibleForReferral;
+
   ///Fetches session data when app opens
   AuthBloc() {
     loadUserDataFromSp();
@@ -90,10 +94,16 @@ class AuthBloc extends ChangeNotifier {
         _name = user.displayName ?? "";
         _uid = user.uid;
         _profilePicUrl = user.photoURL ?? "";
-        bool userExists = await checkIfUserExists(_uid);
+
+        List checkResult = await checkIfUserExists(_uid);
+        bool userExists = checkResult[1];
+
         if (!userExists) {
           await saveDataToFirestore();
+        } else {
+          _eligibleForReferral = (checkResult[0][Config.fsfEligibleForReferral] ?? false);
         }
+
         if (nb.navigatorKey.currentState != null) {
           showSnackBar(
               nb.navigatorKey.currentState!.context, "Logged In Successfully");
@@ -129,8 +139,9 @@ class AuthBloc extends ChangeNotifier {
     sp.setString(Config.prefEmail, email);
     sp.setString(Config.prefName, name);
     sp.setString(Config.prefUID, uid);
-    sp.setString(Config.prefProfilePicUrl, _profilePicUrl);
+    sp.setString(Config.prefProfilePicUrl, profilePicUrl);
     sp.setBool(Config.prefLoggedIn, isLoggedIn);
+    sp.setBool(Config.prefEligibleForReferral, eligibleForReferral);
   }
 
   ///Loads user data from Session
@@ -141,14 +152,18 @@ class AuthBloc extends ChangeNotifier {
       _email = sp.getString(Config.prefEmail) ?? "";
       _name = sp.getString(Config.prefName) ?? "";
       _uid = sp.getString(Config.prefUID) ?? "";
+      _eligibleForReferral =
+          sp.getBool(Config.prefEligibleForReferral) ?? false;
       _profilePicUrl = sp.getString(Config.prefProfilePicUrl) ?? "";
     }
     notifyListeners();
   }
 
   ///Checks if user exists and returns boolean status accordingly
-  Future<bool> checkIfUserExists(String uid) async {
+  Future checkIfUserExists(String uid) async {
     bool userExists = true;
+    Map<String, dynamic> data = {};
+
     await FirebaseFirestore.instance
         .collection(Config.fscUsers)
         .where(Config.fsfUid, isEqualTo: uid)
@@ -160,10 +175,12 @@ class AuthBloc extends ChangeNotifier {
           userExists = false;
         } else if (!value.docs[0].exists) {
           userExists = false;
+        } else {
+          data = value.docs[0].data();
         }
       },
     );
-    return userExists;
+    return [data, userExists];
   }
 
   void signOut(
@@ -192,7 +209,7 @@ class AuthBloc extends ChangeNotifier {
     if (nb.navigatorKey.currentState != null) {
       showSnackBar(
           nb.navigatorKey.currentState!.context, "Signed Out successfully");
-      if(nb.navIndex == 7){
+      if (nb.navIndex == 7) {
         nb.changeNavIndex(0);
       }
     }
@@ -206,6 +223,8 @@ class AuthBloc extends ChangeNotifier {
       Config.fsfName: name,
       Config.fsfEmail: email,
       Config.fsfLoginProvider: "Google",
+      Config.fsfEligibleForReferral: true,
     });
+    _eligibleForReferral = true;
   }
 }

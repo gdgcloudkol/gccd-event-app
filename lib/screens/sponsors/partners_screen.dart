@@ -1,6 +1,7 @@
 import 'package:ccd2022app/models/community_partners_model.dart';
 import 'package:ccd2022app/screens/sponsors/cards/sliding_card_view_state.dart';
 import 'package:ccd2022app/utils/config.dart';
+import 'package:ccd2022app/widgets/indicator_heading.dart';
 import 'package:ccd2022app/widgets/sponsor_card.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -27,7 +28,13 @@ class _PartnersScreenState extends State<PartnersScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ...getHeading(Colors.green, "Sponsors"),
+            const SizedBox(
+              height: 20,
+            ),
+            const IndicatorHeading(
+              title: "Sponsors",
+              indicatorColor: Colors.green,
+            ),
             const Padding(
               padding: EdgeInsets.all(20.0),
               child: Text(
@@ -91,7 +98,13 @@ class _PartnersScreenState extends State<PartnersScreen> {
                 ),
               ),
             ),
-            ...getHeading(Colors.blue, "Community Partners"),
+            const SizedBox(
+              height: 30,
+            ),
+            const IndicatorHeading(
+              title: "Community Partners",
+              indicatorColor: Colors.blue,
+            ),
             const SlidingCardsView(),
             const SizedBox(
               height: 80,
@@ -100,48 +113,5 @@ class _PartnersScreenState extends State<PartnersScreen> {
         ),
       ),
     );
-  }
-
-  List<Widget> getHeading(
-    Color indicatorColor,
-    String heading,
-  ) {
-    return [
-      const SizedBox(
-        height: 20,
-      ),
-      Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-                color: indicatorColor,
-              ),
-              width: 10,
-              height: 70,
-            ),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 25.0),
-            child: Text(
-              heading,
-              style: const TextStyle(
-                fontFamily: "GoogleSans",
-                fontWeight: FontWeight.w700,
-                fontSize: 25,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ];
   }
 }
