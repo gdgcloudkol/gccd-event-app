@@ -40,7 +40,7 @@ class AppDrawer extends StatelessWidget {
                         radius: 35,
                         backgroundColor: Colors.white,
                         backgroundImage: AssetImage(
-                          "assets/images/Logo.png",
+                          "assets/images/gdg_logo.png",
                         ),
                       ),
                       Padding(
@@ -188,30 +188,30 @@ class AppDrawer extends StatelessWidget {
                   ab,
                   tsb,
                 ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // singleDrawerOption(
-                //   "Terms & Conditions",
-                //   FontAwesomeIcons.gavel,
-                //   7,
-                //   context,
-                //   nb,
-                //   ab,
-                //   tsb,
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // singleDrawerOption(
-                //   "Privacy Policy",
-                //   Icons.privacy_tip_outlined,
-                //   8,
-                //   context,
-                //   nb,
-                //   ab,
-                //   tsb,
-                // ),
+                const SizedBox(
+                   height: 10,
+                 ),
+                 singleDrawerOption(
+                   "FAQs",
+                   FontAwesomeIcons.question,
+                   7,
+                   context,
+                   nb,
+                   ab,
+                   tsb,
+                 ),
+                 const SizedBox(
+                   height: 10,
+                 ),
+                 singleDrawerOption(
+                   "Code of Conduct",
+                   Icons.privacy_tip_outlined,
+                   8,
+                   context,
+                   nb,
+                   ab,
+                   tsb,
+                 ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -225,20 +225,20 @@ class AppDrawer extends StatelessWidget {
                   tsb,
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
-                // singleDrawerOption(
-                //   "About Us",
-                //   FontAwesomeIcons.circleInfo,
-                //   10,
-                //   context,
-                //   nb,
-                //   ab,
-                //   tsb,
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
+                 singleDrawerOption(
+                   "About Us",
+                   FontAwesomeIcons.circleInfo,
+                   10,
+                   context,
+                   nb,
+                   ab,
+                   tsb,
+                ),
+                const SizedBox(
+                 height: 10,
+                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -388,9 +388,8 @@ class AppDrawer extends StatelessWidget {
         text: "Hey! Let's join together for the largest developer conclave "
             "in eastern India - Cloud Community Days Kolkata to"
             " join hundreds of developers and engage with industry experts presenting on cutting edge technology."
-            'Hurry, get your pass!\n'
-            '\nWebsite: https://gdgcloud.kolkata.dev/ccd2022/\n\n'
-            'App: https://play.google.com/store/apps/details?id=com.gdgck.ccd2022',
+            'Hurry, get your pass!\n\n'
+            'Download app: https://play.google.com/store/apps/details?id=com.gdgck.ccd2022',
       );
     } else if (index == 9) {
       Navigator.push(

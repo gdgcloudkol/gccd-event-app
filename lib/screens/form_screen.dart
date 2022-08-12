@@ -416,6 +416,7 @@ class _FormScreenState extends State<FormScreen> {
                         _currentTSize ?? "L",
                         _agreeTicket == true ? "Yes" : "No",
                         _day1 == true ? "Yes" : "No",
+                        _cityController.text,
                       );
 
                       tfb.createNewRegistration(

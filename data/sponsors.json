@@ -1,0 +1,20 @@
+[
+  {
+    "color": "FF0000",
+    "url": "https://developers.google.com/",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/gdg.png",
+    "description": "Title Sponsor"
+  },
+  {
+    "color": "FFBF00",
+    "url": "https://wandb.ai/",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/wb.png",
+    "description": "Gold Sponsor"
+  },
+  {
+    "color": "1AB394",
+    "url": "https://www.sessionize.com",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/sessionize.png",
+    "description": "CFP Platform Sponsor"
+  }
+]

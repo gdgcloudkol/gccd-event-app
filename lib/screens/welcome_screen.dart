@@ -26,7 +26,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   fontWeight: FontWeight.w700),
             ),
             const Image(
-              image: AssetImage('assets/images/Logo.png'),
+              image: AssetImage('assets/images/gdg_logo.png'),
             ),
             SizedBox(
               width: 10,

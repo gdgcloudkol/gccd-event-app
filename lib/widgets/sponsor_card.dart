@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class SponsorsCard extends StatelessWidget {
   final String imageUrl;
   final String description;
-  final Color descriptionColor;
+  final String descriptionColor;
 
   const SponsorsCard({
     Key? key,
@@ -32,15 +33,15 @@ class SponsorsCard extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              Image.asset(
-                imageUrl,
+              CachedNetworkImage(
+                imageUrl: imageUrl,
                 height: 50,
               ),
               Container(
                 width: size.width,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: descriptionColor,
+                  color: getColorFromStr(descriptionColor),
                   borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(15),
                     bottomLeft: Radius.circular(15),
@@ -63,5 +64,11 @@ class SponsorsCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color getColorFromStr(String valueString) {
+    int value = int.parse("FF$valueString", radix: 16);
+    Color color = Color(value);
+    return color;
   }
 }

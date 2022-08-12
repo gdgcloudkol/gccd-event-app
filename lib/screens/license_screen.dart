@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppLicense extends StatelessWidget {
   final String versionName;
+
   const AppLicense({Key? key, required this.versionName}) : super(key: key);
 
   @override
@@ -33,7 +34,7 @@ class AppLicense extends StatelessWidget {
       ),
       child: LicensePage(
         applicationIcon: Image.asset(
-          "assets/images/Logo.png",
+          "assets/images/gdg_logo.png",
           width: 100,
           height: 100,
         ),

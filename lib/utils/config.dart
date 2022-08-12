@@ -1,6 +1,3 @@
-import 'package:ccd2022app/models/community_partners_model.dart';
-import 'package:flutter/material.dart';
-
 ///Root Class that stores Configs used throughout the app
 class Config {
   ///Firestore collection names
@@ -38,6 +35,8 @@ class Config {
   static String fsfTSize = "tsize";
   static String fsfUnderstand = "understand";
   static String fsfWorkshop = "workshop";
+  static String fsfCity = "city";
+  static String fsfAppRegistration = "app_registration";
   static String fsfRejected = "rejected";
 
   ///End of fields for user ticket application form
@@ -59,87 +58,6 @@ class Config {
   static String fcmArgRedirect = "redirect";
   static String fcmArgScreen = "appScreen";
 
-  static List<CommunityPartnersModel> communityPartners = [
-    CommunityPartnersModel(
-      "Google Developer Student Clubs",
-      "https://dscnsec.com/",
-      "NSEC",
-      "assets/images/Logo.png",
-    ),
-    CommunityPartnersModel(
-      "Google Developer Student Clubs",
-      "https://dscciem.github.io/",
-      "CIEM",
-      "assets/images/Logo.png",
-    ),
-    CommunityPartnersModel(
-      "Google Developer Student Clubs",
-      "https://gdscsit2021.github.io/",
-      "SIT",
-      "assets/images/Logo.png",
-    ),
-    CommunityPartnersModel(
-      "Google Developer Student Clubs",
-      "https://twitter.com/DSC_GCE",
-      "GCE",
-      "assets/images/Logo.png",
-    ),
-    CommunityPartnersModel(
-      "Google Developer Student Clubs",
-      "https://gdsc.community.dev/government-engineering-college-bilaspur/",
-      "GECBSP",
-      "assets/images/Logo.png",
-    ),
-    // CommunityPartnersModel(
-    //   "Google Developer Student Clubs",
-    //   "https://dschit.com/",
-    //   "HIT",
-    //   "assets/images/Logo.png",
-    // ),
-    // CommunityPartnersModel(
-    //   "Google Developer Student Clubs",
-    //   "https://www.linkedin.com/in/gdsc-jisce/?trk=public_profile_browsemap&originalSubdomain=in",
-    //   "JISCE",
-    //   "assets/images/Logo.png",
-    // ),
-    // CommunityPartnersModel(
-    //   "Google Developer Student Clubs",
-    //   "https://gdsc.community.dev/dr-sudhir-chandra-sur-institute-of-technology-sports-complex-kolkata/",
-    //   "DSCSIT",
-    //   "assets/images/Logo.png",
-    // ),
-    // CommunityPartnersModel(
-    //   "Google Developer Student Clubs",
-    //   "https://dscmsit.github.io/",
-    //   "MSIT",
-    //   "assets/images/Logo.png",
-    // ),
-  ];
-
   ///Last date for call for speakers
   static DateTime cfsLastDate = DateTime(2022, 8, 4);
-
-  static List<String> sponsorsImages = [
-    "assets/images/sponsors/gdg.png",
-    "assets/images/sponsors/wb.png",
-    "assets/images/sponsors/sessionize.png",
-  ];
-
-  static List<String> sponsorsDescription = [
-    "Title Sponsor",
-    "Gold Sponsor",
-    "CFP Platform Sponsor",
-  ];
-
-  static List<Color> sponsorsColors = [
-    Colors.red,
-    Colors.amber,
-    const Color(0xff1ab394),
-  ];
-
-  static List<String> sponsorsLinks = [
-    "https://developers.google.com/",
-    "https://wandb.ai/",
-    "https://sessionize.com/",
-  ];
 }

@@ -1,7 +1,10 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/community_partners_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/blocs/speakers_bloc.dart';
+import 'package:ccd2022app/blocs/sponsors.bloc.dart';
+import 'package:ccd2022app/blocs/sponsors.bloc.dart';
 import 'package:ccd2022app/blocs/ticket_form_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/entrypoint/navigation_screen.dart';
@@ -13,6 +16,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -71,6 +75,12 @@ class CCDApp extends StatelessWidget {
         ChangeNotifierProvider<SpeakersBloc>(
           create: (context) => SpeakersBloc(),
         ),
+        ChangeNotifierProvider<SponsorsBloc>(
+          create: (context) => SponsorsBloc(),
+        ),
+        ChangeNotifierProvider<CommunityPartnersBloc>(
+          create: (context) => CommunityPartnersBloc(),
+        ),
         ChangeNotifierProvider<ReferralBloc>(
           create: (context) => ReferralBloc(),
         ),
@@ -80,13 +90,7 @@ class CCDApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         navigatorKey: navigatorKey,
-        initialRoute:
-            kDebugMode ? NavigationScreen.routeName : SplashScreen.routeName,
-        routes: {
-          NavigationScreen.routeName: (context) => const NavigationScreen(),
-          SplashScreen.routeName: (context) => const SplashScreen(),
-          ReferAndEarn.routeName: (context) => const ReferAndEarn(),
-        },
+        home: kDebugMode ? const NavigationScreen() : const SplashScreen(),
       ),
     );
   }
