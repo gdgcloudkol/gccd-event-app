@@ -115,7 +115,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Color(0xff666666)),
               ),
             ),
-            
             const SizedBox(
               height: 50,
             ),
@@ -210,13 +209,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 70,
+            ),
             const Padding(
               padding: EdgeInsets.all(22.0),
               child: Text(
                 "About Us",
                 style: TextStyle(
                   fontFamily: "GoogleSans",
-                  fontSize: 35,
+                  fontSize: 30,
                   fontWeight: FontWeight.w700,
                   color: Colors.blue,
                 ),
@@ -235,8 +237,242 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "FAQs",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "What is CCD 2022 Kolkata?",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 111, 112, 112),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                " CCD 2022 Kolkata is short form of Cloud Community Days 2022 Kolkata which is among the largest free Cloud developer conferences in Eastern India.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "Where can I find updates related to CCD 2022 Kolkata?",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 111, 112, 112),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                " All announcements related to the event are posted to the GDG Cloud Kolkata chapter mailing list which you can join by joining the chapter at - GDG Cloud Kolkata Chapter Page. ",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "How can I attend CCD 2022 Kolkata? How much does it cost?",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 111, 112, 112),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                " CCD 2022 Kolkata is a Free event. There are no costs for the ticket to this event. However, you must apply to be a participant to the event and only upon a positive review of your application you shall be allowed to claim a ticket. You can apply to be a participant by clicking the 'Reserve Your Seat' button on this website's home page.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "I want to present a talk/workshop at the conference. What should I do?",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 111, 112, 112),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                " You can submit your talk/workshop proposal on our CFP Page. The deadline for submitting CFP for this year’s conference is 12th August, however, the earlier you submit, more the chances of us reviewing your submission in depth.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "Will I be provided travel/stay accommodation to attend the event?",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 111, 112, 112),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                " No. There is no provision for covering attendee travel/stay. For speakers, we will decide on case-by-case basis. ",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
             const SizedBox(
               height: 80,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "Code of Conduct",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                "Google is dedicated to providing a harassment-free and inclusive event experience for everyone regardless of gender identity and expression, sexual orientation, disabilities, neurodiversity, physical appearance, body size, ethnicity, nationality, race, age, religion, or other protected category. We do not tolerate harassment of event participants in any form. Google takes violations of our policy seriously and will respond appropriately.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "Be excellent to each other",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 111, 112, 112),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                " We want the event to be an excellent experience for everyone regardless of gender identity and expression, sexual orientation, disabilities, neurodiversity, physical appearance, body size, ethnicity, nationality, race, age, religion, or other protected category. Treat everyone with respect. Participate while acknowledging that everyone deserves to be here -- and each of us has the right to enjoy our experience without fear of harassment, discrimination, or condescension, whether blatant or via micro-aggressions. Jokes shouldn’t demean others. Consider what you are saying and how it would feel if it were said to or about you.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "Speak up if you see or hear something.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 111, 112, 112),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                "Harassment is not tolerated, and you are empowered to politely engage when you or others are disrespected. The person making you feel uncomfortable may not be aware of what they are doing, and politely bringing their behavior to their attention is encouraged. If a participant engages in harassing or uncomfortable behavior, the event organizers may take any action they deem appropriate, including warning or expelling the offender from the event with no refund. If you are being harassed or feel uncomfortable, notice that someone else is being harassed, or have any other concerns, please contact a member of the event staff immediately.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "Practice saying 'Yes and' to each other.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 111, 112, 112),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                " It’s a theatre improv technique to build on each other’s ideas. We all benefit when we create together.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
             ),
           ],
         ),
@@ -277,5 +513,4 @@ class _HomeScreenState extends State<HomeScreen> {
       return const Color(0xff3b82f6);
     }
   }
-  
 }
