@@ -188,33 +188,11 @@ class AppDrawer extends StatelessWidget {
                   ab,
                   tsb,
                 ),
-                const SizedBox(
-                   height: 10,
-                 ),
-                 singleDrawerOption(
-                   "FAQs",
-                   FontAwesomeIcons.question,
-                   7,
-                   context,
-                   nb,
-                   ab,
-                   tsb,
-                 ),
+                
                  const SizedBox(
                    height: 10,
                  ),
-                 singleDrawerOption(
-                   "Code of Conduct",
-                   Icons.privacy_tip_outlined,
-                   8,
-                   context,
-                   nb,
-                   ab,
-                   tsb,
-                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                 
                 singleDrawerOption(
                   "Licenses",
                   FontAwesomeIcons.fileCode,
@@ -227,15 +205,7 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                 singleDrawerOption(
-                   "About Us",
-                   FontAwesomeIcons.circleInfo,
-                   10,
-                   context,
-                   nb,
-                   ab,
-                   tsb,
-                ),
+                
                 const SizedBox(
                  height: 10,
                  ),

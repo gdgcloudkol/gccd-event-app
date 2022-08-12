@@ -53,6 +53,7 @@ dependencies:
   cached_network_image: ^3.2.1
   firebase_messaging: ^12.0.1
   flutter_local_notifications: ^9.7.0
+  basics: ^0.9.0
 
 dev_dependencies:
   flutter_test:
