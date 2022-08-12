@@ -115,31 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Color(0xff666666)),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(22.0),
-              child: Text(
-                "About Us",
-                style: TextStyle(
-                  fontFamily: "GoogleSans",
-                  fontSize: 35,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Text(
-                "GDG Cloud Kolkata is bringing to you the largest Google Cloud developer event in Eastern India. Cloud Community Days Kolkata is the flagship event of GDG Cloud Kolkata, held annually, recollecting the best of the year and setting the stone for the upcoming year. Join us as we bring the best of speakers and help you to put your career on a runway to Google Cloud.",
-                style: TextStyle(
-                  fontFamily: "GoogleSans",
-                  fontSize: 18,
-                ),
-              ),
-            ),
+            
             const SizedBox(
               height: 50,
             ),
@@ -231,6 +207,31 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.white),
                     ),
                   ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(22.0),
+              child: Text(
+                "About Us",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 35,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                "GDG Cloud Kolkata is bringing to you the largest Google Cloud developer event in Eastern India. Cloud Community Days Kolkata is the flagship event of GDG Cloud Kolkata, held annually, recollecting the best of the year and setting the stone for the upcoming year. Join us as we bring the best of speakers and help you to put your career on a runway to Google Cloud.",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
                 ),
               ),
             ),
