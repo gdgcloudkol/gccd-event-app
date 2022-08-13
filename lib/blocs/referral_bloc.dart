@@ -4,9 +4,25 @@ import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReferralBloc extends ChangeNotifier {
+  int _ongoingReferrals = 0;
+
+  int _completeReferrals = 0;
+
+  int get ongoingReferrals => _ongoingReferrals;
+
+  int get completeReferrals => _completeReferrals;
+
+  bool _isCountersLoading = true;
+
+  bool get isCountersLoading => _isCountersLoading;
+
+  ReferralBloc() {
+    getReferralCounters();
+  }
+
   Future createNewReferral(
     String uid,
     String referralCode,
@@ -63,5 +79,54 @@ class ReferralBloc extends ChangeNotifier {
       Config.fsfOngoingReferrals: FieldValue.arrayRemove([uid]),
       Config.fsfCompleteReferrals: FieldValue.arrayUnion([uid]),
     });
+  }
+
+  ///Fetches the number of ongoing and complete referrals
+  Future getReferralCounters() async {
+    try {
+      _isCountersLoading = true;
+      notifyListeners();
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      String uid = sp.getString(Config.prefUID) ?? "";
+      if (uid == "") {
+        _isCountersLoading = false;
+        notifyListeners();
+        return;
+      }
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection(Config.fscUsers)
+          .doc(uid)
+          .get();
+
+      Map<String, dynamic> data = snapshot.data() ?? {};
+
+      if (data.containsKey(Config.fsfOngoingReferrals)) {
+        if (data[Config.fsfOngoingReferrals] == null) {
+          _ongoingReferrals = 0;
+        } else {
+          _ongoingReferrals = data[Config.fsfOngoingReferrals].length;
+        }
+      } else {
+        _ongoingReferrals = 0;
+      }
+
+      if (data.containsKey(Config.fsfCompleteReferrals)) {
+        if (data[Config.fsfCompleteReferrals] == null) {
+          _completeReferrals = 0;
+        } else {
+          _completeReferrals = data[Config.fsfCompleteReferrals].length;
+        }
+      } else {
+        _completeReferrals = 0;
+      }
+
+      _isCountersLoading = false;
+      notifyListeners();
+    } catch (e) {
+      _isCountersLoading = false;
+      _completeReferrals = 0;
+      _ongoingReferrals = 0;
+    }
   }
 }

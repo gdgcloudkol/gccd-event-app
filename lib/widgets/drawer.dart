@@ -357,9 +357,9 @@ class AppDrawer extends StatelessWidget {
         subject: "Cloud Community Days Kolkata 2022",
         text: "Hey! Let's join together for the largest developer conclave "
             "in eastern India - Cloud Community Days Kolkata to"
-            " join hundreds of developers and engage with industry experts presenting on cutting edge technology."
-            'Hurry, get your pass!\n\n'
-            'Download app: https://play.google.com/store/apps/details?id=com.gdgck.ccd2022',
+            " join hundreds of developers and engage with industry experts presenting on cutting edge technology. "
+            'Here is my referral code: ${ab.uid}\n\nHurry, get your pass!\n'
+            'Download Link: https://play.google.com/store/apps/details?id=com.gdgck.ccd2022',
       );
     } else if (index == 9) {
       Navigator.push(

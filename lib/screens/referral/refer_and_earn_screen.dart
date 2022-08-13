@@ -6,6 +6,7 @@ import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/screens/referral/referral_code_input.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:ccd2022app/widgets/indicator_heading.dart';
+import 'package:ccd2022app/widgets/referral_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -46,10 +47,12 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         leading: IconButton(
             icon: const Icon(
               Icons.close,
-              color: Colors.black,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -59,6 +62,39 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
           style: TextStyle(
               color: Colors.black87, fontFamily: 'GoogleSans', fontSize: 20),
         ),
+        actions: [
+          if (!rb.isCountersLoading)
+            IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                    ),
+                    backgroundColor: Colors.white,
+                    context: context,
+                    builder: (context) {
+                      return ReferralModal(rb: rb);
+                    });
+              },
+              icon: const Icon(
+                FontAwesomeIcons.trophy,
+                color: Colors.amber,
+              ),
+            )
+          else
+            const Center(
+              child: SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  color: Color(0xff93b5f1),
+                ),
+              ),
+            ),
+          SizedBox(
+            width: rb.isCountersLoading ? 25 : 15,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -120,6 +156,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                 ],
               ),
             ),
+            const SizedBox(height: 15),
             const IndicatorHeading(
               title: "Invite your friends",
               indicatorColor: Colors.blue,

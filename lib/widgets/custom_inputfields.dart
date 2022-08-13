@@ -10,7 +10,7 @@ buildInputField(
   FocusNode node,
   FocusNode? nextNode,
 ) {
-  const Color THEME_COLOR = Color(0xfff9fafb);
+  const Color themeColor = Color(0xfff9fafb);
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,9 +58,9 @@ buildInputField(
             hintStyle: const TextStyle(
               fontFamily: "GoogleSans",
             ),
-            labelStyle: const TextStyle(color: THEME_COLOR),
+            labelStyle: const TextStyle(color: themeColor),
             filled: true,
-            fillColor: THEME_COLOR,
+            fillColor: themeColor,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
@@ -94,7 +94,7 @@ buildDescInputField(
   FocusNode node,
   FocusNode? nextNode,
 ) {
-  const Color THEME_COLOR = Color(0xfff9fafb);
+  const Color themeColor = Color(0xfff9fafb);
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,9 +144,9 @@ buildDescInputField(
             hintStyle: const TextStyle(
               fontFamily: "GoogleSans",
             ),
-            labelStyle: const TextStyle(color: THEME_COLOR),
+            labelStyle: const TextStyle(color: themeColor),
             filled: true,
-            fillColor: THEME_COLOR,
+            fillColor: themeColor,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
