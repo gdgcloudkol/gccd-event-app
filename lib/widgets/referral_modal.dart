@@ -62,8 +62,7 @@ class ReferralModal extends StatelessWidget {
                 ),
                 Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.circular(100)),
+                      borderRadius: BorderRadius.circular(100)),
                   elevation: 6,
                   child: CircleAvatar(
                     radius: 50,
@@ -103,8 +102,7 @@ class ReferralModal extends StatelessWidget {
                 ),
                 Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.circular(100)),
+                      borderRadius: BorderRadius.circular(100)),
                   elevation: 6,
                   child: CircleAvatar(
                     radius: 50,
@@ -137,7 +135,7 @@ class ReferralModal extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: Text(
-            "${25 - rb.completeReferrals} more referrals to go to unlock the mystery box. Keep hustling 🏃‍♂️",
+            getReferralGoalText(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontFamily: "GoogleSans",
@@ -150,5 +148,16 @@ class ReferralModal extends StatelessWidget {
         )
       ],
     );
+  }
+
+  getReferralGoalText() {
+    int completedReferrals = rb.completeReferrals;
+    if (completedReferrals < 25) {
+      return "${25 - completedReferrals} more referrals to go to unlock the mystery box. Keep hustling 🏃‍♂️";
+    } else if (completedReferrals < 50) {
+      return "Congratulations on winning the mystery box. ${50 - completedReferrals} more referrals to go to unlock conference pass. Keep hustling 🏃‍♂️";
+    } else {
+      return "Congratulations you have unlocked all rewards. Thanks for making Cloud Community Days 2022 better.";
+    }
   }
 }
