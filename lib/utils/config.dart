@@ -18,9 +18,8 @@ class Config {
 
   ///End of fields for user ticket application form
 
-  static String fsfBlog = "Blog";
-
   ///Start of fields for user ticket application form
+  static String fsfBlog = "Blog";
   static String fsfGithub = "GitHub";
   static String fsfLinkedIn = "LinkedIn";
   static String fsfAbout = "about";
@@ -41,7 +40,12 @@ class Config {
 
   ///End of fields for user ticket application form
 
-  // static String fsfWorkshop = "workshop";     ///Start of fields for user tickets
+  ///Start of fields for user referral
+  static String fsfReferredBy = "referredBy";
+  static String fsfOngoingReferrals = "ongoingReferrals";
+  static String fsfCompleteReferrals = "completeReferrals";
+
+  ///End of fields for user referral
 
   ///Shared Preference Keys
   ///Var naming convention use guide : Start with pref

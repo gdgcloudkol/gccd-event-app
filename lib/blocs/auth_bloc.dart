@@ -101,7 +101,8 @@ class AuthBloc extends ChangeNotifier {
         if (!userExists) {
           await saveDataToFirestore();
         } else {
-          _eligibleForReferral = (checkResult[0][Config.fsfEligibleForReferral] ?? false);
+          _eligibleForReferral =
+              (checkResult[0][Config.fsfEligibleForReferral] ?? false);
         }
 
         if (nb.navigatorKey.currentState != null) {
@@ -226,5 +227,13 @@ class AuthBloc extends ChangeNotifier {
       Config.fsfEligibleForReferral: true,
     });
     _eligibleForReferral = true;
+  }
+
+  ///Change state and session of referral eligibility to false
+  Future setIneligibleForReferral() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setBool(Config.prefEligibleForReferral, false);
+    _eligibleForReferral = false;
+    notifyListeners();
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:ccd2022app/models/community_partners_model.dart';
-import 'package:ccd2022app/models/sponsor_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,5 +20,7 @@ class CommunityPartnersBloc extends ChangeNotifier {
 List<CommunityPartners> parsePartners(responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<CommunityPartners>((json) => CommunityPartners.fromJson(json)).toList();
+  return parsed
+      .map<CommunityPartners>((json) => CommunityPartners.fromJson(json))
+      .toList();
 }
