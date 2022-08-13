@@ -1,12 +1,21 @@
+import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/widgets/custom_inputfields.dart';
 import 'package:ccd2022app/widgets/indicator_heading.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/snackbar.dart';
+
 class ReferralCodeInput extends StatelessWidget {
-  ReferralCodeInput({Key? key}) : super(key: key);
+  ReferralCodeInput({Key? key, required this.rb, required this.ab, required this.nb})
+      : super(key: key);
 
   final TextEditingController referralCodeController = TextEditingController();
   final FocusNode referralNode = FocusNode();
+  final ReferralBloc rb;
+  final NavigationBloc nb;
+  final AuthBloc ab;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +93,21 @@ class ReferralCodeInput extends StatelessWidget {
                                   shape: const CircleBorder(),
                                   elevation: 5,
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  if (referralCodeController.text.isEmpty) {
+                                    showSnackBar(
+                                      context,
+                                      "Referral code can't be empty",
+                                    );
+                                    return;
+                                  }
+                                   await rb.createNewReferral(
+                                    ab.uid,
+                                    referralCodeController.text,
+                                    ab,
+                                    nb,
+                                  );
+                                },
                                 child: Container(
                                   color: Colors.transparent,
                                   height: 60,

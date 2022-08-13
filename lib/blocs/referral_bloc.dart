@@ -1,17 +1,26 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+
 class ReferralBloc extends ChangeNotifier {
-  Future createNewReferral(String uid, String referralCode, AuthBloc ab,
-      BuildContext context) async {
+  Future createNewReferral(
+    String uid,
+    String referralCode,
+    AuthBloc ab,
+    NavigationBloc nb,
+  ) async {
     ///Check if referral code is valid
-    bool validReferralCode = (await ab.checkIfUserExists(referralCode))[0];
+    bool validReferralCode = (await ab.checkIfUserExists(referralCode))[1];
 
     if (!validReferralCode) {
-      showSnackBar(context, "Invalid Referral Code");
+      if (nb.navigatorKey.currentContext != null) {
+        showSnackBar(
+            nb.navigatorKey.currentContext!, "Invalid Referral Code ❌");
+      }
       return;
     }
 
@@ -30,6 +39,7 @@ class ReferralBloc extends ChangeNotifier {
     ///Updating frontend to remove referral enter space
     ab.setIneligibleForReferral();
 
+    ///Adding uid to ongoing referrals of referrer
     await FirebaseFirestore.instance
         .collection(Config.fscUsers)
         .doc(referralCode)
@@ -37,9 +47,13 @@ class ReferralBloc extends ChangeNotifier {
       Config.fsfOngoingReferrals: FieldValue.arrayUnion([uid]),
     });
 
-    showSnackBar(context, "Referral code accepted ✅");
+    if (nb.navigatorKey.currentContext != null) {
+      showSnackBar(nb.navigatorKey.currentContext!, "Referral code accepted ✅");
+    }
   }
 
+  ///Used when user submits form for application
+  ///Updates ongoingReferral to completeReferral
   Future changeOngoingReferralToCompletedReferral(
       String uid, String referralCode) async {
     await FirebaseFirestore.instance

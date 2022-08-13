@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/screens/referral/referral_code_input.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
@@ -35,6 +36,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
   Widget build(BuildContext context) {
     AuthBloc ab = Provider.of<AuthBloc>(context);
     ReferralBloc rb = Provider.of<ReferralBloc>(context);
+    NavigationBloc nb = Provider.of<NavigationBloc>(context);
 
     final TextEditingController uidController = TextEditingController(
       text: ab.uid,
@@ -217,7 +219,12 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                 ),
               ),
             ),
-            if (ab.eligibleForReferral) ReferralCodeInput(),
+            if (ab.eligibleForReferral)
+              ReferralCodeInput(
+                ab: ab,
+                rb: rb,
+                nb: nb,
+              ),
             const SizedBox(
               height: 65,
             ),
