@@ -1,6 +1,7 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/screens/dashboard/application_status_card.dart';
 import 'package:ccd2022app/screens/dashboard/refer_earn_card.dart';
+import 'package:ccd2022app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -54,18 +55,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(
               height: 30,
             ),
-            const Text(
-              "Contests 🎁",
-              style: TextStyle(
-                fontFamily: "GoogleSans",
-                fontSize: 25,
-                fontWeight: FontWeight.w700,
+            if (!DateTime.now().isAfter(Config.referralContestLastDate)) ...[
+              const Text(
+                "Contests 🎁",
+                style: TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const ReferEarnCard(),
+              const SizedBox(
+                height: 30,
+              ),
+              const ReferEarnCard(),
+            ]
           ],
         ),
       ),

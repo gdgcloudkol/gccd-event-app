@@ -64,5 +64,6 @@ class Config {
   static String fcmArgScreen = "appScreen";
 
   ///Last date for call for speakers
-  static DateTime cfsLastDate = DateTime(2022, 8, 4);
+  static DateTime cfsLastDate = DateTime(2022, 8, 4, 23, 59, 59);
+  static DateTime referralContestLastDate = DateTime(2022, 8, 25, 23, 59, 59);
 }

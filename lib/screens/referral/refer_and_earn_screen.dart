@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/referral_bloc.dart';
+import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/referral/referral_code_input.dart';
+import 'package:ccd2022app/screens/referral/terms.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:ccd2022app/widgets/indicator_heading.dart';
 import 'package:ccd2022app/widgets/referral_modal.dart';
@@ -38,6 +40,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
     AuthBloc ab = Provider.of<AuthBloc>(context);
     ReferralBloc rb = Provider.of<ReferralBloc>(context);
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
+    TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
 
     final TextEditingController uidController = TextEditingController(
       text: ab.uid,
@@ -256,12 +259,23 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                 ),
               ),
             ),
-            if (ab.eligibleForReferral)
+            if (ab.eligibleForReferral && !tsb.hasApplied)
               ReferralCodeInput(
                 ab: ab,
                 rb: rb,
                 nb: nb,
               ),
+            const SizedBox(
+              height: 25,
+            ),
+            const IndicatorHeading(
+              title: "Terms & Conditions",
+              indicatorColor: Colors.blue,
+            ),
+            const ReferralTerms(),
+            const SizedBox(
+              height: 25,
+            ),
             const SizedBox(
               height: 65,
             ),
