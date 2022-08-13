@@ -7,6 +7,7 @@ import 'package:ccd2022app/screens/home/faq.dart';
 import 'package:ccd2022app/screens/view_ticket_screen.dart';
 import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
+import 'package:circle_progress_bar/circle_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -211,6 +212,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.white),
                     ),
                   ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 100,
+              child: CircleProgressBar(
+                foregroundColor: Colors.blue,
+                backgroundColor: Colors.black12,
+                value: 0.5,
+                child: AnimatedCount(
+                  count: 0.5,
+                  unit: '%',
+                  duration: Duration(milliseconds: 500),
                 ),
               ),
             ),
