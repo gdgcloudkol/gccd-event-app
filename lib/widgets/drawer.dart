@@ -92,6 +92,21 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                if (ab.isLoggedIn) ...[
+                  singleDrawerOption(
+                    "Dashboard",
+                    Icons.dashboard_rounded,
+                    7,
+                    context,
+                    nb,
+                    ab,
+                    tsb,
+                    iconSize: 26,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
                 // singleDrawerOption(
                 //   "Profile",
                 //   FontAwesomeIcons.solidUser,
@@ -104,20 +119,6 @@ class AppDrawer extends StatelessWidget {
                 // const SizedBox(
                 //   height: 10,
                 // ),
-                if (!ab.isLoggedIn) ...[
-                  singleDrawerOption(
-                    "Login",
-                    FontAwesomeIcons.arrowRightToBracket,
-                    2,
-                    context,
-                    nb,
-                    ab,
-                    tsb,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
                 singleDrawerOption(
                   "Speakers",
                   FontAwesomeIcons.bullhorn,
@@ -144,25 +145,23 @@ class AppDrawer extends StatelessWidget {
                 ),
                 if (ab.isLoggedIn) ...[
                   singleDrawerOption(
-                    "Dashboard",
-                    Icons.dashboard_rounded,
-                    7,
+                    "Sign Out",
+                    FontAwesomeIcons.arrowRightFromBracket,
+                    5,
                     context,
                     nb,
                     ab,
                     tsb,
-                    iconSize: 26,
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                 ],
-
-                if (ab.isLoggedIn) ...[
+                if (!ab.isLoggedIn) ...[
                   singleDrawerOption(
-                    "Sign Out",
-                    FontAwesomeIcons.arrowRightFromBracket,
-                    5,
+                    "Login",
+                    FontAwesomeIcons.arrowRightToBracket,
+                    2,
                     context,
                     nb,
                     ab,
@@ -188,11 +187,11 @@ class AppDrawer extends StatelessWidget {
                   ab,
                   tsb,
                 ),
-                
-                 const SizedBox(
-                   height: 10,
-                 ),
-                 
+
+                const SizedBox(
+                  height: 10,
+                ),
+
                 singleDrawerOption(
                   "Licenses",
                   FontAwesomeIcons.fileCode,
@@ -205,10 +204,10 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                
+
                 const SizedBox(
-                 height: 10,
-                 ),
+                  height: 10,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -350,7 +349,8 @@ class AppDrawer extends StatelessWidget {
       final list = bytes.buffer.asUint8List();
 
       final tempDir = await getTemporaryDirectory();
-      final file = await File('${tempDir.path}/Cloud Community Days 2022.jpg').create();
+      final file =
+          await File('${tempDir.path}/Cloud Community Days 2022.jpg').create();
       file.writeAsBytesSync(list);
       Share.shareFiles(
         [file.path],
