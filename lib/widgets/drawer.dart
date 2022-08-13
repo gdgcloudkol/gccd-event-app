@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/license_screen.dart';
 import 'package:ccd2022app/widgets/social_media_icon.dart';
@@ -20,6 +21,7 @@ class AppDrawer extends StatelessWidget {
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
     AuthBloc ab = Provider.of<AuthBloc>(context);
     TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
+    ReferralBloc rb = Provider.of<ReferralBloc>(context);
     Size size = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -88,6 +90,7 @@ class AppDrawer extends StatelessWidget {
                   nb,
                   ab,
                   tsb,
+                  rb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -101,6 +104,7 @@ class AppDrawer extends StatelessWidget {
                     nb,
                     ab,
                     tsb,
+                    rb,
                     iconSize: 26,
                   ),
                   const SizedBox(
@@ -127,6 +131,7 @@ class AppDrawer extends StatelessWidget {
                   nb,
                   ab,
                   tsb,
+                  rb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -139,6 +144,7 @@ class AppDrawer extends StatelessWidget {
                   nb,
                   ab,
                   tsb,
+                  rb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -152,6 +158,7 @@ class AppDrawer extends StatelessWidget {
                     nb,
                     ab,
                     tsb,
+                    rb,
                   ),
                   const SizedBox(
                     height: 10,
@@ -166,6 +173,7 @@ class AppDrawer extends StatelessWidget {
                     nb,
                     ab,
                     tsb,
+                    rb,
                   ),
                   const SizedBox(
                     height: 10,
@@ -186,6 +194,7 @@ class AppDrawer extends StatelessWidget {
                   nb,
                   ab,
                   tsb,
+                  rb,
                 ),
 
                 const SizedBox(
@@ -200,6 +209,7 @@ class AppDrawer extends StatelessWidget {
                   nb,
                   ab,
                   tsb,
+                  rb,
                 ),
                 const SizedBox(
                   height: 10,
@@ -287,7 +297,8 @@ class AppDrawer extends StatelessWidget {
     BuildContext context,
     NavigationBloc nb,
     AuthBloc ab,
-    TicketStatusBloc tsb, {
+    TicketStatusBloc tsb,
+    ReferralBloc rb, {
     double iconSize = 24,
   }) {
     return Container(
@@ -318,10 +329,11 @@ class AppDrawer extends StatelessWidget {
         onTap: () {
           handleDrawerItemTap(
             index,
-            context,
             nb,
             ab,
             tsb,
+            rb,
+            context,
           );
         },
       ),
@@ -330,17 +342,18 @@ class AppDrawer extends StatelessWidget {
 
   handleDrawerItemTap(
     int index,
-    BuildContext context,
     NavigationBloc nb,
     AuthBloc ab,
     TicketStatusBloc tsb,
+    ReferralBloc rb,
+    BuildContext context,
   ) async {
     if (index != 2) {
       Navigator.pop(context);
     }
 
     if (index == 2) {
-      ab.loginWithGoogle(context, tsb, nb);
+      ab.loginWithGoogle(context, tsb, nb, rb);
       Navigator.pop(context);
     } else if (index == 5) {
       ab.signOut(context, tsb, nb);

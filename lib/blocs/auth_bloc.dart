@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/utils/snackbar.dart';
@@ -53,8 +54,8 @@ class AuthBloc extends ChangeNotifier {
     loadUserDataFromSp();
   }
 
-  loginWithGoogle(
-      BuildContext context, TicketStatusBloc tsb, NavigationBloc nb) async {
+  loginWithGoogle(BuildContext context, TicketStatusBloc tsb, NavigationBloc nb,
+      ReferralBloc rb) async {
     setLoginProgress(true);
 
     User? user;
@@ -116,6 +117,7 @@ class AuthBloc extends ChangeNotifier {
         }
         await saveUserDataToSp();
         tsb.checkTicketStatus();
+        rb.getReferralCounters();
       } else {
         if (nb.navigatorKey.currentState != null) {
           showSnackBar(nb.navigatorKey.currentState!.context,

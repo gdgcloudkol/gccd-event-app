@@ -1,5 +1,6 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/form_screen.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
     AuthBloc ab = Provider.of<AuthBloc>(context);
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
+    ReferralBloc rb = Provider.of<ReferralBloc>(context);
     TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
 
     ///Preloading speakers
@@ -150,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   } else {
-                    ab.loginWithGoogle(context, tsb, nb);
+                    ab.loginWithGoogle(context, tsb, nb,rb);
                   }
                 },
                 child: SizedBox(
