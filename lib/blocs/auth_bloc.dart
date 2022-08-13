@@ -44,6 +44,10 @@ class AuthBloc extends ChangeNotifier {
 
   bool get eligibleForReferral => _eligibleForReferral;
 
+  String _referralCode = "";
+
+  String get referralCode => _referralCode;
+
   ///Fetches session data when app opens
   AuthBloc() {
     loadUserDataFromSp();
@@ -103,6 +107,7 @@ class AuthBloc extends ChangeNotifier {
         } else {
           _eligibleForReferral =
               (checkResult[0][Config.fsfEligibleForReferral] ?? false);
+          _referralCode = (checkResult[0][Config.fsfReferredBy] ?? "");
         }
 
         if (nb.navigatorKey.currentState != null) {
@@ -143,6 +148,7 @@ class AuthBloc extends ChangeNotifier {
     sp.setString(Config.prefProfilePicUrl, profilePicUrl);
     sp.setBool(Config.prefLoggedIn, isLoggedIn);
     sp.setBool(Config.prefEligibleForReferral, eligibleForReferral);
+    sp.setString(Config.prefReferralCode, referralCode);
   }
 
   ///Loads user data from Session
@@ -155,6 +161,7 @@ class AuthBloc extends ChangeNotifier {
       _uid = sp.getString(Config.prefUID) ?? "";
       _eligibleForReferral =
           sp.getBool(Config.prefEligibleForReferral) ?? false;
+      _referralCode = sp.getString(Config.prefReferralCode) ?? "";
       _profilePicUrl = sp.getString(Config.prefProfilePicUrl) ?? "";
     }
     notifyListeners();
@@ -199,6 +206,8 @@ class AuthBloc extends ChangeNotifier {
     _profilePicUrl = "";
     _uid = "";
     _email = "";
+    _eligibleForReferral = false;
+    _referralCode = "";
     tsb.clearFields();
 
     ///Step 3 : Logout from auth providers
@@ -230,9 +239,11 @@ class AuthBloc extends ChangeNotifier {
   }
 
   ///Change state and session of referral eligibility to false
-  Future setIneligibleForReferral() async {
+  Future setIneligibleForReferral(String referralCode) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setBool(Config.prefEligibleForReferral, false);
+    sp.setString(Config.prefReferralCode, referralCode);
+    _referralCode = referralCode;
     _eligibleForReferral = false;
     notifyListeners();
   }

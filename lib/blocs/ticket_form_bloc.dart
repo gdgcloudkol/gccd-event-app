@@ -1,3 +1,5 @@
+import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/entrypoint/navigation_screen.dart';
 import 'package:ccd2022app/models/ticket_form_model.dart';
@@ -6,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class TicketFormBloc extends ChangeNotifier {
-
   ///State variable used to check if registrant data upload is in progress
   bool _entryCreationInProgress = false;
 
@@ -17,6 +18,8 @@ class TicketFormBloc extends ChangeNotifier {
     String uid,
     TicketFormModel model,
     TicketStatusBloc tsb,
+    AuthBloc ab,
+    ReferralBloc rb,
     BuildContext context,
   ) async {
     _entryCreationInProgress = true;
@@ -27,9 +30,14 @@ class TicketFormBloc extends ChangeNotifier {
         .doc(uid)
         .set(model.toMap());
 
+    if (ab.referralCode != "") {
+      await rb.changeOngoingReferralToCompletedReferral(uid, ab.referralCode);
+    }
+
     _entryCreationInProgress = false;
     goToNavigationScreen(context);
     notifyListeners();
+
     ///Call to check Ticket Status made to update ui to under review status
     tsb.checkTicketStatus();
   }
@@ -43,5 +51,4 @@ class TicketFormBloc extends ChangeNotifier {
       }),
     );
   }
-
 }

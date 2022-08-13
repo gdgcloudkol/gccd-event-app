@@ -1,4 +1,5 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
+import 'package:ccd2022app/blocs/referral_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_form_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/models/ticket_form_model.dart';
@@ -92,6 +93,7 @@ class _FormScreenState extends State<FormScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     AuthBloc ab = Provider.of<AuthBloc>(context);
+    ReferralBloc rb = Provider.of<ReferralBloc>(context);
     TicketFormBloc tfb = Provider.of<TicketFormBloc>(context);
     TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
 
@@ -367,7 +369,8 @@ class _FormScreenState extends State<FormScreen> {
                   TextButton(
                     onPressed: () {
                       if (tfb.entryCreationInProgress) {
-                        showSnackBar(context, "Please wait, saving your responses");
+                        showSnackBar(
+                            context, "Please wait, saving your responses");
                         return;
                       }
 
@@ -423,6 +426,8 @@ class _FormScreenState extends State<FormScreen> {
                         ab.uid,
                         model,
                         tsb,
+                        ab,
+                        rb,
                         context,
                       );
                     },

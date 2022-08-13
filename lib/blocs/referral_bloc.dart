@@ -37,7 +37,7 @@ class ReferralBloc extends ChangeNotifier {
     });
 
     ///Updating frontend to remove referral enter space
-    ab.setIneligibleForReferral();
+    ab.setIneligibleForReferral(referralCode);
 
     ///Adding uid to ongoing referrals of referrer
     await FirebaseFirestore.instance

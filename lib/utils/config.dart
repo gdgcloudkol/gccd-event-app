@@ -54,6 +54,7 @@ class Config {
   static String prefName = "name";
   static String prefUID = "uid";
   static String prefEligibleForReferral = "eligibleForReferral";
+  static String prefReferralCode = "referralCode";
   static String prefProfilePicUrl = "profilePicUrl";
   static String prefHasTicket = "hasTicket";
   static String prefTicketRejected = "ticketRejected";
