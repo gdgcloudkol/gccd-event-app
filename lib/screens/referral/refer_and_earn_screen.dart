@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:circle_progress_bar/circle_progress_bar.dart';
 
 class ReferAndEarn extends StatefulWidget {
   const ReferAndEarn({Key? key}) : super(key: key);
@@ -34,7 +35,6 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
   @override
   Widget build(BuildContext context) {
     AuthBloc ab = Provider.of<AuthBloc>(context);
-    ReferralBloc rb = Provider.of<ReferralBloc>(context);
 
     final TextEditingController uidController = TextEditingController(
       text: ab.uid,
