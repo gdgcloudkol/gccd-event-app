@@ -1,5 +1,6 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/screens/dashboard/application_status_card.dart';
+import 'package:ccd2022app/screens/dashboard/hackathon_card.dart';
 import 'package:ccd2022app/screens/dashboard/refer_earn_card.dart';
 import 'package:ccd2022app/utils/config.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 height: 30,
               ),
               const ReferEarnCard(),
+              const SizedBox(
+                height: 30,
+              ),
+              if (!DateTime.now().isAfter(Config.hackathonLastDate)) ...[
+                const HackathonCard(),
+                const SizedBox(
+                  height: 50,
+                ),
+              ]
             ]
           ],
         ),

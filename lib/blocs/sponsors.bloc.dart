@@ -8,8 +8,11 @@ import 'package:http/http.dart' as http;
 class SponsorsBloc extends ChangeNotifier {
   Future<List<Sponsor>?> fetchSponsors(
       http.Client client, BuildContext context) async {
-    final response = await client.get(Uri.parse(
-        'https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/sponsors.json'));
+    final response = await client.get(
+      Uri.parse(
+        'https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/sponsors.json?t=current%20timestamp',
+      ),
+    );
     return compute(parseSponsors, response.body);
   }
 }

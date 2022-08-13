@@ -8,8 +8,11 @@ import 'package:http/http.dart' as http;
 class CommunityPartnersBloc extends ChangeNotifier {
   Future<List<CommunityPartners>?> fetchCommunityPartners(
       http.Client client, BuildContext context) async {
-    final response = await client.get(Uri.parse(
-        'https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/community_partners.json'));
+    final response = await client.get(
+      Uri.parse(
+        'https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/community_partners.json?t=current%20timestamp',
+      ),
+    );
     return compute(parsePartners, response.body);
   }
 }
