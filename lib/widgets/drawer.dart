@@ -95,22 +95,6 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                if (ab.isLoggedIn) ...[
-                  singleDrawerOption(
-                    "Dashboard",
-                    Icons.dashboard_rounded,
-                    7,
-                    context,
-                    nb,
-                    ab,
-                    tsb,
-                    rb,
-                    iconSize: 26,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
                 singleDrawerOption(
                   "Speakers",
                   FontAwesomeIcons.bullhorn,

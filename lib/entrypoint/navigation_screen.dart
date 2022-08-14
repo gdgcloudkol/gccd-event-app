@@ -177,7 +177,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
   _showPopupMenu(Offset offset, NavigationBloc nb) async {
     double left = offset.dx;
     double top = offset.dy;
-    print(left);
     String? selection = await showMenu(
       context: context,
       position: RelativeRect.fromLTRB(left, top + 35, 25, 0),
@@ -208,12 +207,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
     return Row(
       children: [
         Icon(icon),
-        SizedBox(
+        const SizedBox(
           width: 25,
         ),
         Text(
           itemName,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontFamily: "GoogleSans",
             fontWeight: FontWeight.w700,
