@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/screens/dashboard/dashboard_screen.dart';
 import 'package:ccd2022app/screens/home/home_screen.dart';
+import 'package:ccd2022app/screens/profile/profile_screen.dart';
 import 'package:ccd2022app/screens/referral/refer_and_earn_screen.dart';
 import 'package:ccd2022app/screens/speakers_screen.dart';
 import 'package:ccd2022app/screens/sponsors/partners_screen.dart';
@@ -113,7 +115,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   _showPopupMenu(details.globalPosition, nb);
                 },
                 child: CircleAvatar(
-                  foregroundImage: NetworkImage(
+                  foregroundImage: CachedNetworkImageProvider(
                     ab.profilePicUrl,
                   ),
                   radius: 20,
@@ -133,6 +135,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
     switch (index) {
       case 0:
         return const HomeScreen();
+      case 1:
+        return const ProfileScreen();
       case 3:
         return const SpeakersScreen();
       case 4:
