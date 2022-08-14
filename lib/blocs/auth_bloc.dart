@@ -224,6 +224,9 @@ class AuthBloc extends ChangeNotifier {
       if (nb.navIndex == 7) {
         nb.changeNavIndex(0);
       }
+      if (nb.navStack.contains(7)) {
+        nb.removeIndexFromNavStack(7);
+      }
     }
     notifyListeners();
   }

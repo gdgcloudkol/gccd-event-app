@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SizedBox(
       height: size.height,
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   } else {
-                    ab.loginWithGoogle(context, tsb, nb,rb);
+                    ab.loginWithGoogle(context, tsb, nb, rb);
                   }
                 },
                 child: SizedBox(

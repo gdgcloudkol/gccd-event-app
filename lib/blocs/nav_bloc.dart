@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -16,7 +15,6 @@ class NavigationBloc extends ChangeNotifier {
     4: "Partners",
     6: "Tell a Friend",
     7: "Dashboard",
-    
   };
 
   late GlobalKey<NavigatorState> _navigatorKey;
@@ -56,10 +54,19 @@ class NavigationBloc extends ChangeNotifier {
 
   void removeTopIndexFromNavStack() {
     _navStack.remove(_navStack[0]);
-    if (kDebugMode) {
-      print(navStack);
-    }
     _navIndex = _navStack[0];
+    notifyListeners();
+  }
+
+  void removeIndexFromNavStack(index) {
+    bool isIndexTop = false;
+    if (index == _navStack[0]) {
+      isIndexTop = true;
+    }
+    _navStack.remove(index);
+    if (isIndexTop) {
+      _navIndex = _navStack[0];
+    }
     notifyListeners();
   }
 }

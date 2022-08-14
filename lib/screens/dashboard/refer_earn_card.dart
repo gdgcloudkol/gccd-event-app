@@ -1,6 +1,9 @@
+import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/screens/referral/refer_and_earn_screen.dart';
+import 'package:ccd2022app/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ReferEarnCard extends StatelessWidget {
   const ReferEarnCard({Key? key}) : super(key: key);
@@ -8,7 +11,7 @@ class ReferEarnCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    AuthBloc ab = Provider.of<AuthBloc>(context);
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -107,9 +110,17 @@ class ReferEarnCard extends StatelessWidget {
               primary: Colors.white,
             ),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return const ReferAndEarn();
-              }));
+              if (ab.isLoggedIn) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ReferAndEarn();
+                    },
+                  ),
+                );
+              } else {
+                showSnackBar(context, "Login to access refer and earn");
+              }
             },
             icon: const Icon(
               FontAwesomeIcons.boxOpen,

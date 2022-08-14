@@ -26,6 +26,7 @@ class _SpeakersScreenState extends State<SpeakersScreen> {
             ),
           )
         : ListView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: sb.speakers.length,
             itemBuilder: (
               context,

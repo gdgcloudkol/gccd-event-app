@@ -12,6 +12,7 @@ import 'package:ccd2022app/widgets/foreground_notification_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -107,12 +108,17 @@ class _NavigationScreenState extends State<NavigationScreen> {
           ),
           actions: [
             if (ab.isLoggedIn && !(ab.profilePicUrl == ""))
-              CircleAvatar(
-                foregroundImage: NetworkImage(
-                  ab.profilePicUrl,
+              GestureDetector(
+                onTapDown: (TapDownDetails details) {
+                  _showPopupMenu(details.globalPosition, nb);
+                },
+                child: CircleAvatar(
+                  foregroundImage: NetworkImage(
+                    ab.profilePicUrl,
+                  ),
+                  radius: 20,
+                  backgroundColor: Colors.white,
                 ),
-                radius: 20,
-                backgroundColor: Colors.white,
               ),
             const SizedBox(
               width: 20,
@@ -166,5 +172,54 @@ class _NavigationScreenState extends State<NavigationScreen> {
         }
       }
     });
+  }
+
+  _showPopupMenu(Offset offset, NavigationBloc nb) async {
+    double left = offset.dx;
+    double top = offset.dy;
+    print(left);
+    String? selection = await showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(left, top + 35, 25, 0),
+      items: [
+        PopupMenuItem<String>(
+          value: '1',
+          child: getSinglePopupItem('Profile', FontAwesomeIcons.user),
+        ),
+        PopupMenuItem<String>(
+          value: '7',
+          child: getSinglePopupItem('Dashboard', Icons.dashboard_outlined),
+        ),
+      ],
+      elevation: 10.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+    if (selection != null) {
+      nb.changeNavIndex(int.tryParse(selection) ?? 0);
+    }
+  }
+
+  Widget getSinglePopupItem(
+    String itemName,
+    IconData icon,
+  ) {
+    return Row(
+      children: [
+        Icon(icon),
+        SizedBox(
+          width: 25,
+        ),
+        Text(
+          itemName,
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: "GoogleSans",
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    );
   }
 }

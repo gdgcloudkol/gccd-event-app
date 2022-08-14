@@ -24,6 +24,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       height: size.height,
       width: size.width,
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             Text(
-              ab.name,
+              ab.name.isEmpty ? "Guest" : ab.name,
               style: const TextStyle(
                 fontFamily: "GoogleSans",
                 fontSize: 25,

@@ -111,18 +111,6 @@ class AppDrawer extends StatelessWidget {
                     height: 10,
                   ),
                 ],
-                // singleDrawerOption(
-                //   "Profile",
-                //   FontAwesomeIcons.solidUser,
-                //   1,
-                //   context,
-                //   nb,
-                //   ab,
-                //   tsb,
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
                 singleDrawerOption(
                   "Speakers",
                   FontAwesomeIcons.bullhorn,
