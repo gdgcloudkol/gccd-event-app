@@ -17,15 +17,15 @@ class SessionsGridBloc extends ChangeNotifier {
 
   List<SessionsGrid> _day2Sessions = [];
 
-  List<SessionsGrid> get day2Sessions => _day1Sessions;
+  List<SessionsGrid> get day2Sessions => _day2Sessions;
 
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
 
-  bool _isError = false;
+  bool _hasError = false;
 
-  bool get isError => _isError;
+  bool get hasError => _hasError;
 
   String _errorMessage = "";
 
@@ -38,12 +38,15 @@ class SessionsGridBloc extends ChangeNotifier {
   void _fetchSessions() async {
     _isLoading = true;
     notifyListeners();
-    // try {
+    try {
       final response = await get(sessionsUrl);
       if (response.statusCode == 200) {
+        _day1Sessions = [];
+        _day2Sessions = [];
         final data = json.decode(response.body);
         final day1TimeslotsData = data[0]["timeSlots"];
         final day2TimeslotsData = data[1]["timeSlots"];
+
         for (var timeslot in day1TimeslotsData) {
           final rooms = timeslot["rooms"];
           for (var room in rooms) {
@@ -61,22 +64,20 @@ class SessionsGridBloc extends ChangeNotifier {
           }
         }
 
-        print("${_day1Sessions.length} ${day2Sessions.length}");
-
         _isLoading = false;
         notifyListeners();
       } else {
-        _isError = true;
+        _hasError = true;
         _errorMessage = "Something went wrong";
         notifyListeners();
       }
-    // } catch (e) {
-    //   _isError = true;
-    //   if (kDebugMode) {
-    //     print(e.toString());
-    //   }
-    //   _errorMessage = "Something went wrong";
-    //   notifyListeners();
-    // }
+    } catch (e) {
+      _hasError = true;
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      _errorMessage = "Something went wrong";
+      notifyListeners();
+    }
   }
 }
