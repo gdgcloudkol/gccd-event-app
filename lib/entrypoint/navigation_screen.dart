@@ -3,6 +3,7 @@ import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/screens/dashboard/dashboard_screen.dart';
 import 'package:ccd2022app/screens/home/home_screen.dart';
 import 'package:ccd2022app/screens/referral/refer_and_earn_screen.dart';
+import 'package:ccd2022app/screens/sessions_screen.dart';
 import 'package:ccd2022app/screens/speakers_screen.dart';
 import 'package:ccd2022app/screens/sponsors/partners_screen.dart';
 import 'package:ccd2022app/services/fcm.dart';
@@ -139,6 +140,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
         return const PartnersScreen();
       case 7:
         return const DashboardScreen();
+      case 10:
+        return const SessionsScreen();
       case 11:
         return const ReferAndEarn();
       default:
@@ -176,10 +179,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   _showPopupMenu(Offset offset, NavigationBloc nb) async {
     double left = offset.dx;
-    double top = offset.dy;
     String? selection = await showMenu(
       context: context,
-      position: RelativeRect.fromLTRB(left, top + 35, 25, 0),
+      position: RelativeRect.fromLTRB(left, 105, 25, 0),
       items: [
         PopupMenuItem<String>(
           value: '1',

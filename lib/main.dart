@@ -2,6 +2,7 @@ import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/community_partners_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:ccd2022app/blocs/referral_bloc.dart';
+import 'package:ccd2022app/blocs/sessions_bloc.dart';
 import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/blocs/sponsors.bloc.dart';
 import 'package:ccd2022app/blocs/ticket_form_bloc.dart';
@@ -71,6 +72,9 @@ class CCDApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<SpeakersBloc>(
           create: (context) => SpeakersBloc(),
+        ),
+        ChangeNotifierProvider<SessionsGridBloc>(
+          create: (context) => SessionsGridBloc(),
         ),
         ChangeNotifierProvider<SponsorsBloc>(
           create: (context) => SponsorsBloc(),
