@@ -1,12 +1,12 @@
 class SessionsGrid {
   String id = "";
   String title = "";
-  String description = "";
+  String? description;
   String startsAt = "";
   String endsAt = "";
   String room = "";
-  String liveUrl = "";
-  String recordingUrl = "";
+  String? liveUrl;
+  String? recordingUrl;
   List<Speaker> speakers;
   List<Category> categories;
 
@@ -14,12 +14,12 @@ class SessionsGrid {
   SessionsGrid({
     this.id = "",
     this.title = "",
-    this.description = "",
+    this.description,
     this.startsAt = "",
     this.endsAt = "",
     this.room = "",
-    this.liveUrl = "",
-    this.recordingUrl = "",
+    this.liveUrl,
+    this.recordingUrl,
     this.speakers = const [],
     this.categories = const [],
   });
@@ -49,11 +49,11 @@ class SessionsGrid {
 }
 
 class Speaker {
-  int id;
+  String id;
   String name;
 
   Speaker({
-    this.id = 0,
+    this.id = "",
     this.name = "",
   });
 

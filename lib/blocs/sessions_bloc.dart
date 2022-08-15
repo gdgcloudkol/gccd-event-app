@@ -38,22 +38,31 @@ class SessionsGridBloc extends ChangeNotifier {
   void _fetchSessions() async {
     _isLoading = true;
     notifyListeners();
-    try {
+    // try {
       final response = await get(sessionsUrl);
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final day1TimeslotsData = data[0]["timeSlots"];
         final day2TimeslotsData = data[1]["timeSlots"];
-        for(var timeslot in day2TimeslotsData){
+        for (var timeslot in day1TimeslotsData) {
           final rooms = timeslot["rooms"];
-          for(var room in rooms){
-            final session = room["session"];
+          for (var room in rooms) {
+            final sessionData = room["session"];
+            SessionsGrid session = SessionsGrid.fromJson(sessionData);
+            _day1Sessions.add(session);
           }
         }
-        // print(day1SessionsData);
-        // _day1Sessions = List<SessionsGrid>.from(
-        //   data.map((json) => SessionsGrid.fromJson(json["rooms"])).toList(),
-        // );
+        for (var timeslot in day2TimeslotsData) {
+          final rooms = timeslot["rooms"];
+          for (var room in rooms) {
+            final sessionData = room["session"];
+            SessionsGrid session = SessionsGrid.fromJson(sessionData);
+            _day2Sessions.add(session);
+          }
+        }
+
+        print("${_day1Sessions.length} ${day2Sessions.length}");
+
         _isLoading = false;
         notifyListeners();
       } else {
@@ -61,13 +70,13 @@ class SessionsGridBloc extends ChangeNotifier {
         _errorMessage = "Something went wrong";
         notifyListeners();
       }
-    } catch (e) {
-      _isError = true;
-      if (kDebugMode) {
-        print(e.toString());
-      }
-      _errorMessage = "Something went wrong";
-      notifyListeners();
-    }
+    // } catch (e) {
+    //   _isError = true;
+    //   if (kDebugMode) {
+    //     print(e.toString());
+    //   }
+    //   _errorMessage = "Something went wrong";
+    //   notifyListeners();
+    // }
   }
 }
