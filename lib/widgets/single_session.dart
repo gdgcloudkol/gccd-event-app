@@ -1,5 +1,6 @@
 import 'package:ccd2022app/models/sessions_model.dart';
 import 'package:ccd2022app/widgets/speaker_chip.dart';
+import 'package:ccd2022app/widgets/technology_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
@@ -194,9 +195,30 @@ class SingleSession extends StatelessWidget {
                 ),
               ),
             ],
+            if (session.categories.isNotEmpty) ...[
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                alignment: Alignment.bottomLeft,
+                height: 45,
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, i) {
+                    return TechnologyChip(
+                      technology: session.categories[1].categoryItems[i].name,
+                    );
+                  },
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  shrinkWrap: true,
+                  itemCount: session.categories[1].categoryItems.length,
+                  scrollDirection: Axis.horizontal,
+                ),
+              ),
+            ],
             if (session.description != null) ...[
               const SizedBox(
-                height: 15,
+                height: 20,
               ),
               Container(
                 decoration: BoxDecoration(
