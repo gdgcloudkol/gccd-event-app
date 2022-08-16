@@ -196,10 +196,9 @@ class ApplicationStatusCard extends StatelessWidget {
         } else if (tsb.ticketGranted) {
           return true;
         } else {
-          //TODO change this to != null once Application Details form has been completed
-          return tsb.applicantData == null;
+          return tsb.applicantData != null;
         }
-      }else{
+      } else {
         return true;
       }
     }

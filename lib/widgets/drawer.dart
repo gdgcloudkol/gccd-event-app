@@ -95,26 +95,23 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                if (ab.isLoggedIn) ...[
-                  singleDrawerOption(
-                    "Dashboard",
-                    Icons.dashboard_rounded,
-                    7,
-                    context,
-                    nb,
-                    ab,
-                    tsb,
-                    rb,
-                    iconSize: 26,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
                 singleDrawerOption(
                   "Speakers",
                   FontAwesomeIcons.bullhorn,
                   3,
+                  context,
+                  nb,
+                  ab,
+                  tsb,
+                  rb,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                singleDrawerOption(
+                  "Sessions",
+                  FontAwesomeIcons.chalkboardUser,
+                  10,
                   context,
                   nb,
                   ab,
@@ -184,11 +181,9 @@ class AppDrawer extends StatelessWidget {
                   tsb,
                   rb,
                 ),
-
                 const SizedBox(
                   height: 10,
                 ),
-
                 singleDrawerOption(
                   "Licenses",
                   FontAwesomeIcons.fileCode,
@@ -202,7 +197,6 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-
                 const SizedBox(
                   height: 10,
                 ),
@@ -359,7 +353,7 @@ class AppDrawer extends StatelessWidget {
         text: "Hey! Let's join together for the largest developer conclave "
             "in eastern India - Cloud Community Days Kolkata to"
             " join hundreds of developers and engage with industry experts presenting on cutting edge technology. "
-            'Here is my referral code: ${ab.uid}\n\nHurry, get your pass!\n'
+            '${ab.isLoggedIn ? "Here is my referral code: ${ab.uid}\n\nHurry, get your pass!\n" : "\n\nHurry, get your pass!\n"}'
             'Download Link: https://play.google.com/store/apps/details?id=com.gdgck.ccd2022',
       );
     } else if (index == 9) {

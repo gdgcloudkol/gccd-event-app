@@ -113,7 +113,7 @@ class SpeakerProfileScreen extends StatelessWidget {
                             speaker.bio,
                             trimLines: 10,
                             trimMode: TrimMode.Line,
-                            trimCollapsedText: '...read more',
+                            trimCollapsedText: 'read more',
                             trimExpandedText: 'collapse ',
                             style: const TextStyle(
                               fontSize: 20,
