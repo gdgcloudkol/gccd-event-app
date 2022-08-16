@@ -32,12 +32,13 @@ class ReferEarnCard extends StatelessWidget {
                 Container(
                   width: 80,
                   decoration: BoxDecoration(
-                      color: Colors.blue.shade300,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                      ),
-                      border: Border.all(color: Colors.black)),
+                    color: Colors.blue.shade300,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
+                    border: Border.all(color: Colors.black),
+                  ),
                   child: const Center(
                     child: Icon(
                       FontAwesomeIcons.gift,

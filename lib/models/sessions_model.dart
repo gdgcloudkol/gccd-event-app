@@ -7,7 +7,7 @@ class SessionsGrid {
   String room = "";
   String? liveUrl;
   String? recordingUrl;
-  List<Speaker> speakers;
+  List<SessionSpeaker> speakers;
   List<Category> categories;
 
   // from json
@@ -34,9 +34,9 @@ class SessionsGrid {
       room: json["room"],
       liveUrl: json["liveUrl"],
       recordingUrl: json["recordingUrl"],
-      speakers: List<Speaker>.from(json["speakers"]
+      speakers: List<SessionSpeaker>.from(json["speakers"]
           .map(
-            (json) => Speaker.fromJson(json),
+            (json) => SessionSpeaker.fromJson(json),
           )
           .toList()),
       categories: List<Category>.from(json["categories"]
@@ -48,17 +48,17 @@ class SessionsGrid {
   }
 }
 
-class Speaker {
+class SessionSpeaker {
   String id;
   String name;
 
-  Speaker({
+  SessionSpeaker({
     this.id = "",
     this.name = "",
   });
 
   static fromJson(json) {
-    return Speaker(
+    return SessionSpeaker(
       id: json["id"],
       name: json["name"],
     );

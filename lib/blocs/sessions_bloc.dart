@@ -1,9 +1,8 @@
 import 'dart:convert';
 
+import 'package:ccd2022app/models/time_slot_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
-
-import '../models/sessions_model.dart';
 
 class SessionsGridBloc extends ChangeNotifier {
   // create a api call to get the sessions list
@@ -11,13 +10,13 @@ class SessionsGridBloc extends ChangeNotifier {
   final Uri sessionsUrl =
       Uri.parse("https://sessionize.com/api/v2/kirmfltc/view/GridSmart");
 
-  List<SessionsGrid> _day1Sessions = [];
+  List<Timeslot> _day1Slots = [];
 
-  List<SessionsGrid> get day1Sessions => _day1Sessions;
+  List<Timeslot> _day2Slots = [];
 
-  List<SessionsGrid> _day2Sessions = [];
+  List<Timeslot> get day1Slots => _day1Slots;
 
-  List<SessionsGrid> get day2Sessions => _day2Sessions;
+  List<Timeslot> get day2Slots => _day2Slots;
 
   bool _isLoading = false;
 
@@ -38,46 +37,36 @@ class SessionsGridBloc extends ChangeNotifier {
   void _fetchSessions() async {
     _isLoading = true;
     notifyListeners();
-    try {
-      final response = await get(sessionsUrl);
-      if (response.statusCode == 200) {
-        _day1Sessions = [];
-        _day2Sessions = [];
-        final data = json.decode(response.body);
-        final day1TimeslotsData = data[0]["timeSlots"];
-        final day2TimeslotsData = data[1]["timeSlots"];
+    // try {
+    final response = await get(sessionsUrl);
+    if (response.statusCode == 200) {
+      _day1Slots = [];
+      _day2Slots = [];
+      final data = json.decode(response.body);
+      final day1TimeslotsData = data[0]["timeSlots"];
+      final day2TimeslotsData = data[1]["timeSlots"];
 
-        for (var timeslot in day1TimeslotsData) {
-          final rooms = timeslot["rooms"];
-          for (var room in rooms) {
-            final sessionData = room["session"];
-            SessionsGrid session = SessionsGrid.fromJson(sessionData);
-            _day1Sessions.add(session);
-          }
-        }
-        for (var timeslot in day2TimeslotsData) {
-          final rooms = timeslot["rooms"];
-          for (var room in rooms) {
-            final sessionData = room["session"];
-            SessionsGrid session = SessionsGrid.fromJson(sessionData);
-            _day2Sessions.add(session);
-          }
-        }
+      _day1Slots = List<Timeslot>.from(day1TimeslotsData
+          .map((json) => Timeslot.fromJson(json))
+          .toList());
+      _day2Slots = List<Timeslot>.from(day2TimeslotsData
+          .map((json) => Timeslot.fromJson(json))
+          .toList());
 
-        _isLoading = false;
-        notifyListeners();
-      } else {
-        _hasError = true;
-        _errorMessage = "Something went wrong";
-        notifyListeners();
-      }
-    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
+    } else {
       _hasError = true;
-      if (kDebugMode) {
-        print(e.toString());
-      }
       _errorMessage = "Something went wrong";
       notifyListeners();
     }
+    // } catch (e) {
+    //   _hasError = true;
+    //   if (kDebugMode) {
+    //     print(e.toString());
+    //   }
+    //   _errorMessage = "Something went wrong";
+    //   notifyListeners();
+    // }
   }
 }

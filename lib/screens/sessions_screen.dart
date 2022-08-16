@@ -1,5 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ccd2022app/blocs/sessions_bloc.dart';
+import 'package:ccd2022app/blocs/speakers_bloc.dart';
 import 'package:ccd2022app/models/sessions_model.dart';
+import 'package:ccd2022app/models/speaker_model.dart';
+import 'package:ccd2022app/models/time_slot_model.dart';
+import 'package:ccd2022app/screens/speaker_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -15,18 +20,14 @@ class SessionsScreen extends StatefulWidget {
 class _SessionsScreenState extends State<SessionsScreen> {
   @override
   Widget build(BuildContext context) {
-    SessionsGridBloc sb = Provider.of<SessionsGridBloc>(context);
+    SessionsGridBloc sgb = Provider.of<SessionsGridBloc>(context);
+    SpeakersBloc sb = Provider.of<SpeakersBloc>(context);
     Size size = MediaQuery.of(context).size;
 
     return DefaultTabController(
       length: 2,
       child: Container(
-        padding: const EdgeInsets.fromLTRB(
-          0,
-          25.0,
-          0,
-          0.0,
-        ),
+        padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
         width: size.width,
         height: size.height,
         child: Column(
@@ -90,7 +91,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
               child: TabBarView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  sb.isLoading
+                  sgb.isLoading || sb.isLoading
                       ? SizedBox(
                           height: size.height / 2 + 50,
                           child: const Center(
@@ -98,9 +99,13 @@ class _SessionsScreenState extends State<SessionsScreen> {
                           ),
                         )
                       : ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                            bottom: 80,
+                          ),
                           physics: const BouncingScrollPhysics(),
-                          itemCount: sb.day1Sessions.length,
+                          itemCount: sgb.day1Slots.length,
                           shrinkWrap: true,
                           itemBuilder: (
                             context,
@@ -108,12 +113,13 @@ class _SessionsScreenState extends State<SessionsScreen> {
                           ) {
                             return getSingleSession(
                               size,
-                              sb.day1Sessions[index],
+                              sgb.day1Slots[index],
                               true,
+                              sb,
                             );
                           },
                         ),
-                  sb.isLoading
+                  sgb.isLoading || sb.isLoading
                       ? SizedBox(
                           height: size.height / 2 + 50,
                           child: const Center(
@@ -121,9 +127,13 @@ class _SessionsScreenState extends State<SessionsScreen> {
                           ),
                         )
                       : ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                            bottom: 80,
+                          ),
                           physics: const BouncingScrollPhysics(),
-                          itemCount: sb.day2Sessions.length,
+                          itemCount: sgb.day2Slots.length,
                           shrinkWrap: true,
                           itemBuilder: (
                             context,
@@ -131,8 +141,9 @@ class _SessionsScreenState extends State<SessionsScreen> {
                           ) {
                             return getSingleSession(
                               size,
-                              sb.day2Sessions[index],
+                              sgb.day2Slots[index],
                               false,
+                              sb,
                             );
                           },
                         ),
@@ -145,10 +156,14 @@ class _SessionsScreenState extends State<SessionsScreen> {
     );
   }
 
-  Widget getSingleSession(Size size, SessionsGrid model, bool isDay1) {
+  Widget getSingleSession(
+      Size size, Timeslot model, bool isDay1, SpeakersBloc sb) {
     DateFormat format = DateFormat("yyyy-MM-ddTH:m:s");
-    DateTime start = format.parse(model.startsAt);
-    DateTime end = format.parse(model.endsAt);
+
+    SessionsGrid session = model.rooms[0].session;
+
+    DateTime start = format.parse(session.startsAt);
+    DateTime end = format.parse(session.endsAt);
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -170,7 +185,8 @@ class _SessionsScreenState extends State<SessionsScreen> {
                   DateFormat("HH:mm").format(start),
                   style: const TextStyle(
                     fontFamily: "GoogleSans",
-                    fontSize: 20,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(
@@ -188,7 +204,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                   height: 5,
                 ),
                 const Text(
-                  "GMT (+5:30)",
+                  "GMT (+05:30)",
                   style: TextStyle(
                     fontFamily: "GoogleSans",
                     fontSize: 12,
@@ -219,7 +235,9 @@ class _SessionsScreenState extends State<SessionsScreen> {
                         color: Color(0xffdcfce7),
                       ),
                       child: Text(
-                        model.title == "Lunch" ? "Cafeteria" : "Workshop Hall",
+                        session.title == "Lunch"
+                            ? "Cafeteria"
+                            : "Workshop Hall",
                         style: const TextStyle(
                           fontFamily: "GoogleSans",
                         ),
@@ -227,33 +245,87 @@ class _SessionsScreenState extends State<SessionsScreen> {
                     )
                   else
                     Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 6),
                       decoration: const BoxDecoration(
                         color: Color(0xffdcfce7),
                       ),
                       child: Text(
-                        model.room,
+                        session.room,
                         style: const TextStyle(
                           fontFamily: "GoogleSans",
                         ),
                       ),
                     ),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   Text(
-                    model.title,
+                    session.title,
                     style: const TextStyle(
                       fontFamily: "GoogleSans",
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  if (model.description != null) ...[
+                  if (session.speakers.isEmpty && session.categories.isEmpty)
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  if (session.speakers.isNotEmpty) ...[
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Speaker? sp = sb.getSpeaker(session.speakers[0].id);
+                        if (sp != null) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SpeakerProfileScreen(
+                                  speaker: sp,
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
+                      child: Chip(
+                        backgroundColor:
+                            const Color(0xff3b82f6).withOpacity(0.6),
+                        labelPadding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        avatar: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            radius: 15,
+                            backgroundImage: CachedNetworkImageProvider(
+                              sb.getSpeakerImageUrl(session.speakers[0].id),
+                            ),
+                          ),
+                        ),
+                        label: Text(
+                          session.speakers[0].name,
+                          style: const TextStyle(
+                            fontFamily: "GoogleSans",
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                  if (session.description != null) ...[
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      model.description ?? "",
+                      session.description ?? "",
                       style: const TextStyle(
                         fontFamily: "GoogleSans",
                         fontSize: 13,

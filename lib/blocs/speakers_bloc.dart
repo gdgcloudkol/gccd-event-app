@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
@@ -31,7 +30,7 @@ class SpeakersBloc extends ChangeNotifier {
     _fetchSpeakers();
   }
 
-  void _fetchSpeakers() async {
+  Future _fetchSpeakers() async {
     _isLoading = true;
     notifyListeners();
     try {
@@ -56,5 +55,24 @@ class SpeakersBloc extends ChangeNotifier {
       _errorMessage = "Something went wrong";
       notifyListeners();
     }
+  }
+
+  String getSpeakerImageUrl(String id) {
+    for (Speaker sp in speakers) {
+      if (sp.id == id) {
+        return sp.profilePicture;
+      }
+    }
+
+    return "";
+  }
+
+  Speaker? getSpeaker(String id) {
+    for (Speaker sp in speakers) {
+      if (sp.id == id) {
+        return sp;
+      }
+    }
+    return null;
   }
 }
