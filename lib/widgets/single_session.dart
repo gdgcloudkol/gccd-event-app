@@ -226,7 +226,7 @@ class SingleSession extends StatelessWidget {
                     bottomLeft: Radius.circular(18),
                     bottomRight: Radius.circular(18),
                   ),
-                  color: const Color(0xff3b82f6).withOpacity(0.6),
+                  color: const Color(0xff3b82f6).withOpacity(0.9),
                 ),
                 padding: const EdgeInsets.all(12.0),
                 child: ReadMoreText(
@@ -238,12 +238,14 @@ class SingleSession extends StatelessWidget {
                   moreStyle: const TextStyle(
                     fontSize: 16,
                     fontFamily: 'GoogleSans',
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                   lessStyle: const TextStyle(
                     fontSize: 16,
                     fontFamily: 'GoogleSans',
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                   style: const TextStyle(
                     fontSize: 15,

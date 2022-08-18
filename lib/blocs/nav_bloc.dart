@@ -15,7 +15,7 @@ class NavigationBloc extends ChangeNotifier {
     4: "Partners",
     6: "Tell a Friend",
     7: "Dashboard",
-    10: "Sessions",
+    10: "Schedule",
   };
 
   late GlobalKey<NavigatorState> _navigatorKey;
