@@ -111,7 +111,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                               size,
                               sgb.day1Slots[index],
                               true,
-                              sb,
                             );
                           },
                         ),
@@ -135,12 +134,20 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                             context,
                             int index,
                           ) {
-                            return getSingleSession(
-                              size,
-                              sgb.day2Slots[index],
-                              false,
-                              sb,
-                            );
+                            if (sgb.day2Slots[index].rooms.length == 1) {
+                              return getSingleSession(
+                                size,
+                                sgb.day2Slots[index],
+                                false,
+                              );
+                            } else {
+                              return getSingleSession(
+                                size,
+                                sgb.day2Slots[index],
+                                false,
+                                showChangerIcon: true,
+                              );
+                            }
                           },
                         ),
                 ],
@@ -155,14 +162,14 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   Widget getSingleSession(
     Size size,
     Timeslot model,
-    bool isDay1,
-    SpeakersBloc sb,
-  ) {
+    bool isDay1, {
+    bool showChangerIcon = false,
+  }) {
     return SingleSession(
       size: size,
       model: model,
       isDay1: isDay1,
-      sb: sb,
+      showChangerIcon: showChangerIcon,
     );
   }
 }
