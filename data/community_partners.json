@@ -28,5 +28,17 @@
     "chapter": "GECBSP",
     "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
     "url": "https://gdsc.community.dev/government-engineering-college-bilaspur/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "St. Xaviers College Kolkata",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/st-xaviers-college-kolkata/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "Brainware University",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/brainware-university-kolkata/"
   }
 ]
