@@ -69,7 +69,7 @@ Project Setup :
   * Run `flutter pub get` command.
   * Run `flutter run` command.
   
-*Firebase:
+* Firebase:
   * Instructions on this section coming soon
 
 * ## How to Contribute to this repo?
