@@ -12,6 +12,12 @@
     "description": "Gold Sponsor"
   },
   {
+    "color": "C0C0C0",
+    "url": "https://dynopii.com/",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/dynopii.png",
+    "description": "Silver Sponsor"
+  },
+  {
     "color": "1AB394",
     "url": "https://www.sessionize.com",
     "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/sessionize.png",
