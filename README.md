@@ -59,7 +59,8 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-Project Setup : 
+Project Setup :
+
 * Flutter App:
   * [Install Flutter](https://docs.flutter.dev/get-started/install)
   * [Setting up your ide](https://flutter.io/ide-setup/)
@@ -70,7 +71,50 @@ Project Setup :
   * Run `flutter run` command.
   
 * Firebase:
-  * Instructions on this section coming soon
+  * Create a firebase project
+  * Add android app with your package name in firebase console.
+  * Enable Google Auth from `Authentication` menu in Firebase.
+  * Generate `SHA-1 key hash` for your debug keystore from your pc. This needs to be added to `SHA certificate fingerprints` section under your android app in `Firebase project settings`. Without this step **Google login** won't work.
+  * Enable ***Cloud Firestore***
+    * Recommended rules for Firestore 
+    
+        ```JS
+          rules_version = '2';
+          service cloud.firestore {
+            match /databases/{database}/documents {
+
+             match /tickets/{ticket} {
+              allow read : if request.auth != null;
+              allow write: if false;
+             }
+
+            match /{document=**} {
+              allow read, write: if request.auth != null;
+            }
+
+          }
+         }
+       ```
+    * Recommended Rules for Cloud Storage
+        
+        ```JS
+          rules_version = '2';
+          service firebase.storage {
+            match /b/{bucket}/o {
+              match /{allPaths=**} {
+                allow read: if true;
+                allow write: if false;
+                allow create: if false;
+                allow update: if false;
+              }
+            }
+          }
+        ```
+        
+  * Enable ***Cloud Storage***
+  * Download `google_services.json` from `Console` -> `Project Settings`. File is present in app section. SDK instructions found in the same page
+  * (Optional) Enable ***Cloud Messaging*** from Firebase Console if you wan't notifications to work in your app
+  * (Optional) If released to play store get `SHA-1 key hash` from playstore and upload them to firebase, otherwise google sign in won't work in play store app.
 
 * ## How to Contribute to this repo?
   
