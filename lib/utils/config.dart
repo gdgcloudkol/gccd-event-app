@@ -47,6 +47,13 @@ class Config {
 
   ///End of fields for user referral
 
+  ///Start of fields for ticket
+  static String fsfConferenceTicket = "conference";
+  static String fsfWorkshopTicket = "workshop";
+  static String fsfTicketID = "ticketId";
+
+  ///End of fields for user referral
+
   ///Shared Preference Keys
   ///Var naming convention use guide : Start with pref
   static String prefEmail = "email";
@@ -59,6 +66,7 @@ class Config {
   static String prefHasTicket = "hasTicket";
   static String prefTicketRejected = "ticketRejected";
   static String prefConferenceTicketImageUrl = "conferenceTicketImageUrl";
+  static String prefWorkshopTicketImageUrl = "workshopTicketImageUrl";
 
   static String fcmArgRedirect = "redirect";
   static String fcmArgScreen = "appScreen";

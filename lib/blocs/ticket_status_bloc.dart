@@ -60,14 +60,22 @@ class TicketStatusBloc extends ChangeNotifier {
       ///Step 0///
       ///Checking session cache if ticket is already present
       ///If yes no need to go to firestore
+
       if (sp.getBool(Config.prefHasTicket) ?? false) {
         _hasApplied = true;
         _ticketGranted = true;
         _confTicketImageUrl =
             sp.getString(Config.prefConferenceTicketImageUrl) ?? "";
+        _workshopTicketImageUrl =
+            sp.getString(Config.prefWorkshopTicketImageUrl) ?? "";
         _loading = false;
         notifyListeners();
-        return;
+
+        ///Returning only if both tickets are present
+        if (_confTicketImageUrl.isNotEmpty &&
+            _workshopTicketImageUrl.isNotEmpty) {
+          return;
+        }
       } else if (sp.getBool(Config.prefTicketRejected) ?? false) {
         _hasApplied = true;
         _ticketGranted = false;
@@ -82,20 +90,30 @@ class TicketStatusBloc extends ChangeNotifier {
       _loading = true;
       notifyListeners();
 
-      ///Step 1///
-      ///Checking if application exists
-      ///If yes, go to Step 2
-      DocumentSnapshot<Map<String, dynamic>> snap = await FirebaseFirestore
-          .instance
-          .collection(Config.fscTicketFormRegistrations)
-          .doc(sp.getString(Config.prefUID))
-          .get();
+      if (!ticketGranted) {
+        ///Step 1///
+        ///Checking if application exists and whether it was rejected
+        ///If yes, go to Step 2
+        DocumentSnapshot<Map<String, dynamic>> snap = await FirebaseFirestore
+            .instance
+            .collection(Config.fscTicketFormRegistrations)
+            .doc(sp.getString(Config.prefUID))
+            .get();
 
-      if (snap.exists) {
-        _applicantData = snap;
-        _hasApplied = true;
-      } else {
-        _hasApplied = false;
+        if (snap.exists) {
+          _applicantData = snap;
+          _hasApplied = true;
+        } else {
+          _hasApplied = false;
+        }
+
+        ///Checking if ticket was rejected
+        if (snap.data() != null &&
+            (snap.data() ?? {}).containsKey(Config.fsfRejected)) {
+          _ticketGranted = false;
+          _rejected = true;
+          sp.setBool(Config.prefTicketRejected, true);
+        }
       }
 
       ///End of Step 1///
@@ -105,34 +123,47 @@ class TicketStatusBloc extends ChangeNotifier {
       ///If yes fetch ticket url from Firebase Storage and
       ///cache in shared preferences so that
       ///we don't make redundant api calls from next time
-      if (_hasApplied) {
-        ///Checking if ticket was rejected
-        if (snap.data() != null &&
-            (snap.data() ?? {}).containsKey(Config.fsfRejected)) {
-          _ticketGranted = false;
-          _rejected = true;
-          sp.setBool(Config.prefTicketRejected, true);
-        }
-
+      if (_hasApplied && !_rejected) {
         ///Checking if ticket was granted
-        else {
-          String uid = sp.getString(Config.prefUID) ?? "";
-          DocumentSnapshot snapTicket = await FirebaseFirestore.instance
-              .collection(Config.fscTickets)
-              .doc(uid)
-              .get();
-          if (snapTicket.exists) {
-            _ticketGranted = true;
-            ListResult result = await _storage.ref("$uid/").listAll();
 
+        String uid = sp.getString(Config.prefUID) ?? "";
+        DocumentSnapshot<Map<String, dynamic>> snapTicket =
+            await FirebaseFirestore.instance
+                .collection(Config.fscTickets)
+                .doc(uid)
+                .get();
+        if (snapTicket.exists && snapTicket.data() != null) {
+          _ticketGranted = true;
+          ListResult result = await _storage.ref("$uid/").listAll();
+
+          if (snapTicket.data()!.containsKey(Config.fsfConference) &&
+              snapTicket.data()![Config.fsfConference]) {
             _confTicketImageUrl = await result.items[0].getDownloadURL();
 
             sp.setBool(Config.prefHasTicket, true);
             sp.setString(
-                Config.prefConferenceTicketImageUrl, confTicketImageUrl);
-          } else {
-            _ticketGranted = false;
+              Config.prefConferenceTicketImageUrl,
+              confTicketImageUrl,
+            );
+
+            _loading = false;
+            notifyListeners();
           }
+          if (snapTicket.data()!.containsKey(Config.fsfWorkshop) &&
+              snapTicket.data()![Config.fsfWorkshop]) {
+            _workshopTicketImageUrl = await result.items[1].getDownloadURL();
+
+            sp.setBool(Config.prefHasTicket, true);
+            sp.setString(
+              Config.prefWorkshopTicketImageUrl,
+              workshopTicketImageUrl,
+            );
+
+            _loading = false;
+            notifyListeners();
+          }
+        } else {
+          _ticketGranted = false;
         }
       }
 
