@@ -46,6 +46,7 @@ class TicketStatusBloc extends ChangeNotifier {
     _hasApplied = false;
     _ticketGranted = false;
     _confTicketImageUrl = "";
+    _workshopTicketImageUrl = "";
     _loading = false;
     notifyListeners();
   }
@@ -137,7 +138,8 @@ class TicketStatusBloc extends ChangeNotifier {
           ListResult result = await _storage.ref("$uid/").listAll();
 
           if (snapTicket.data()!.containsKey(Config.fsfConference) &&
-              snapTicket.data()![Config.fsfConference]) {
+              snapTicket.data()![Config.fsfConference] &&
+              _confTicketImageUrl.isEmpty) {
             _confTicketImageUrl = await result.items[0].getDownloadURL();
 
             sp.setBool(Config.prefHasTicket, true);
@@ -149,8 +151,10 @@ class TicketStatusBloc extends ChangeNotifier {
             _loading = false;
             notifyListeners();
           }
+
           if (snapTicket.data()!.containsKey(Config.fsfWorkshop) &&
-              snapTicket.data()![Config.fsfWorkshop]) {
+              snapTicket.data()![Config.fsfWorkshop] &&
+              _workshopTicketImageUrl.isEmpty) {
             _workshopTicketImageUrl = await result.items[1].getDownloadURL();
 
             sp.setBool(Config.prefHasTicket, true);
