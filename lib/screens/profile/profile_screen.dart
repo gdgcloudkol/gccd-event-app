@@ -8,6 +8,14 @@ import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import 'package:ccd2022app/blocs/referral_bloc.dart';
+import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
+import 'package:ccd2022app/utils/config.dart';
+import 'package:ccd2022app/utils/snackbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -18,9 +26,34 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: instead of using the speaker, use user data to build the screen
-    // TODO: Fetch registration details from the server
-    // remove speaker data from here and use user data instead
+    return SingleChildScrollView(
+      child: Container(
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        child: Column(
+          children: <Widget>[
+            FutureBuilder(
+              future: Provider
+                  .of(context)
+                  .auth
+                  .getCurrentUser(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return displayUserInformation(context, snapshot);
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+     @override
+       Widget build(BuildContext context) {
     SpeakersBloc sb = Provider.of<SpeakersBloc>(context);
     AuthBloc ab = Provider.of<AuthBloc>(context);
 
