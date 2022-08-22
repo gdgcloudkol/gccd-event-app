@@ -1,5 +1,35 @@
 [
   {
+    "community": "",
+    "chapter": "Flutter Kolkata",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/FlutterKolkata.png",
+    "url": "https://www.flutterkolkata.dev/"
+  },
+  {
+    "community": "Women Techmakers",
+    "chapter": "Kolkata",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/wtmkolkata.jpg",
+    "url": "https://twitter.com/wtmkolkata"
+  },
+  {
+    "community": "",
+    "chapter": "Hack4Bengal",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/Hack4Bengal.png",
+    "url": "https://hack4bengal.tech/"
+  },
+  {
+    "community": "",
+    "chapter": "Devorld",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/devorld.png",
+    "url": "https://www.linkedin.com/company/devorld/"
+  },
+  {
+    "community": "",
+    "chapter": "GCELT Open Source",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/GCELT%20Open%20Source.png",
+    "url": "https://gceltopensource.web.app/"
+  },
+  {
     "community": "Google Developer Student Clubs",
     "chapter": "NSEC",
     "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
@@ -28,5 +58,71 @@
     "chapter": "GECBSP",
     "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
     "url": "https://gdsc.community.dev/government-engineering-college-bilaspur/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "SXCCAL",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/st-xaviers-college-kolkata/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "Brainware University",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/brainware-university-kolkata/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "IIIT KALYANI",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/indian-institute-of-information-technology-kalyani/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "JISU",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/jis-university-kolkata/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "BPPIMT",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://dscbppimt.tech/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "SNU",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/sister-nivedita-university-kolkata/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "RCCIIT",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://dscrcciit.com/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "Techno India University",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://twitter.com/gdsc_tiu"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "IEM Kolkata",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://gdsc.community.dev/institute-of-engineering-management-kolkata/"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "Narula Institute of Technology",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://twitter.com/gdsc_nit"
+  },
+  {
+    "community": "Google Developer Student Clubs",
+    "chapter": "UEM Kolkata",
+    "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
+    "url": "https://www.linkedin.com/company/dscuemk"
   }
 ]

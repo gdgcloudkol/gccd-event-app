@@ -3,31 +3,48 @@ import 'package:ccd2022app/widgets/speaker_chip.dart';
 import 'package:ccd2022app/widgets/technology_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
 import '../blocs/speakers_bloc.dart';
 import '../models/time_slot_model.dart';
 
-class SingleSession extends StatelessWidget {
-  SingleSession({
+class SingleSession extends StatefulWidget {
+  final Size size;
+  final Timeslot model;
+  final bool isDay1;
+  final bool showChangerIcon;
+
+  const SingleSession({
     Key? key,
     required this.size,
     required this.model,
     required this.isDay1,
-    required this.sb,
+    required this.showChangerIcon,
   }) : super(key: key);
 
+  @override
+  State<SingleSession> createState() => _SingleSessionState();
+}
+
+class _SingleSessionState extends State<SingleSession> {
   final DateFormat format = DateFormat("yyyy-MM-ddTH:m:s");
-  final Size size;
-  final Timeslot model;
-  final bool isDay1;
-  final SpeakersBloc sb;
+
+  SessionsGrid session = SessionsGrid();
+
+  int previousIndex = 0;
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    SessionsGrid session = model.rooms[0].session;
+    ///Change speaker logic for dual view speaker
+    if (session.id == "" || (previousIndex != selectedIndex)) {
+      session = widget.model.rooms[selectedIndex].session;
+    }
+
     DateTime start = format.parse(session.startsAt);
     DateTime end = format.parse(session.endsAt);
+    SpeakersBloc sb = Provider.of<SpeakersBloc>(context);
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -36,7 +53,7 @@ class SingleSession extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
       ),
       child: SizedBox(
-        width: size.width,
+        width: widget.size.width,
         child: Column(
           children: [
             Container(
@@ -96,7 +113,8 @@ class SingleSession extends StatelessWidget {
                               width: 10,
                             ),
                             getLevels(
-                                session.categories[2].categoryItems[0].name),
+                              session.categories[2].categoryItems[0].name,
+                            ),
                           ],
                         ),
                       ]
@@ -106,7 +124,7 @@ class SingleSession extends StatelessWidget {
                     width: 20,
                   ),
                   SizedBox(
-                    width: size.width - 160,
+                    width: widget.size.width - 160,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -114,7 +132,7 @@ class SingleSession extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        if (isDay1)
+                        if (widget.isDay1)
                           Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 6),
@@ -131,18 +149,39 @@ class SingleSession extends StatelessWidget {
                             ),
                           )
                         else
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 6),
-                            decoration: const BoxDecoration(
-                              color: Color(0xffdcfce7),
-                            ),
-                            child: Text(
-                              session.room,
-                              style: const TextStyle(
-                                fontFamily: "GoogleSans",
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 6),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xffdcfce7),
+                                ),
+                                child: Text(
+                                  session.room,
+                                  style: const TextStyle(
+                                    fontFamily: "GoogleSans",
+                                  ),
+                                ),
                               ),
-                            ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              if (widget.showChangerIcon)
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      previousIndex = selectedIndex;
+                                      selectedIndex = selectedIndex ^ 1;
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.change_circle_outlined,
+                                    color: Color(0xff3b82f6),
+                                    size: 28,
+                                  ),
+                                )
+                            ],
                           ),
                         const SizedBox(
                           height: 15,
@@ -226,7 +265,7 @@ class SingleSession extends StatelessWidget {
                     bottomLeft: Radius.circular(18),
                     bottomRight: Radius.circular(18),
                   ),
-                  color: const Color(0xff3b82f6).withOpacity(0.6),
+                  color: const Color(0xff3b82f6).withOpacity(0.9),
                 ),
                 padding: const EdgeInsets.all(12.0),
                 child: ReadMoreText(
@@ -238,12 +277,14 @@ class SingleSession extends StatelessWidget {
                   moreStyle: const TextStyle(
                     fontSize: 16,
                     fontFamily: 'GoogleSans',
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                   lessStyle: const TextStyle(
                     fontSize: 16,
                     fontFamily: 'GoogleSans',
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                   style: const TextStyle(
                     fontSize: 15,

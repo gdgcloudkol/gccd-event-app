@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-class SessionsScreen extends StatefulWidget {
-  const SessionsScreen({Key? key}) : super(key: key);
+class ScheduleScreen extends StatefulWidget {
+  const ScheduleScreen({Key? key}) : super(key: key);
 
   @override
-  State<SessionsScreen> createState() => _SessionsScreenState();
+  State<ScheduleScreen> createState() => _ScheduleScreenState();
 }
 
-class _SessionsScreenState extends State<SessionsScreen> {
+class _ScheduleScreenState extends State<ScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     SessionsGridBloc sgb = Provider.of<SessionsGridBloc>(context);
@@ -30,14 +30,14 @@ class _SessionsScreenState extends State<SessionsScreen> {
           children: [
             Card(
               color: Colors.white,
-              elevation: 10,
+              elevation: 5,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
               child: TabBar(
                 padding: const EdgeInsets.all(4),
                 labelColor: Colors.white,
-                unselectedLabelColor: const Color(0xff3b82f6).withOpacity(0.6),
+                unselectedLabelColor: const Color(0xff3b82f6).withOpacity(0.9),
                 physics: const BouncingScrollPhysics(),
                 isScrollable: true,
                 tabs: [
@@ -71,7 +71,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                   ),
                 ],
                 indicator: RectangularIndicator(
-                  color: const Color(0xff3b82f6).withOpacity(0.6),
+                  color: const Color(0xff3b82f6).withOpacity(0.9),
                   bottomLeftRadius: 25,
                   bottomRightRadius: 25,
                   topLeftRadius: 25,
@@ -111,7 +111,6 @@ class _SessionsScreenState extends State<SessionsScreen> {
                               size,
                               sgb.day1Slots[index],
                               true,
-                              sb,
                             );
                           },
                         ),
@@ -135,12 +134,20 @@ class _SessionsScreenState extends State<SessionsScreen> {
                             context,
                             int index,
                           ) {
-                            return getSingleSession(
-                              size,
-                              sgb.day2Slots[index],
-                              false,
-                              sb,
-                            );
+                            if (sgb.day2Slots[index].rooms.length == 1) {
+                              return getSingleSession(
+                                size,
+                                sgb.day2Slots[index],
+                                false,
+                              );
+                            } else {
+                              return getSingleSession(
+                                size,
+                                sgb.day2Slots[index],
+                                false,
+                                showChangerIcon: true,
+                              );
+                            }
                           },
                         ),
                 ],
@@ -155,14 +162,14 @@ class _SessionsScreenState extends State<SessionsScreen> {
   Widget getSingleSession(
     Size size,
     Timeslot model,
-    bool isDay1,
-    SpeakersBloc sb,
-  ) {
+    bool isDay1, {
+    bool showChangerIcon = false,
+  }) {
     return SingleSession(
       size: size,
       model: model,
       isDay1: isDay1,
-      sb: sb,
+      showChangerIcon: showChangerIcon,
     );
   }
 }

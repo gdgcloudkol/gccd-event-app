@@ -5,7 +5,7 @@ import 'package:ccd2022app/screens/dashboard/dashboard_screen.dart';
 import 'package:ccd2022app/screens/home/home_screen.dart';
 import 'package:ccd2022app/screens/profile/profile_screen.dart';
 import 'package:ccd2022app/screens/referral/refer_and_earn_screen.dart';
-import 'package:ccd2022app/screens/sessions_screen.dart';
+import 'package:ccd2022app/screens/schedule_screen.dart';
 import 'package:ccd2022app/screens/speakers_screen.dart';
 import 'package:ccd2022app/screens/sponsors/partners_screen.dart';
 import 'package:ccd2022app/services/fcm.dart';
@@ -145,7 +145,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       case 7:
         return const DashboardScreen();
       case 10:
-        return const SessionsScreen();
+        return const ScheduleScreen();
       case 11:
         return const ReferAndEarn();
       default:

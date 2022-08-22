@@ -109,7 +109,7 @@ class AppDrawer extends StatelessWidget {
                   height: 10,
                 ),
                 singleDrawerOption(
-                  "Sessions",
+                  "Schedule",
                   FontAwesomeIcons.chalkboardUser,
                   10,
                   context,

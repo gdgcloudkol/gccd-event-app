@@ -32,7 +32,7 @@ class SpeakerChip extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         child: Chip(
-          backgroundColor: const Color(0xff3b82f6).withOpacity(0.7),
+          backgroundColor: const Color(0xff3b82f6).withOpacity(0.9),
           labelPadding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 5,

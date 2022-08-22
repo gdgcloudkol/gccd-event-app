@@ -37,36 +37,34 @@ class SessionsGridBloc extends ChangeNotifier {
   void _fetchSessions() async {
     _isLoading = true;
     notifyListeners();
-    // try {
-    final response = await get(sessionsUrl);
-    if (response.statusCode == 200) {
-      _day1Slots = [];
-      _day2Slots = [];
-      final data = json.decode(response.body);
-      final day1TimeslotsData = data[0]["timeSlots"];
-      final day2TimeslotsData = data[1]["timeSlots"];
+    try {
+      final response = await get(sessionsUrl);
+      if (response.statusCode == 200) {
+        _day1Slots = [];
+        _day2Slots = [];
+        final data = json.decode(response.body);
+        final day1TimeslotsData = data[0]["timeSlots"];
+        final day2TimeslotsData = data[1]["timeSlots"];
 
-      _day1Slots = List<Timeslot>.from(day1TimeslotsData
-          .map((json) => Timeslot.fromJson(json))
-          .toList());
-      _day2Slots = List<Timeslot>.from(day2TimeslotsData
-          .map((json) => Timeslot.fromJson(json))
-          .toList());
+        _day1Slots = List<Timeslot>.from(
+            day1TimeslotsData.map((json) => Timeslot.fromJson(json)).toList());
+        _day2Slots = List<Timeslot>.from(
+            day2TimeslotsData.map((json) => Timeslot.fromJson(json)).toList());
 
-      _isLoading = false;
-      notifyListeners();
-    } else {
+        _isLoading = false;
+        notifyListeners();
+      } else {
+        _hasError = true;
+        _errorMessage = "Something went wrong";
+        notifyListeners();
+      }
+    } catch (e) {
       _hasError = true;
+      if (kDebugMode) {
+        print(e.toString());
+      }
       _errorMessage = "Something went wrong";
       notifyListeners();
     }
-    // } catch (e) {
-    //   _hasError = true;
-    //   if (kDebugMode) {
-    //     print(e.toString());
-    //   }
-    //   _errorMessage = "Something went wrong";
-    //   notifyListeners();
-    // }
   }
 }
