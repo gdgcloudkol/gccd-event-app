@@ -14,10 +14,15 @@ class TicketStatusBloc extends ChangeNotifier {
 
   bool get ticketGranted => _ticketGranted;
 
-  ///Ticket image url
+  ///Conference Ticket image url
   String _confTicketImageUrl = "";
 
   String get confTicketImageUrl => _confTicketImageUrl;
+
+  ///Ticket image url
+  String _workshopTicketImageUrl = "";
+
+  String get workshopTicketImageUrl => _workshopTicketImageUrl;
 
   bool _loading = true;
 
