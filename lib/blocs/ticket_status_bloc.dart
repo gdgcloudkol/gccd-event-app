@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:ccd2022app/utils/config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,13 +29,14 @@ class TicketStatusBloc extends ChangeNotifier {
 
   bool get rejected => _rejected;
 
-  DocumentSnapshot<Map<String, dynamic>>? _applicantData;
+  dynamic _applicantData;
 
-  DocumentSnapshot<Map<String, dynamic>>? get applicantData => _applicantData;
+  dynamic get applicantData => _applicantData;
 
   ///Call to checkTicketStatus() from constructor to fetch data on first app load
   TicketStatusBloc() {
     checkTicketStatus();
+    loadDataFromPrefs();
   }
 
   ///clearFields() to be used on logout to reset ticket status
@@ -42,6 +45,7 @@ class TicketStatusBloc extends ChangeNotifier {
     _ticketGranted = false;
     _confTicketImageUrl = "";
     _loading = false;
+    _applicantData = null;
     notifyListeners();
   }
 
@@ -87,7 +91,7 @@ class TicketStatusBloc extends ChangeNotifier {
           .get();
 
       if (snap.exists) {
-        _applicantData = snap;
+        sp.setString('profile', json.encode(snap.data()));
         _hasApplied = true;
       } else {
         _hasApplied = false;
@@ -136,5 +140,19 @@ class TicketStatusBloc extends ChangeNotifier {
 
     _loading = false;
     notifyListeners();
+  }
+
+  void loadDataFromPrefs() async {
+    try {
+      SharedPreferences sp = await SharedPreferences.getInstance();
+
+      _applicantData = json.decode(sp.get('profile').toString());
+
+      notifyListeners();
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e");
+      }
+    }
   }
 }

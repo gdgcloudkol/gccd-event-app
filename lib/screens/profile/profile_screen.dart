@@ -1,6 +1,5 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
-import 'package:ccd2022app/blocs/speakers_bloc.dart';
-import 'package:ccd2022app/models/speaker_model.dart';
+import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/widgets/multiborder_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,14 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:ccd2022app/blocs/referral_bloc.dart';
-import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
-import 'package:ccd2022app/utils/config.dart';
-import 'package:ccd2022app/utils/snackbar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -26,36 +17,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        child: Column(
-          children: <Widget>[
-            FutureBuilder(
-              future: Provider
-                  .of(context)
-                  .auth
-                  .getCurrentUser(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return displayUserInformation(context, snapshot);
-                } else {
-                  return CircularProgressIndicator();
-                }
-              },
-            )
-          ],
-        ),
-      ),
-    );
-  }
-     @override
-       Widget build(BuildContext context) {
-    SpeakersBloc sb = Provider.of<SpeakersBloc>(context);
     AuthBloc ab = Provider.of<AuthBloc>(context);
+    TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
 
     return Container(
       constraints: const BoxConstraints.expand(),
@@ -70,16 +33,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          Hero(
-            tag: sb.speakers[0].id,
-            child: MultiBorderImage(
-              imageUrl: ab.profilePicUrl,
-            ),
+          MultiBorderImage(
+            imageUrl: ab.profilePicUrl,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              ab.name,
+              tsb.applicantData['name'],
               style: const TextStyle(
                 fontSize: 30,
                 fontFamily: 'GoogleSans',
@@ -91,7 +51,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              sb.speakers[0].tagLine,
+              tsb.applicantData['role'] ?? '',
+              softWrap: true,
+              style: const TextStyle(
+                fontSize: 15,
+                fontFamily: 'GoogleSans',
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 20),
+            child: Text(
+              tsb.applicantData['organization'] ?? '',
               softWrap: true,
               style: const TextStyle(
                 fontSize: 15,
@@ -101,7 +73,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Center(
-            child: getSocialLinks(sb.speakers[0]),
+            child: getSocialLinks(
+              github: tsb.applicantData['GitHub'] ?? '',
+              linkedIn: tsb.applicantData['LinkedIn'] ?? '',
+              blog: tsb.applicantData['Blog'] ?? '',
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -123,10 +99,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const Text(
-                          "Bio",
+                          "About Me",
                           style: TextStyle(
                             fontSize: 20,
                             fontFamily: 'GoogleSans',
@@ -137,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: MediaQuery.of(context).size.height * 0.025,
                         ),
                         ReadMoreText(
-                          sb.speakers[0].bio,
+                          tsb.applicantData['about'] ?? '',
                           trimLines: 10,
                           trimMode: TrimMode.Line,
                           trimCollapsedText: '...read more',
@@ -155,41 +131,137 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: Colors.black12,
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Sessions",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'GoogleSans',
-                            fontWeight: FontWeight.bold,
+                        const Icon(
+                          Icons.domain,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            tsb.applicantData['organization'] ?? '',
+                            softWrap: true,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'GoogleSans',
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.025,
-                        ),
-                        ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: sb.speakers[0].sessions.length,
-                          itemBuilder: (context, index) {
-                            // print(sb.speakers[0].sessions[index].name);
-                            return ListTile(
-                              title: Text(
-                                sb.speakers[0].sessions[index].name,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'GoogleSans',
-                                  color: Colors.black,
-                                ),
-                              ),
-                            );
-                          },
                         ),
                       ],
                     ),
+                    tsb.applicantData['city'] != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Icon(
+                                Icons.location_pin,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  tsb.applicantData['city'] ?? '',
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'GoogleSans',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      child: const Divider(
+                        color: Colors.black12,
+                      ),
+                    ),
+                    tsb.applicantData['contact'] != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Icon(
+                                Icons.call,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  tsb.applicantData['contact'] ?? '',
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'GoogleSans',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      child: const Divider(
+                        color: Colors.black12,
+                      ),
+                    ),
+                    tsb.applicantData['diet'] != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Icon(
+                                Icons.food_bank_rounded,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  tsb.applicantData['diet'] ?? '',
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'GoogleSans',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      child: const Divider(
+                        color: Colors.black12,
+                      ),
+                    ),
+                    tsb.applicantData['tsize'] != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Icon(
+                                FontAwesomeIcons.shirt,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  tsb.applicantData['tsize'] ?? '',
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'GoogleSans',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
                   ],
                 ),
               ),
@@ -200,58 +272,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget getSocialLinks(Speaker speaker) {
-    if (speaker.links.isEmpty) {
-      return Container();
-    }
+  Widget getSocialLinks({
+    String email = '',
+    String blog = '',
+    String linkedIn = '',
+    String github = '',
+  }) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: speaker.links.map((link) {
-          return Padding(
+        children: [
+          Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: InkWell(
               onTap: () {
                 launchUrlString(
-                  link.url,
+                  'mailto:$email',
                   mode: LaunchMode.externalApplication,
                 );
               },
-              child: getSocialLink(link),
+              child: getSocialLink('email'),
             ),
-          );
-        }).toList(),
+          ),
+          github.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: InkWell(
+                    onTap: () {
+                      launchUrlString(
+                        blog,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    },
+                    child: getSocialLink('github'),
+                  ),
+                )
+              : Container(),
+          linkedIn.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: InkWell(
+                    onTap: () {
+                      launchUrlString(
+                        blog,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    },
+                    child: getSocialLink('linkedIn'),
+                  ),
+                )
+              : Container(),
+          blog.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: InkWell(
+                    onTap: () {
+                      launchUrlString(
+                        blog,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    },
+                    child: getSocialLink('blog'),
+                  ),
+                )
+              : Container(),
+        ],
       ),
     );
   }
 
-  Icon getSocialLink(Link link) {
-    switch (link.title) {
-      case "Twitter":
-        return const Icon(FontAwesomeIcons.twitter,
+  Icon getSocialLink(String type) {
+    switch (type) {
+      case "email":
+        return const Icon(FontAwesomeIcons.envelope,
             color: Color(0xFF1DA1F2), size: 30);
-      case "Facebook":
-        return const Icon(FontAwesomeIcons.facebook,
-            color: Color(0xFF3B5998), size: 30);
-      case "Github":
+      case "github":
         return const Icon(FontAwesomeIcons.github,
             color: Color(0xFF333F4D), size: 30);
-      case "LinkedIn":
+      case "linkedIn":
         return const Icon(FontAwesomeIcons.linkedin,
             color: Color(0xFF0077B5), size: 30);
-      case "Company Website":
-        return const Icon(FontAwesomeIcons.globe,
+      case "blog":
+        return const Icon(FontAwesomeIcons.bloggerB,
             color: Color(0xFF0077B5), size: 30);
-      case "Instagram":
-        return const Icon(FontAwesomeIcons.instagram,
-            color: Color(0xFFE4405F), size: 30);
-      case "Sessionize":
-        return const Icon(FontAwesomeIcons.calendar,
-            color: Color(0xFF1AB394), size: 30);
-      case "Blog":
-        return const Icon(FontAwesomeIcons.blogger,
-            color: Color(0xFFF57C00), size: 30);
       default:
         return const Icon(Icons.link, size: 30);
     }
