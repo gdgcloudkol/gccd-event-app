@@ -160,10 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 60,
                   child: ab.loginInProgress || tsb.loading
                       ? const Center(
-                          child: CircularProgressIndicator(
-                            backgroundColor: Colors.transparent,
-                            color: Colors.white,
-                          ),
+                          
                         )
                       : Center(
                           child: Text(
@@ -351,7 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String getTicketApplyButtonText(AuthBloc ab, TicketStatusBloc tsb) {
-    if (ab.isLoggedIn) {
+    {
       if (tsb.hasApplied) {
         if (tsb.rejected) {
           return "Rejected";
@@ -361,10 +358,8 @@ class _HomeScreenState extends State<HomeScreen> {
           return "Under Review";
         }
       }
-      return "Apply For Ticket";
-    } else {
-      return "Reserve your seat";
-    }
+      return "RSVP";
+    } 
   }
 
   Color getTicketApplyButtonColor(AuthBloc ab, TicketStatusBloc tsb) {
