@@ -35,7 +35,7 @@ This repo contains source code for the official Flutter app of Cloud Community D
   * Data caching for optimised network calls
   * Ticket application and view
   * Dashboard Screen (**Bonus : Refer & Earn Logic Integrated**)
-  * Profile Screen for event participants (:construction: Under construction :construction:)
+  * Profile Screen for event participants
   * Dynamic Partners Screen Using GitHub Hosted Json
   * Fluid animations
   * Custom Navigation Stack
