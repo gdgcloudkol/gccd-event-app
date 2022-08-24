@@ -176,7 +176,7 @@ samples, guidance on mobile development, and a full API reference.
 <p align="center">
   Made with ❤️ by GDG Cloud Kolkata
   <br><br>
-  <a href="https://opensource.org/licenses/MIT"> <img src="https://img.shields.io/badge/License-MIT-yellow.svg" /> </a>
+  <a href="https://opensource.org/licenses/MIT"> <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=plastic" /> </a>
 </p>
 
 
