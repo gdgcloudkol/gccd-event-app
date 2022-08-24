@@ -55,13 +55,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               softWrap: true,
               style: const TextStyle(
                 fontSize: 15,
+                fontWeight: FontWeight.w700,
                 fontFamily: 'GoogleSans',
               ),
               textAlign: TextAlign.center,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 20),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
             child: Text(
               tsb.applicantData['organization'] ?? '',
               softWrap: true,
@@ -130,27 +131,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: const Divider(
                         color: Colors.black12,
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(
-                          Icons.domain,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tsb.applicantData['organization'] ?? '',
-                            softWrap: true,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'GoogleSans',
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                     tsb.applicantData['city'] != null
                         ? Row(
@@ -284,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 12.0),
             child: InkWell(
               onTap: () {
                 launchUrlString(
@@ -297,7 +277,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           github.isNotEmpty
               ? Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  padding: const EdgeInsets.only(left: 8.0, right: 12.0),
                   child: InkWell(
                     onTap: () {
                       launchUrlString(
@@ -311,7 +291,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               : Container(),
           linkedIn.isNotEmpty
               ? Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  padding: const EdgeInsets.only(left: 8.0, right: 12.0),
                   child: InkWell(
                     onTap: () {
                       launchUrlString(

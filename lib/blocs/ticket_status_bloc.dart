@@ -185,10 +185,10 @@ class TicketStatusBloc extends ChangeNotifier {
 
         ///End of Step 2///
       }
-
-      _loading = false;
-      notifyListeners();
     }
+
+    _loading = false;
+    notifyListeners();
   }
 
   void loadDataFromPrefs() async {
