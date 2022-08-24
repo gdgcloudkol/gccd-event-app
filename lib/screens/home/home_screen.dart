@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+/// {@category Screens}
+/// {@subCategory Home}
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -144,13 +146,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       showSnackBar(context,
                           "You have applied for a ticket. Our team will get back to you soon");
                     } else {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const FormScreen();
-                          },
-                        ),
-                      );
+                      DateTime now = DateTime.now();
+
+                      bool isTicketApplyWindowClosed =
+                          now.isAfter(Config.ticketApplyLastDate);
+
+                      if (isTicketApplyWindowClosed) {
+
+                        ///TODO Add virtual event rsvp logic here
+
+                      } else {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const FormScreen();
+                            },
+                          ),
+                        );
+                      }
                     }
                   } else {
                     ab.loginWithGoogle(context, tsb, nb, rb);
@@ -160,7 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 60,
                   child: ab.loginInProgress || tsb.loading
                       ? const Center(
-                          
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.transparent,
+                            color: Colors.white,
+                          ),
                         )
                       : Center(
                           child: Text(
@@ -348,7 +364,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String getTicketApplyButtonText(AuthBloc ab, TicketStatusBloc tsb) {
-    {
+    DateTime now = DateTime.now();
+
+    bool isTicketApplyWindowClosed = now.isAfter(Config.ticketApplyLastDate);
+
+    if (ab.isLoggedIn) {
       if (tsb.hasApplied) {
         if (tsb.rejected) {
           return "Rejected";
@@ -358,8 +378,10 @@ class _HomeScreenState extends State<HomeScreen> {
           return "Under Review";
         }
       }
-      return "RSVP";
-    } 
+      return isTicketApplyWindowClosed ? "RSVP" : "Apply For Ticket";
+    } else {
+      return isTicketApplyWindowClosed ? "Check Application Status" : "Reserve your seat";
+    }
   }
 
   Color getTicketApplyButtonColor(AuthBloc ab, TicketStatusBloc tsb) {

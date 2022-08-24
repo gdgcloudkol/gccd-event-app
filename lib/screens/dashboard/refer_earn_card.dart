@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+///UI for Refer and Earn Card used in [DashboardScreen]
+
 /// {@category Screen}
 /// {@subCategory Dashboard}
 class ReferEarnCard extends StatelessWidget {

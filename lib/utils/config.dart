@@ -75,4 +75,5 @@ class Config {
   static DateTime cfsLastDate = DateTime(2022, 8, 4, 23, 59, 59);
   static DateTime referralContestLastDate = DateTime(2022, 8, 25, 23, 59, 59);
   static DateTime hackathonLastDate = DateTime(2022, 8, 19, 10, 00, 00);
+  static DateTime ticketApplyLastDate = DateTime(2022, 8, 24, 01, 00, 00);
 }

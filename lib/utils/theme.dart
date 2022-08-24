@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ccd2022app/utils/constants.dart';
 
 final ThemeData darkTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: const Color(0xFF212121),
@@ -18,7 +17,7 @@ final ThemeData darkTheme = ThemeData.dark().copyWith(
 );
 
 final ThemeData lightTheme = ThemeData.light().copyWith(
-  scaffoldBackgroundColor: kScaffoldLightBg,
+  scaffoldBackgroundColor: Colors.white,
   textTheme: const TextTheme(
     bodyText1: TextStyle(color: Colors.black),
     bodyText2: TextStyle(
