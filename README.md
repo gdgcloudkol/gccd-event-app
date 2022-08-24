@@ -1,3 +1,5 @@
+<a name="readme-top"></a>
+
 <p align="center">
   <img width="100" height="100" src="https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png">
 </p>
@@ -9,8 +11,14 @@
 This repo contains source code for the official Flutter app of Cloud Community Days Kolkata 2022. 
 
  :construction:**Actively under development**:construction:
+ 
+- ### Built With
+
+* [![Flutter][flutter-image]][flutter-url]
+* [![Firebase][firebase-image]][firebase-url]
+ 
 - <details>
-  <summary><b>Screenshots</b></summary>
+  <summary><b>Screenshots :iphone: </b></summary>
   <br>
   
   <img width = "200" height = "400" src="https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/Screenshots/Google%20Pixel%204%20XL%20Screenshot%201.png">
@@ -22,6 +30,11 @@ This repo contains source code for the official Flutter app of Cloud Community D
   <img width = "200" height = "400" src="https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/data/Screenshots/Google%20Pixel%204%20XL%20Screenshot%204.png">
   
 </details>
+
+- #### Documentation :notebook:
+
+  * This project uses [Effective Dart Principles]() for documentation
+  * Run `dart doc .` from root of project directory to generate documentation webpage.
 
 - #### Features
 
@@ -41,7 +54,8 @@ This repo contains source code for the official Flutter app of Cloud Community D
   * Custom Navigation Stack
   * Modern, Material UI (we all love this!)
   * Heavyily documented code (who doesn't like clean code)
-  
+ 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
 
@@ -120,6 +134,8 @@ Project Setup :
   
     Check [Contributing.md](https://github.com/gdgcloudkol/ccd2022-app/blob/main/CONTRIBUTING.md) for guidelines on contributing to this repo.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Contact Us
 
 If you have a question, please feel free to [contact us](https://gdgcloud.kolkata.dev/#Contact) through email or our telegram community channel.
@@ -131,3 +147,15 @@ If you have a question, please feel free to [contact us](https://gdgcloud.kolkat
   <br><br>
   <a href="https://opensource.org/licenses/MIT"> <img src="https://img.shields.io/badge/License-MIT-yellow.svg" /> </a>
 </p>
+
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[flutter-image]: https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white
+[flutter-url]: https://flutter.dev
+[firebase-image]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase
+[firebase-url]: https://firebase.com/
