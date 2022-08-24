@@ -116,7 +116,7 @@ class AuthBloc extends ChangeNotifier {
               nb.navigatorKey.currentState!.context, "Logged In Successfully");
         }
         await saveUserDataToSp();
-        tsb.checkTicketStatus();
+        tsb.checkTicketStatus().then((value) => tsb.loadDataFromPrefs());
         rb.getReferralCounters();
       } else {
         if (nb.navigatorKey.currentState != null) {

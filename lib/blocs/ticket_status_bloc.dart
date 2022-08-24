@@ -91,8 +91,7 @@ class TicketStatusBloc extends ChangeNotifier {
           .get();
 
       if (snap.exists) {
-        sp.setString('profile', json.encode(snap.data()));
-        _applicantData = json.decode(sp.get('profile').toString());
+        sp.setString(Config.prefProfile, json.encode(snap.data()));
         _hasApplied = true;
       } else {
         _hasApplied = false;
@@ -147,7 +146,7 @@ class TicketStatusBloc extends ChangeNotifier {
     try {
       SharedPreferences sp = await SharedPreferences.getInstance();
 
-      _applicantData = json.decode(sp.get('profile').toString());
+      _applicantData = json.decode(sp.get(Config.prefProfile).toString());
 
       notifyListeners();
     } catch (e) {
