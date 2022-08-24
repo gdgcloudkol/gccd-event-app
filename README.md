@@ -14,8 +14,7 @@ This repo contains source code for the official Flutter app of Cloud Community D
  
 - ### Built With
 
-* [![Flutter][flutter-image]][flutter-url]
-* [![Firebase][firebase-image]][firebase-url]
+  [![Flutter][flutter-image]][flutter-url] &emsp; [![Firebase][firebase-image]][firebase-url]
  
 - <details>
   <summary><b>Screenshots :iphone: </b></summary>
@@ -155,7 +154,7 @@ If you have a question, please feel free to [contact us](https://gdgcloud.kolkat
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[flutter-image]: https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white
+[flutter-image]: https://img.shields.io/badge/Flutter-%2302569B.svg?style=plastic&logo=Flutter&logoColor=5cc8f8
 [flutter-url]: https://flutter.dev
-[firebase-image]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase
+[firebase-image]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=plastic&logo=firebase
 [firebase-url]: https://firebase.com/
