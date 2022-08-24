@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:ccd2022app/utils/config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@category Blocs}
@@ -33,13 +35,13 @@ class TicketStatusBloc extends ChangeNotifier {
 
   bool get rejected => _rejected;
 
-  DocumentSnapshot<Map<String, dynamic>>? _applicantData;
+  dynamic _applicantData;
 
-  DocumentSnapshot<Map<String, dynamic>>? get applicantData => _applicantData;
+  dynamic get applicantData => _applicantData;
 
   ///Call to checkTicketStatus() from constructor to fetch data on first app load
   TicketStatusBloc() {
-    checkTicketStatus();
+    checkTicketStatus().then((value) => loadDataFromPrefs());
   }
 
   ///clearFields() to be used on logout to reset ticket status
@@ -49,6 +51,7 @@ class TicketStatusBloc extends ChangeNotifier {
     _confTicketImageUrl = "";
     _workshopTicketImageUrl = "";
     _loading = false;
+    _applicantData = null;
     notifyListeners();
   }
 
@@ -103,79 +106,102 @@ class TicketStatusBloc extends ChangeNotifier {
             .get();
 
         if (snap.exists) {
-          _applicantData = snap;
+          sp.setString(Config.prefProfile, json.encode(snap.data()));
           _hasApplied = true;
         } else {
           _hasApplied = false;
         }
 
-        ///Checking if ticket was rejected
-        if (snap.data() != null &&
-            (snap.data() ?? {}).containsKey(Config.fsfRejected)) {
-          _ticketGranted = false;
-          _rejected = true;
-          sp.setBool(Config.prefTicketRejected, true);
-        }
-      }
+        ///End of Step 1///
 
-      ///End of Step 1///
-
-      ///Step 2///
-      ///Checking if ticket exists
-      ///If yes fetch ticket url from Firebase Storage and
-      ///cache in shared preferences so that
-      ///we don't make redundant api calls from next time
-      if (_hasApplied && !_rejected) {
-        ///Checking if ticket was granted
-
-        String uid = sp.getString(Config.prefUID) ?? "";
-        DocumentSnapshot<Map<String, dynamic>> snapTicket =
-            await FirebaseFirestore.instance
-                .collection(Config.fscTickets)
-                .doc(uid)
-                .get();
-        if (snapTicket.exists && snapTicket.data() != null) {
-          _ticketGranted = true;
-          ListResult result = await _storage.ref("$uid/").listAll();
-
-          if (snapTicket.data()!.containsKey(Config.fsfConference) &&
-              snapTicket.data()![Config.fsfConference] &&
-              _confTicketImageUrl.isEmpty) {
-            _confTicketImageUrl = await result.items[0].getDownloadURL();
-
-            sp.setBool(Config.prefHasTicket, true);
-            sp.setString(
-              Config.prefConferenceTicketImageUrl,
-              confTicketImageUrl,
-            );
-
-            _loading = false;
-            notifyListeners();
+        ///Step 2///
+        ///Checking if ticket exists
+        ///If yes fetch ticket url from Firebase Storage and
+        ///cache in shared preferences so that
+        ///we don't make redundant api calls from next time
+        if (_hasApplied) {
+          ///Checking if ticket was rejected
+          if (snap.data() != null &&
+              (snap.data() ?? {}).containsKey(Config.fsfRejected)) {
+            _ticketGranted = false;
+            _rejected = true;
+            sp.setBool(Config.prefTicketRejected, true);
           }
-
-          if (snapTicket.data()!.containsKey(Config.fsfWorkshop) &&
-              snapTicket.data()![Config.fsfWorkshop] &&
-              _workshopTicketImageUrl.isEmpty) {
-            _workshopTicketImageUrl = await result.items[1].getDownloadURL();
-
-            sp.setBool(Config.prefHasTicket, true);
-            sp.setString(
-              Config.prefWorkshopTicketImageUrl,
-              workshopTicketImageUrl,
-            );
-
-            _loading = false;
-            notifyListeners();
-          }
-        } else {
-          _ticketGranted = false;
         }
-      }
 
-      ///End of Step 2///
+        ///End of Step 1///
+
+        ///Step 2///
+        ///Checking if ticket exists
+        ///If yes fetch ticket url from Firebase Storage and
+        ///cache in shared preferences so that
+        ///we don't make redundant api calls from next time
+        if (_hasApplied && !_rejected) {
+          ///Checking if ticket was granted
+
+          String uid = sp.getString(Config.prefUID) ?? "";
+          DocumentSnapshot<Map<String, dynamic>> snapTicket =
+              await FirebaseFirestore.instance
+                  .collection(Config.fscTickets)
+                  .doc(uid)
+                  .get();
+          if (snapTicket.exists && snapTicket.data() != null) {
+            _ticketGranted = true;
+            ListResult result = await _storage.ref("$uid/").listAll();
+
+            if (snapTicket.data()!.containsKey(Config.fsfConference) &&
+                snapTicket.data()![Config.fsfConference] &&
+                _confTicketImageUrl.isEmpty) {
+              _confTicketImageUrl = await result.items[0].getDownloadURL();
+
+              sp.setBool(Config.prefHasTicket, true);
+              sp.setString(
+                Config.prefConferenceTicketImageUrl,
+                confTicketImageUrl,
+              );
+
+              _loading = false;
+              notifyListeners();
+            }
+
+            if (snapTicket.data()!.containsKey(Config.fsfWorkshop) &&
+                snapTicket.data()![Config.fsfWorkshop] &&
+                _workshopTicketImageUrl.isEmpty) {
+              _workshopTicketImageUrl = await result.items[1].getDownloadURL();
+
+              sp.setBool(Config.prefHasTicket, true);
+              sp.setString(
+                Config.prefWorkshopTicketImageUrl,
+                workshopTicketImageUrl,
+              );
+
+              _loading = false;
+              notifyListeners();
+            }
+          } else {
+            _ticketGranted = false;
+          }
+        }
+
+        ///End of Step 2///
+      }
     }
 
     _loading = false;
     notifyListeners();
+  }
+
+  void loadDataFromPrefs() async {
+    try {
+      SharedPreferences sp = await SharedPreferences.getInstance();
+
+      _applicantData = json.decode(sp.get(Config.prefProfile).toString());
+
+      notifyListeners();
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e");
+      }
+    }
   }
 }

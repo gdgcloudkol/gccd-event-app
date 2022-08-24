@@ -117,7 +117,7 @@ class AuthBloc extends ChangeNotifier {
               nb.navigatorKey.currentState!.context, "Logged In Successfully");
         }
         await saveUserDataToSp();
-        tsb.checkTicketStatus();
+        tsb.checkTicketStatus().then((value) => tsb.loadDataFromPrefs());
         rb.getReferralCounters();
       } else {
         if (nb.navigatorKey.currentState != null) {
@@ -222,7 +222,7 @@ class AuthBloc extends ChangeNotifier {
     if (nb.navigatorKey.currentState != null) {
       showSnackBar(
           nb.navigatorKey.currentState!.context, "Signed Out successfully");
-      if (nb.navIndex == 7) {
+      if (nb.navIndex == 7 || nb.navIndex == 1) {
         nb.changeNavIndex(0);
       }
       if (nb.navStack.contains(7)) {

@@ -67,6 +67,8 @@ class Config {
   static String prefTicketRejected = "ticketRejected";
   static String prefConferenceTicketImageUrl = "conferenceTicketImageUrl";
   static String prefWorkshopTicketImageUrl = "workshopTicketImageUrl";
+  static String prefProfile = "profile";
+
 
   static String fcmArgRedirect = "redirect";
   static String fcmArgScreen = "appScreen";
