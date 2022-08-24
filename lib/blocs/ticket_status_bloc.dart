@@ -1,9 +1,9 @@
 import 'dart:convert';
+
 import 'package:ccd2022app/utils/config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TicketStatusBloc extends ChangeNotifier {
@@ -92,6 +92,7 @@ class TicketStatusBloc extends ChangeNotifier {
 
       if (snap.exists) {
         sp.setString('profile', json.encode(snap.data()));
+        _applicantData = json.decode(sp.get('profile').toString());
         _hasApplied = true;
       } else {
         _hasApplied = false;
