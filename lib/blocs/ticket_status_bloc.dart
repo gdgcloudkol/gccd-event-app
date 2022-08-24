@@ -192,10 +192,26 @@ class TicketStatusBloc extends ChangeNotifier {
   }
 
   void loadDataFromPrefs() async {
-    try {
-      SharedPreferences sp = await SharedPreferences.getInstance();
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    if (!(sp.getBool(Config.prefLoggedIn) ?? false)) {
+      return;
+    }
 
-      _applicantData = json.decode(sp.get(Config.prefProfile).toString());
+    try {
+      String? data = sp.getString(Config.prefProfile);
+
+      if (data == null) {
+        DocumentSnapshot<Map<String, dynamic>> snap = await FirebaseFirestore
+            .instance
+            .collection(Config.fscTicketFormRegistrations)
+            .doc(sp.getString(Config.prefUID))
+            .get();
+
+        _applicantData = snap.data();
+        sp.setString(Config.prefProfile, json.encode(snap.data()));
+      } else {
+        _applicantData = json.decode(data);
+      }
 
       notifyListeners();
     } catch (e) {

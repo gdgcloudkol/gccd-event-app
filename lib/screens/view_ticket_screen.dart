@@ -145,147 +145,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                       ? tsb.workshopTicketImageUrl
                       : tsb.confTicketImageUrl,
                 ),
-              Container(
-                width: size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: const Color(0xfff3f4f6),
-                ),
-                padding: const EdgeInsets.all(30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      day1Selected ? "Workshop Pass" : "Conference Pass",
-                      style: const TextStyle(
-                        fontSize: 23,
-                        fontFamily: "GoogleSans",
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        const Text("📅   "),
-                        Text(
-                          "${day1Selected ? "27" : "28"}th August 2022",
-                          style: const TextStyle(
-                            fontFamily: "GoogleSans",
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        const Text("📍   "),
-                        SizedBox(
-                          width: size.width - 150,
-                          child: Text(
-                            day1Selected
-                                ? "Government College of Engineering and Ceramic Technology, Kolkata"
-                                : "Taal Kutir Convention Center by Taj, Kolkata",
-                            style: const TextStyle(
-                              fontFamily: "GoogleSans",
-                              fontSize: 18,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 25),
-                    SizedBox(
-                      width: size.width - 72,
-                      height: 70,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          elevation: 10,
-                          primary: const Color(0xff2563eb),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        onPressed: () async {
-                          String filePath = "";
-                          setState(() {
-                            fileLoading = true;
-                          });
-                          filePath = (await fileFromImageUrl(
-                                  day1Selected
-                                      ? tsb.workshopTicketImageUrl
-                                      : tsb.confTicketImageUrl,
-                                  !day1Selected))
-                              .path;
-                          setState(() {
-                            fileLoading = false;
-                          });
-
-                          OpenFile.open(filePath);
-                        },
-                        child: Center(
-                          child: fileLoading
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : const Text(
-                                  "Download",
-                                  style: TextStyle(
-                                    fontFamily: "GoogleSans",
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        buildSocialMediaIconButton(
-                          "https://www.linkedin.com/company/gdgcloudkol/",
-                          const Color(0xff0A66C2),
-                          FontAwesomeIcons.linkedin,
-                        ),
-                        buildSocialMediaIconButton(
-                          "https://facebook.com/gdgcloudkol",
-                          const Color(0xff4267B2),
-                          FontAwesomeIcons.facebook,
-                        ),
-                        buildSocialMediaIconButton(
-                          "https://instagram.com/gdgcloudkol",
-                          const Color(0xffC13584),
-                          FontAwesomeIcons.instagram,
-                        ),
-                        buildSocialMediaIconButton(
-                          "https://twitter.com/gdgcloudkol",
-                          const Color(0xff1DA1F2),
-                          FontAwesomeIcons.twitter,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 25),
-                    const Text(
-                      "Share the news with your friends, use hashtags #CCDKol and #CloudCommunityDays,"
-                      " tag us with @GDGCloudKol and stand a chance to"
-                      " win exclusive goodies! 🎉",
-                      style: TextStyle(
-                        fontFamily: "GoogleSans",
-                        fontSize: 18,
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              )
+              getDayDetails(size, tsb),
             ],
           ),
         ),
@@ -308,5 +168,161 @@ class _TicketsScreenState extends State<TicketsScreen> {
     file.writeAsBytesSync(response.bodyBytes);
 
     return file;
+  }
+
+  Widget getDayDetails(Size size, TicketStatusBloc tsb) {
+    if (tsb.confTicketImageUrl.isEmpty || tsb.workshopTicketImageUrl.isEmpty) {
+      if (tsb.confTicketImageUrl.isEmpty) {
+        setState(() {
+          day1Selected = true;
+        });
+      } else {
+        setState(() {
+          day1Selected = false;
+        });
+      }
+    }
+
+    return Container(
+      width: size.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: const Color(0xfff3f4f6),
+      ),
+      padding: const EdgeInsets.all(30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            day1Selected ? "Workshop Pass" : "Conference Pass",
+            style: const TextStyle(
+              fontSize: 23,
+              fontFamily: "GoogleSans",
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("📅   "),
+              Text(
+                "${day1Selected ? "27" : "28"}th August 2022",
+                style: const TextStyle(
+                  fontFamily: "GoogleSans",
+                  fontSize: 18,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("📍   "),
+              SizedBox(
+                width: size.width - 150,
+                child: Text(
+                  day1Selected
+                      ? "Government College of Engineering and Ceramic Technology, Kolkata"
+                      : "Taal Kutir Convention Center by Taj, Kolkata",
+                  style: const TextStyle(
+                    fontFamily: "GoogleSans",
+                    fontSize: 18,
+                  ),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 25),
+          SizedBox(
+            width: size.width - 72,
+            height: 70,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 10,
+                primary: const Color(0xff2563eb),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              onPressed: () async {
+                String filePath = "";
+                setState(() {
+                  fileLoading = true;
+                });
+                filePath = (await fileFromImageUrl(
+                        day1Selected
+                            ? tsb.workshopTicketImageUrl
+                            : tsb.confTicketImageUrl,
+                        !day1Selected))
+                    .path;
+                setState(() {
+                  fileLoading = false;
+                });
+
+                OpenFile.open(filePath);
+              },
+              child: Center(
+                child: fileLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Text(
+                        "Download",
+                        style: TextStyle(
+                          fontFamily: "GoogleSans",
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17,
+                        ),
+                      ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 25),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              buildSocialMediaIconButton(
+                "https://www.linkedin.com/company/gdgcloudkol/",
+                const Color(0xff0A66C2),
+                FontAwesomeIcons.linkedin,
+              ),
+              buildSocialMediaIconButton(
+                "https://facebook.com/gdgcloudkol",
+                const Color(0xff4267B2),
+                FontAwesomeIcons.facebook,
+              ),
+              buildSocialMediaIconButton(
+                "https://instagram.com/gdgcloudkol",
+                const Color(0xffC13584),
+                FontAwesomeIcons.instagram,
+              ),
+              buildSocialMediaIconButton(
+                "https://twitter.com/gdgcloudkol",
+                const Color(0xff1DA1F2),
+                FontAwesomeIcons.twitter,
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          const Text(
+            "Share the news with your friends, use hashtags #CCDKol and #CloudCommunityDays,"
+            " tag us with @GDGCloudKol and stand a chance to"
+            " win exclusive goodies! 🎉",
+            style: TextStyle(
+              fontFamily: "GoogleSans",
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 30),
+        ],
+      ),
+    );
   }
 }

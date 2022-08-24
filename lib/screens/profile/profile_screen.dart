@@ -1,5 +1,6 @@
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
+import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/widgets/multiborder_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -75,9 +76,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Center(
             child: getSocialLinks(
-              github: tsb.applicantData['GitHub'] ?? '',
-              linkedIn: tsb.applicantData['LinkedIn'] ?? '',
-              blog: tsb.applicantData['Blog'] ?? '',
+              github: tsb.applicantData[Config.fsfGithub] ?? '',
+              linkedIn: tsb.applicantData[Config.fsfLinkedIn] ?? '',
+              blog: tsb.applicantData[Config.fsfBlog] ?? '',
+              email: tsb.applicantData[Config.fsfEmail] ?? '',
             ),
           ),
           const SizedBox(
@@ -253,11 +255,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget getSocialLinks({
-    String email = '',
-    String blog = '',
-    String linkedIn = '',
-    String github = '',
+    required String email,
+    required String blog,
+    required String linkedIn,
+    required String github,
   }) {
+    print(blog);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -281,7 +284,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: InkWell(
                     onTap: () {
                       launchUrlString(
-                        blog,
+                        github,
                         mode: LaunchMode.externalApplication,
                       );
                     },
@@ -295,7 +298,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: InkWell(
                     onTap: () {
                       launchUrlString(
-                        blog,
+                        linkedIn,
                         mode: LaunchMode.externalApplication,
                       );
                     },
