@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 
 import '../models/speaker_model.dart';
 
+/// {@category Blocs}
 class SpeakersBloc extends ChangeNotifier {
   // create a api call to get the speakers list
   // http call to get the speakers list

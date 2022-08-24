@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+/// {@category Blocs}
 class SponsorsBloc extends ChangeNotifier {
   Future<List<Sponsor>?> fetchSponsors(
       http.Client client, BuildContext context) async {

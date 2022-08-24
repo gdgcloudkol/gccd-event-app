@@ -7,6 +7,7 @@ import 'package:ccd2022app/utils/config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+/// {@category Blocs}
 class TicketFormBloc extends ChangeNotifier {
   ///State variable used to check if registrant data upload is in progress
   bool _entryCreationInProgress = false;

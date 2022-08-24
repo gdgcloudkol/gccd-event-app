@@ -6,6 +6,8 @@ import 'package:ccd2022app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// {@category Screens}
+/// {@subCategory Dashboard}
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 

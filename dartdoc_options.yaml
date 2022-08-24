@@ -1,0 +1,26 @@
+dartdoc:
+  categories:
+    "Blocs":
+      markdown: README.md
+      name: Blocs
+    "Screen":
+      markdown: README.md
+      name: Screens
+    "Entrypoint":
+      markdown: README.md
+      name: Entrypoint
+    "Models":
+      markdown: README.md
+      name: Models
+    "Services":
+      markdown: README.md
+      name: Services
+    "Utils":
+      markdown: README.md
+      name: Utils
+    "Widgets":
+      markdown: README.md
+      name: Widgets
+  categoryOrder: ["Blocs", "Screens","Entrypoint","Models","Services","Utils","Widgets"]
+  favicon: android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+  showUndocumentedCategories: true
