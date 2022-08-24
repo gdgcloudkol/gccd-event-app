@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+/// {@category Blocs}
 class NavigationBloc extends ChangeNotifier {
   ///Nav index variable to control the app navigation
   int _navIndex = 0;

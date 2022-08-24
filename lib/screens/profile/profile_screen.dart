@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              tsb.applicantData['name'],
+              tsb.hasApplied ? tsb.applicantData['name'] : ab.name,
               style: const TextStyle(
                 fontSize: 30,
                 fontFamily: 'GoogleSans',

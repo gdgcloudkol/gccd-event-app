@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ccd2022app/blocs/auth_bloc.dart';
 import 'package:ccd2022app/blocs/nav_bloc.dart';
+import 'package:ccd2022app/blocs/ticket_status_bloc.dart';
 import 'package:ccd2022app/screens/dashboard/dashboard_screen.dart';
 import 'package:ccd2022app/screens/home/home_screen.dart';
 import 'package:ccd2022app/screens/profile/profile_screen.dart';
@@ -80,6 +81,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget build(BuildContext context) {
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
     AuthBloc ab = Provider.of<AuthBloc>(context);
+    TicketStatusBloc tsb = Provider.of<TicketStatusBloc>(context);
 
     return WillPopScope(
       ///Custom navigation to transform single page behaviour into multi page stacked nav
@@ -113,7 +115,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             if (ab.isLoggedIn && !(ab.profilePicUrl == ""))
               GestureDetector(
                 onTapDown: (TapDownDetails details) {
-                  _showPopupMenu(details.globalPosition, nb);
+                  _showPopupMenu(details.globalPosition, nb, tsb);
                 },
                 child: CircleAvatar(
                   foregroundImage: CachedNetworkImageProvider(
@@ -181,16 +183,17 @@ class _NavigationScreenState extends State<NavigationScreen> {
     });
   }
 
-  _showPopupMenu(Offset offset, NavigationBloc nb) async {
+  _showPopupMenu(Offset offset, NavigationBloc nb, TicketStatusBloc tsb) async {
     double left = offset.dx;
     String? selection = await showMenu(
       context: context,
       position: RelativeRect.fromLTRB(left, 105, 25, 0),
       items: [
-        PopupMenuItem<String>(
-          value: '1',
-          child: getSinglePopupItem('Profile', FontAwesomeIcons.user),
-        ),
+        if (tsb.hasApplied)
+          PopupMenuItem<String>(
+            value: '1',
+            child: getSinglePopupItem('Profile', FontAwesomeIcons.user),
+          ),
         PopupMenuItem<String>(
           value: '7',
           child: getSinglePopupItem('Dashboard', Icons.dashboard_outlined),

@@ -26,7 +26,7 @@ This repo contains source code for the official Flutter app of Cloud Community D
 - #### Features
 
   * Sessionize Api Integrated for speakers profile and schedule management
-  * Support for multiple sessions in same timeslot (:construction: Under construction :construction:)
+  * Support for multiple sessions in same timeslot
   * Self Hosted using Firebase
   * FCM for notification
   * Built using [Provider Architecture](https://pub.dev/packages/provider) for clean state management

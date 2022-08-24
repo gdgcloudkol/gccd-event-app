@@ -47,6 +47,13 @@ class Config {
 
   ///End of fields for user referral
 
+  ///Start of fields for ticket
+  static String fsfConferenceTicket = "conference";
+  static String fsfWorkshopTicket = "workshop";
+  static String fsfTicketID = "ticketId";
+
+  ///End of fields for user referral
+
   ///Shared Preference Keys
   ///Var naming convention use guide : Start with pref
   static String prefEmail = "email";
@@ -59,6 +66,7 @@ class Config {
   static String prefHasTicket = "hasTicket";
   static String prefTicketRejected = "ticketRejected";
   static String prefConferenceTicketImageUrl = "conferenceTicketImageUrl";
+  static String prefWorkshopTicketImageUrl = "workshopTicketImageUrl";
   static String prefProfile = "profile";
 
 
@@ -69,4 +77,5 @@ class Config {
   static DateTime cfsLastDate = DateTime(2022, 8, 4, 23, 59, 59);
   static DateTime referralContestLastDate = DateTime(2022, 8, 25, 23, 59, 59);
   static DateTime hackathonLastDate = DateTime(2022, 8, 19, 10, 00, 00);
+  static DateTime ticketApplyLastDate = DateTime(2022, 8, 24, 01, 00, 00);
 }

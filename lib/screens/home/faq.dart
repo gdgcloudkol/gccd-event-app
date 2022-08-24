@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+
+/// UI for FAQ used in [HomeScreen]
+
+/// {@category Screens}
+/// {@subCategory Home}
 class FAQ extends StatelessWidget {
   const FAQ({Key? key}) : super(key: key);
 

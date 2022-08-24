@@ -6,6 +6,7 @@ import 'package:ccd2022app/screens/view_ticket_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// {@subCategory Dashboard}
 class ApplicationStatusCard extends StatelessWidget {
   const ApplicationStatusCard({Key? key}) : super(key: key);
 

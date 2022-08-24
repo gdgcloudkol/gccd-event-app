@@ -4,6 +4,7 @@ import 'package:ccd2022app/models/time_slot_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
+/// {@category Blocs}
 class SessionsGridBloc extends ChangeNotifier {
   // create a api call to get the sessions list
   // http call to get the sessions list
