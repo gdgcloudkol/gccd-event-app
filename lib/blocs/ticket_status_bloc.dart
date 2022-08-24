@@ -91,100 +91,96 @@ class TicketStatusBloc extends ChangeNotifier {
       }
 
       ///End of Step 0///
-
       _loading = true;
       notifyListeners();
 
-      if (!ticketGranted) {
-        ///Step 1///
-        ///Checking if application exists and whether it was rejected
-        ///If yes, go to Step 2
-        DocumentSnapshot<Map<String, dynamic>> snap = await FirebaseFirestore
-            .instance
-            .collection(Config.fscTicketFormRegistrations)
-            .doc(sp.getString(Config.prefUID))
-            .get();
+      ///Step 1///
+      ///Checking if application exists and whether it was rejected
+      ///If yes, go to Step 2
+      DocumentSnapshot<Map<String, dynamic>> snap = await FirebaseFirestore
+          .instance
+          .collection(Config.fscTicketFormRegistrations)
+          .doc(sp.getString(Config.prefUID))
+          .get();
 
-        if (snap.exists) {
-          sp.setString(Config.prefProfile, json.encode(snap.data()));
-          _hasApplied = true;
-        } else {
-          _hasApplied = false;
-        }
-
-        ///End of Step 1///
-
-        ///Step 2///
-        ///Checking if ticket exists
-        ///If yes fetch ticket url from Firebase Storage and
-        ///cache in shared preferences so that
-        ///we don't make redundant api calls from next time
-        if (_hasApplied) {
-          ///Checking if ticket was rejected
-          if (snap.data() != null &&
-              (snap.data() ?? {}).containsKey(Config.fsfRejected)) {
-            _ticketGranted = false;
-            _rejected = true;
-            sp.setBool(Config.prefTicketRejected, true);
-          }
-        }
-
-        ///End of Step 1///
-
-        ///Step 2///
-        ///Checking if ticket exists
-        ///If yes fetch ticket url from Firebase Storage and
-        ///cache in shared preferences so that
-        ///we don't make redundant api calls from next time
-        if (_hasApplied && !_rejected) {
-          ///Checking if ticket was granted
-
-          String uid = sp.getString(Config.prefUID) ?? "";
-          DocumentSnapshot<Map<String, dynamic>> snapTicket =
-              await FirebaseFirestore.instance
-                  .collection(Config.fscTickets)
-                  .doc(uid)
-                  .get();
-          if (snapTicket.exists && snapTicket.data() != null) {
-            _ticketGranted = true;
-            ListResult result = await _storage.ref("$uid/").listAll();
-
-            if (snapTicket.data()!.containsKey(Config.fsfConference) &&
-                snapTicket.data()![Config.fsfConference] &&
-                _confTicketImageUrl.isEmpty) {
-              _confTicketImageUrl = await result.items[0].getDownloadURL();
-
-              sp.setBool(Config.prefHasTicket, true);
-              sp.setString(
-                Config.prefConferenceTicketImageUrl,
-                confTicketImageUrl,
-              );
-
-              _loading = false;
-              notifyListeners();
-            }
-
-            if (snapTicket.data()!.containsKey(Config.fsfWorkshop) &&
-                snapTicket.data()![Config.fsfWorkshop] &&
-                _workshopTicketImageUrl.isEmpty) {
-              _workshopTicketImageUrl = await result.items[1].getDownloadURL();
-
-              sp.setBool(Config.prefHasTicket, true);
-              sp.setString(
-                Config.prefWorkshopTicketImageUrl,
-                workshopTicketImageUrl,
-              );
-
-              _loading = false;
-              notifyListeners();
-            }
-          } else {
-            _ticketGranted = false;
-          }
-        }
-
-        ///End of Step 2///
+      if (snap.exists) {
+        sp.setString(Config.prefProfile, json.encode(snap.data()));
+        _hasApplied = true;
+      } else {
+        _hasApplied = false;
       }
+
+      ///End of Step 1///
+
+      ///Step 2///
+      ///Checking if ticket exists
+      ///If yes fetch ticket url from Firebase Storage and
+      ///cache in shared preferences so that
+      ///we don't make redundant api calls from next time
+      if (_hasApplied) {
+        ///Checking if ticket was rejected
+        if (snap.data() != null &&
+            (snap.data() ?? {}).containsKey(Config.fsfRejected)) {
+          _ticketGranted = false;
+          _rejected = true;
+          sp.setBool(Config.prefTicketRejected, true);
+        }
+      }
+
+      ///End of Step 1///
+
+      ///Step 2///
+      ///Checking if ticket exists
+      ///If yes fetch ticket url from Firebase Storage and
+      ///cache in shared preferences so that
+      ///we don't make redundant api calls from next time
+      if (_hasApplied && !_rejected) {
+        ///Checking if ticket was granted
+
+        String uid = sp.getString(Config.prefUID) ?? "";
+        DocumentSnapshot<Map<String, dynamic>> snapTicket =
+            await FirebaseFirestore.instance
+                .collection(Config.fscTickets)
+                .doc(uid)
+                .get();
+        if (snapTicket.exists && snapTicket.data() != null) {
+          _ticketGranted = true;
+          ListResult result = await _storage.ref("$uid/").listAll();
+
+          if (snapTicket.data()![Config.fsfConference] &&
+              _confTicketImageUrl.isEmpty) {
+            _confTicketImageUrl = await result.items[0].getDownloadURL();
+
+            sp.setBool(Config.prefHasTicket, true);
+            sp.setString(
+              Config.prefConferenceTicketImageUrl,
+              confTicketImageUrl,
+            );
+
+            _loading = false;
+            notifyListeners();
+          }
+
+          if (snapTicket.data()![Config.fsfWorkshop] &&
+              _workshopTicketImageUrl.isEmpty) {
+            _workshopTicketImageUrl = await result.items[1].getDownloadURL();
+
+            sp.setBool(Config.prefHasTicket, true);
+            sp.setString(
+              Config.prefWorkshopTicketImageUrl,
+              workshopTicketImageUrl,
+            );
+
+            _loading = false;
+            notifyListeners();
+          }
+        } else {
+          _ticketGranted = false;
+        }
+      }
+
+      ///End of Step 2///
+
     }
 
     _loading = false;

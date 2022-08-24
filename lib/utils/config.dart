@@ -48,8 +48,6 @@ class Config {
   ///End of fields for user referral
 
   ///Start of fields for ticket
-  static String fsfConferenceTicket = "conference";
-  static String fsfWorkshopTicket = "workshop";
   static String fsfTicketID = "ticketId";
 
   ///End of fields for user referral

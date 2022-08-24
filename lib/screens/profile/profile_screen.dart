@@ -260,7 +260,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required String linkedIn,
     required String github,
   }) {
-    print(blog);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
