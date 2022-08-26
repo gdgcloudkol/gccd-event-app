@@ -1,37 +1,49 @@
 import 'package:ccd2022app/blocs/nav_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
-class ForegroundNotificationDialog extends StatelessWidget {
+class ForegroundNotificationModal extends StatelessWidget {
   final String title;
+  final String? imageUrl;
+  final String? redirect;
   final String body;
   final String? screen;
   final NavigationBloc nb;
 
-  const ForegroundNotificationDialog({
+  const ForegroundNotificationModal({
     required this.title,
     required this.body,
     required this.nb,
     this.screen,
+    this.imageUrl,
+    this.redirect,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 20,
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 7,
+            width: 40,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey.withOpacity(0.2),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          ),
+          const SizedBox(
+            height: 28,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Row(
               children: [
                 const Icon(
                   FontAwesomeIcons.solidBell,
@@ -44,71 +56,167 @@ class ForegroundNotificationDialog extends StatelessWidget {
                   title,
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
-                    fontSize: 20,
+                    fontSize: 21,
                     fontFamily: "GoogleSans",
                   ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 25,
-            ),
-            // Image.asset(
-            //   "assets/images/alert.gif",
-            //   height: 100,
-            //   width: 100,
-            // ),
-
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              body,
-              style: const TextStyle(
-                fontSize: 18,
-                fontFamily: "GoogleSans",
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          Stack(
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: SizedBox(
+                  height: 250,
+                  width: size.width,
+                  child: const Image(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      'https://sessionize.com/image/68f4-400o400o2-nGfDgGpvmu7Y2Y2jYzznqX.jpg',
+                    ),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            if (screen != null && nb.screenNames.values.contains(screen))
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                )),
-                onPressed: () {
-                  int navIndex = nb.screenNames.keys.firstWhere(
-                    (k) => nb.screenNames[k] == screen,
-                    orElse: () => -1,
-                  );
-
-                  if (navIndex != -1) {
-                    nb.changeNavIndex(navIndex);
-                    Navigator.pop(context);
-                  }
-                },
-                child: const SizedBox(
-                  height: 50,
-                  width: 150,
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(15),
+                  width: size.width - 50,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                    ),
+                    color: Colors.black38,
+                  ),
                   child: Center(
                     child: Text(
-                      "Check Now",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
+                      body,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                         fontFamily: "GoogleSans",
                       ),
                     ),
                   ),
                 ),
               ),
-            const SizedBox(
-              height: 25,
+            ],
+          ),
+          // Stack(
+          //   children: <Widget>[
+          //     Container(
+          //       height: 200,
+          //       decoration: const BoxDecoration(
+          //         image: DecorationImage(
+          //           image: NetworkImage('https://sessionize.com/image/68f4-400o400o2-nGfDgGpvmu7Y2Y2jYzznqX.jpg'),
+          //           // NetworkImage("url")
+          //           fit: BoxFit.cover,
+          //         ),
+          //       ),
+          //       child: BackdropFilter(
+          //         filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+          //         child: Container(
+          //           decoration:
+          //               BoxDecoration(color: Colors.white.withOpacity(0.0)),
+          //         ),
+          //       ),
+          //     ),
+          //     Positioned(
+          //       bottom: 15,
+          //       child: Text(
+          //         body,
+          //         style: const TextStyle(
+          //           fontSize: 17,
+          //           fontFamily: "GoogleSans",
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          //   child: Text(
+          //     body,
+          //     style: const TextStyle(
+          //       fontSize: 17,
+          //       fontFamily: "GoogleSans",
+          //     ),
+          //   ),
+          // ),
+          const SizedBox(
+            height: 40,
+          ),
+          if (screen != null && nb.screenNames.values.contains(screen))
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                primary: const Color(0xff3b82f6),
+              ),
+              onPressed: () {
+                int navIndex = nb.screenNames.keys.firstWhere(
+                  (k) => nb.screenNames[k] == screen,
+                  orElse: () => -1,
+                );
+
+                if (navIndex != -1) {
+                  nb.changeNavIndex(navIndex);
+                  Navigator.pop(context);
+                }
+              },
+              child: const SizedBox(
+                height: 60,
+                child: Center(
+                  child: Text(
+                    "Check Now",
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: "GoogleSans",
+                    ),
+                  ),
+                ),
+              ),
+            )
+          else if (redirect != null)
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                primary: const Color(0xff3b82f6),
+              ),
+              onPressed: () {
+                launchUrlString(
+                  redirect ?? "",
+                  mode: LaunchMode.externalApplication,
+                );
+              },
+              child: const SizedBox(
+                height: 60,
+                child: Center(
+                  child: Text(
+                    "Check Now",
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: "GoogleSans",
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ],
-        ),
+          const SizedBox(
+            height: 50,
+          ),
+        ],
       ),
     );
   }

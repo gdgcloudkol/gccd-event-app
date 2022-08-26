@@ -168,16 +168,23 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
       if (notification != null && android != null) {
         if (context != null) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return ForegroundNotificationDialog(
-                  title: notification.title ?? "",
-                  body: notification.body ?? "",
-                  nb: nb,
-                  screen: message.data[Config.fcmArgScreen] ?? "",
-                );
-              });
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            builder: (context) {
+              return ForegroundNotificationModal(
+                title: notification.title ?? "",
+                body: notification.body ?? "",
+                nb: nb,
+                screen: message.data[Config.fcmArgScreen] ?? "",
+                imageUrl: message.data[Config.fcmArgImage] ?? "",
+              );
+            },
+          );
         }
       }
     });

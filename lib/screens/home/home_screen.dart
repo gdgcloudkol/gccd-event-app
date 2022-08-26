@@ -152,9 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           now.isAfter(Config.ticketApplyLastDate);
 
                       if (isTicketApplyWindowClosed) {
-
-                        ///TODO Add virtual event rsvp logic here
-
+                        showSnackBar(context, "Applications Closed. Check back later!");
                       } else {
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -206,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   if (!DateTime.now().isAfter(Config.cfsLastDate)) {
                     launchUrlString(
-                      "https://sessionize.com/cloud-community-days",
+                      Config.cfsLink,
                       mode: LaunchMode.externalApplication,
                     );
                   } else {
@@ -221,10 +219,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? "CFS Closed"
                           : "Become a Speaker".toUpperCase(),
                       style: const TextStyle(
-                          fontFamily: "GoogleSans",
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
+                        fontFamily: "GoogleSans",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -380,7 +379,9 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       return isTicketApplyWindowClosed ? "RSVP" : "Apply For Ticket";
     } else {
-      return isTicketApplyWindowClosed ? "Check Application Status" : "Reserve your seat";
+      return isTicketApplyWindowClosed
+          ? "Check Application Status"
+          : "Reserve your seat";
     }
   }
 
