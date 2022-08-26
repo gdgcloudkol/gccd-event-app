@@ -12,7 +12,7 @@ import 'package:ccd2022app/screens/sponsors/partners_screen.dart';
 import 'package:ccd2022app/services/fcm.dart';
 import 'package:ccd2022app/utils/config.dart';
 import 'package:ccd2022app/widgets/drawer.dart';
-import 'package:ccd2022app/widgets/foreground_notification_dialog.dart';
+import 'package:ccd2022app/widgets/foreground_notification_modal.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';

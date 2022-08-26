@@ -66,89 +66,57 @@ class ForegroundNotificationModal extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          Stack(
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: SizedBox(
-                  height: 250,
-                  width: size.width,
-                  child: const Image(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://sessionize.com/image/68f4-400o400o2-nGfDgGpvmu7Y2Y2jYzznqX.jpg',
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  width: size.width - 50,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
-                    color: Colors.black38,
-                  ),
-                  child: Center(
-                    child: Text(
-                      body,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "GoogleSans",
+          if ((imageUrl ?? "").isNotEmpty)
+            Stack(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: SizedBox(
+                    height: 250,
+                    width: size.width,
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        imageUrl ?? "",
                       ),
                     ),
                   ),
                 ),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(15),
+                    width: size.width - 50,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                      ),
+                      color: Colors.black38,
+                    ),
+                    child: Center(
+                      child: Text(
+                        body,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "GoogleSans",
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          else
+            Text(
+              body,
+              style: const TextStyle(
+                fontSize: 18,
+                fontFamily: "GoogleSans",
               ),
-            ],
-          ),
-          // Stack(
-          //   children: <Widget>[
-          //     Container(
-          //       height: 200,
-          //       decoration: const BoxDecoration(
-          //         image: DecorationImage(
-          //           image: NetworkImage('https://sessionize.com/image/68f4-400o400o2-nGfDgGpvmu7Y2Y2jYzznqX.jpg'),
-          //           // NetworkImage("url")
-          //           fit: BoxFit.cover,
-          //         ),
-          //       ),
-          //       child: BackdropFilter(
-          //         filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-          //         child: Container(
-          //           decoration:
-          //               BoxDecoration(color: Colors.white.withOpacity(0.0)),
-          //         ),
-          //       ),
-          //     ),
-          //     Positioned(
-          //       bottom: 15,
-          //       child: Text(
-          //         body,
-          //         style: const TextStyle(
-          //           fontSize: 17,
-          //           fontFamily: "GoogleSans",
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          //   child: Text(
-          //     body,
-          //     style: const TextStyle(
-          //       fontSize: 17,
-          //       fontFamily: "GoogleSans",
-          //     ),
-          //   ),
-          // ),
+            ),
           const SizedBox(
             height: 40,
           ),
