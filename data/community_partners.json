@@ -30,6 +30,12 @@
     "url": "https://gceltopensource.web.app/"
   },
   {
+    "community": "",
+    "chapter": "Devs Dungeon",
+    "logo": "https://devs-dungeon.github.io/bio/Assets/logowhite.svg",
+    "url": "https://devs-dungeon.github.io/bio/"
+  },
+  {
     "community": "Google Developer Student Clubs",
     "chapter": "NSEC",
     "logo": "https://raw.githubusercontent.com/gdgcloudkol/ccd2022-app/main/assets/images/gdg_logo.png",
