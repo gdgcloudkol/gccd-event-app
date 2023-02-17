@@ -1,4 +1,4 @@
-name: ccd2022app
+name: ccdeventapp
 description: Official Flutter App of Cloud Community Days of GDG Cloud Kolkata
 
 # The following line prevents the package from being accidentally published to
@@ -32,22 +32,18 @@ dependencies:
 
   provider: ^6.0.3
   firebase_core: ^1.20.0
-  firebase_auth: ^3.6.1
   share_plus: ^4.0.10
   path_provider: ^2.0.11
-  cloud_firestore: ^3.4.2
   tab_indicator_styler: ^2.0.0
   intl: ^0.17.0
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.3
   flutter_dotenv: ^5.0.2
-  google_sign_in: ^5.4.0
   carousel_slider: ^4.1.1
   package_info_plus: ^1.4.3
   readmore: ^2.2.0
   font_awesome_flutter: ^10.1.0
   gif: ^2.1.1
-  firebase_storage: ^10.3.4
   http: ^0.13.4
   cached_network_image: ^3.2.1
   firebase_messaging: ^12.0.1

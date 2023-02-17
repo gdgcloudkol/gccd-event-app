@@ -6,9 +6,9 @@
 
 <br>
 
-# CCD Kolkata 2022
+# CCD Kolkata Event App 
 
-This repo contains source code for the official Flutter app of Cloud Community Days Kolkata 2022. 
+This repo contains source code for the official Flutter app of Cloud Community Days Kolkata. 
 
 <!-- TABLE OF CONTENTS -->
 <details>
